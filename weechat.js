@@ -1,9 +1,9 @@
 var net = require('net');
 
-var partial;
-var total = 0;
+var client, partial, total = 0,
+data;
 
-var client = net.connect(8000, function() {
+client = net.connect(8000, function() {
 	console.log('client connected');
 	client.write('init password=test,compression=off\n');
 	//client.write('info version\n');
@@ -16,28 +16,27 @@ var client = net.connect(8000, function() {
 	client.write('hdata buffer:gui_buffers(*) number,name\n');
 });
 
-client.on('data', function(data) {
-	var compress, idLength, id;
+client.on('data', function(part) {
+	var compress, id;
+	data = part;
 
 	if (total === 0) {
-		total = getInt(data);
-		compress = data[4];
-		data = data.slice(5);
-		idLength = getInt(data);
-		id = data.slice(4, 4 + idLength);
-		data = data.slice(4 + idLength);
+		total = getInt();
+		compress = getCompression();
+		id = getString();
 
-		total -= (9 + idLength);
-
+		total -= (9 + id.length);
 		partial = data;
 	} else {
 		partial += data;
 	}
 
 	if (partial.length >= total) {
-		parse(partial);
+		data = partial;
 		total = 0;
 		partial = '';
+		var ret = parse();
+        console.log('RET', ret);
 	}
 });
 
@@ -46,28 +45,69 @@ client.on('end', function() {
 });
 
 var hack = {
-	hda: function(data) {
-        var length = getInt(data);
-        data = data.slice(4);
-        var hpath = data.slice(0, length);
-        data = data.slice(length);
-
-        console.log(hpath.toString());
-		console.log(data.toString());
-        console.log(data)
-	}
+	hda: getHdata,
+	str: getString,
+	int: getInt
 };
 
-function parse(data) {
+function parse() {
 	var type = data.slice(0, 3);
 	data = data.slice(3);
 
-    console.log(type.toString());
-	hack[type] && hack[type](data);
+	if (!hack[type]) {
+		console.log('OMGOMGOGMOMGOGMOMG ' + type);
+	}
+
+	return hack[type] && hack[type]();
 }
 
-function getInt(array) {
-	var l = ((array[0] & 0xff) << 24) | ((array[1] & 0xff) << 16) | ((array[2] & 0xff) << 8) | (array[3] & 0xff);
-	return l > 0 ? l: 0;
+function getCompression() {
+	var c = data[0];
+	data = data.slice(1);
+	return c;
+}
+
+function getInt() {
+	var l = ((data[0] & 0xff) << 24) | ((data[1] & 0xff) << 16) | ((data[2] & 0xff) << 8) | (data[3] & 0xff);
+	data = data.slice(4);
+	return l > 0 ? l: null;
+}
+
+function getString() {
+	var l = getInt();
+	s = data.slice(0, l);
+	data = data.slice(l);
+	return s.toString();
+}
+
+function getPointer() {
+    var l = data[0],
+    pointer = data.slice(1, l + 1);
+    data = data.slice(l + 1);
+    return pointer;
+}
+
+function getHdata() {
+	var i, p, tmp, obj = {},
+	hpath = getString(),
+	keys = getString().split(','),
+	count = getInt(),
+    objs = [];
+
+    keys = keys.map(function(key) {
+        return key.split(':');
+    });
+
+    for (i = 0; i < count; i++ ) {
+        p = getPointer();
+        tmp = {};
+        keys.forEach(function(key) {
+            tmp[key[0]] = hack[key[1]]();
+        });
+        objs.push(tmp);
+    }
+    obj.objects = objs;
+
+	return obj;
 }
 
