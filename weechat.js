@@ -1,54 +1,62 @@
 var net = require('net');
 
-var client, partial, total = 0,
-data;
+var data, client, partial, obj, total = 0,
+id = 0,
+callbacks = {},
+self = this;
 
-exports.connect = function(host, port, password) {};
-
-exports.write = function(msg) {
-	client.write(msg + '\n');
+exports.connect = function(port, password, cb) {
+	client = net.connect(port, function() {
+		init();
+		self.write('init password=' + password + ',compression=off', cb);
+        cb();
+	});
 };
 
-client = net.connect(8000, function() {
-	client.write('init password=test,compression=off\n');
-	//client.write('info version\n');
-	//client.write('input irc.freenode.#testfrest hello guys!\n');
-	//client.write('sync\n');
-	//client.write('hdata buffer:gui_buffers(*) number,name\n');
-	//client.write('hdata buffer:gui_buffers(*)/lines/first_line(*)/data\n');
-	//client.write('input core.weechat /help filter\n');
-	//client.write('hdata buffer *\n');
-	//client.write('hdata buffer:gui_buffers(*) number,name\n');
-	client.write('nicklist\n');
-});
+exports.write = function(msg, cb) {
+	id++;
+	callbacks[id] = cb;
+	client.write('(' + id + ') ' + msg + '\n');
+};
 
-client.on('data', function(part) {
-	var compress, id;
-	data = part;
+exports.version = function(cb) {
+    self.write('info version', cb);
+}
 
-	if (total === 0) {
-		total = getInt();
-		compress = getCompression();
-		id = getString();
+exports.nicklist = function(cb) {
+    
+};
 
-		total -= (9 + id.length);
-		partial = data;
-	} else {
-		partial += data;
-	}
+function init() {
+	client.on('data', function(part) {
+		var ret, cb;
+		data = part;
 
-	if (partial.length >= total) {
-		data = partial;
-		total = 0;
-		partial = '';
-		var ret = parse();
-		console.log('RET', ret);
-	}
-});
+		if (total === 0) {
+			obj = {};
+			total = getInt();
+			obj.compress = getCompression();
+			obj.id = getString();
 
-client.on('end', function() {
-	console.log('client disconnected');
-});
+			total -= (9 + obj.id.length);
+			partial = data;
+		} else {
+			partial += data;
+		}
+
+		if (partial.length >= total) {
+			data = partial;
+			total = 0;
+			partial = '';
+			ret = parse();
+			cb = callbacks[obj.id];
+			if (cb) {
+				cb(obj);
+				delete callbacks[obj.id];
+			}
+		}
+	});
+}
 
 var hack = {
 	hda: getHdata,
@@ -69,10 +77,6 @@ function parse() {
 
 	type = data.slice(0, 3);
 	data = data.slice(3);
-
-	if (!hack[type]) {
-		console.log('OMGOMGOGMOMGOGMOMG ' + type);
-	}
 
 	return hack[type] && hack[type]();
 }
@@ -104,8 +108,7 @@ function getPointer() {
 }
 
 function getHdata() {
-	var i, p, tmp, keys, obj = {},
-	objs = [];
+	var i, p, tmp, keys, objs = [];
 
 	obj.hpath = getString();
 	keys = getString().split(',');
@@ -126,14 +129,11 @@ function getHdata() {
 			var type = hack[key[1]];
 			if (type) {
 				tmp[key[0]] = hack[key[1]]();
-			} else {
-				console.log('OOOO MGMGMG!', key[1]);
 			}
 		});
 		objs.push(tmp);
 	}
 	obj.objects = objs;
-
 	return obj;
 }
 
