@@ -1,3 +1,16 @@
-textarea {
+.buffer {
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.tabs-content > li {
+    height: 100%;
+}
+
+.buffer p {
+    margin-bottom: 0px;
+}
+
+input[type="text"] {
     width: 100%;
 }
