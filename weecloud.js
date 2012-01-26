@@ -1,5 +1,6 @@
 var static = require('node-static'),
-weechat = require('./weechat.js');
+weechat = require('./weechat.js'),
+color = require('./color.js');
 
 var file = new(static.Server)('./static'),
 server = require('http').createServer(function(request, response) {
@@ -22,12 +23,17 @@ function init() {
         var buffers;
         weechat.write('sync');
 
+        weechat.on('_buffer_opened', function(obj) {
+            console.log(obj);
+        });
+
         weechat.on('_buffer_line_added', function(obj) {
             obj.objects.forEach(function(o) {
+                console.log(o)
                 socket.emit('msg', {
                     key: o.buffer.toString(),
-                    from: o.prefix,
-                    msg: o.message
+                    from: color.parse(o.prefix),
+                    msg: color.parse(o.message)
                 });
             });
         });
@@ -41,7 +47,7 @@ function init() {
                     name: buffer.full_name,
                     title: buffer.title,
                     lines: buffer.lines.map(function(line) {
-                        return line.message;
+                        return color.parse(line.prefix + ': ' + line.message);
                     })
                 };
             }).forEach(function(buffer) {

@@ -5,20 +5,30 @@ $(function() {
     buffer = [],
     bufferPos = 0;
     active = 'active',
-    tabs = {};
+    buffers = {};
+
+    function parseParts(parts) {
+        return $.map(parts, function(part) {
+            var $container = $('<div>'),
+            $part = $('<span>').css('color', part.color).text(part.part);
+            return $container.append($part).html();
+        }).join();
+    }
 
     function append(key, line) {
-        var $textarea = tabs[key];
-        $textarea.val($textarea.val() + '\n' + line);
-        $textarea.scrollTop($textarea.prop('scrollHeight'));
+        var $buffer = buffers[key],
+        $line = $('<p>').append(line);
+
+        $buffer.append($line);
+        $buffer.scrollTop($buffer.prop('scrollHeight'));
     }
 
     function addTab(key, name) {
         var $tab = $('<li>').append('<a href="#">' + name),
-        $textarea = $('<textarea>'),
-        $tabContent = $('<li>').append($textarea);
+        $buffer = $('<div class="buffer">'),
+        $tabContent = $('<li>').append($buffer);
 
-        tabs[key] = $textarea;
+        buffers[key] = $buffer;
 
         $tabs.append($tab);
         $tabsContent.append($tabContent);
@@ -31,10 +41,14 @@ $(function() {
             $tabsContent.children().removeClass(active);
             $tabContent.addClass(active);
 
-            $textarea.scrollTop($textarea.prop('scrollHeight'));
+            $buffer.scrollTop($buffer.prop('scrollHeight'));
+            $input.focus();
             return false;
         }).click();
-        $textarea.height(window.innerHeight - 150);
+
+        $(window).resize(function() {
+            $buffer.scrollTop($buffer.prop('scrollHeight'));
+        });
     }
 
     $input.keydown(function(e) {
@@ -72,15 +86,24 @@ $(function() {
     });
 
     socket = io.connect();
+    socket.on('connect', function() {
+        buffers = {};
+        $tabs.empty();
+        $tabsContent.empty();
+    });
     socket.on('msg', function(msg) {
-        append(msg.key, msg.from + ': ' + msg.msg);
+        append(msg.key, parseParts(msg.from) + ': ' + parseParts(msg.msg));
     });
 
     socket.on('addBuffer', function(buffer) {
         addTab(buffer.key, buffer.name);
-        $.each(buffer.lines, function(i, line) {
-            append(buffer.key, line);
+        $.each(buffer.lines, function(i, parts) {
+            append(buffer.key, parseParts(parts));
         });
     });
+
+    $(window).resize(function() {
+        $tabsContent.height(window.innerHeight - 90);
+    }).resize();
 });
 
