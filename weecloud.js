@@ -10,6 +10,9 @@ server = require('http').createServer(function(request, response) {
 }),
 io = require('socket.io').listen(server);
 
+var getlines = 'hdata buffer:gui_buffers(*)/own_lines/first_line(*)/data date,displayed,prefix,message',
+getbuffers = 'hdata buffer:gui_buffers(*) number,full_name,short_name,type,nicklist,title,local_variables';
+
 server.listen(7000);
 
 weechat.connect(8000, 'test', function(ok) {
@@ -24,6 +27,7 @@ function init() {
         weechat.write('sync');
 
         weechat.on('_buffer_opened', function(obj) {
+            console.log('**********');
             console.log(obj);
         });
 
@@ -62,13 +66,13 @@ function init() {
 }
 
 function getBuffers(cb) {
-    weechat.write('hdata buffer:gui_buffers(*) number,full_name,short_name,type,nicklist,title,local_variables', function(o) {
+    weechat.write(getbuffers, function(o) {
         var buffers = {};
         o.objects.forEach(function(buffer) {
             buffer.lines = [];
             buffers[buffer.pointers[0]] = buffer;
         });
-        weechat.write('hdata buffer:gui_buffers(*)/own_lines/first_line(*)/data date,displayed,prefix,message', function(o) {
+        weechat.write(getlines, function(o) {
             o.objects.forEach(function(line) {
                 buffers[line.pointers[0]].lines.push(line);
             });
