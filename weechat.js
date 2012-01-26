@@ -96,7 +96,9 @@ function onData(part) {
         if (cb) {
             cb(obj);
             delete callbacks[obj.id];
-        } [obj.id, '*'].forEach(function(l) {
+        }
+
+        [obj.id, '*'].forEach(function(l) {
             if (listeners[l]) {
                 listeners[l].forEach(function(cb) {
                     cb(obj);
@@ -170,10 +172,11 @@ function getHashtable() {
 }
 
 function getHdata() {
-    var keys, objs = [];
+    var keys, paths, objs = [];
 
     obj.hpath = getString();
     keys = getString().split(',');
+    paths = obj.hpath.split('/');
     obj.count = getInt();
 
     keys = keys.map(function(key) {
@@ -181,11 +184,9 @@ function getHdata() {
     });
 
     loop(obj.count, function() {
-        var tmp = {
-            pointers: []
-        };
-        loop(obj.hpath.split('/').length, function() {
-            tmp.pointers.push(getPointer());
+        var tmp = {};
+        tmp.pointers = paths.map(function(path) {
+            return getPointer();
         });
         keys.forEach(function(key) {
             tmp[key[0]] = runType(key[1]);
