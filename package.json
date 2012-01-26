@@ -1,0 +1,11 @@
+{
+    "name": "weecloud",
+    "author": "Eirik Brandtzæg <eirikb@eirikb.no>",
+    "main": "weecloud.js",
+    "version": "0.0.1",
+    "dependencies": {
+        "socket.io": "",
+        "node-static": ""
+    }
+}
+
