@@ -1,6 +1,6 @@
 var static = require('node-static'),
-weechat = require('./weechat.js'),
-color = require('./color.js');
+weechat = require('./weechat/weechat.js'),
+color = require('./weechat/color.js');
 
 var file = new(static.Server)('./static'),
 server = require('http').createServer(function(request, response) {
