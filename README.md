@@ -23,8 +23,7 @@ Usage
 *  Clone the project
 
         git clone https://github.com/eirikb/weecloud.git
-    For the moment I don't have a npm package (will create one eventua
-lly).   
+    For the moment I don't have a npm package (will create one eventually).   
 *  Run it, default password is 'test' and port is 8000 (it's in weeclo
 ud.js)
 
