@@ -3,7 +3,12 @@
     "author": "Eirik Brandtzæg <eirikb@eirikb.no>",
     "main": "weecloud.js",
     "version": "0.0.1",
+    "repository": {
+        "type": "git", 
+        "url": "https://github.com/eirikb/weecloud"
+    },
     "dependencies": {
+        "weechat": "",
         "socket.io": "",
         "node-static": ""
     }
