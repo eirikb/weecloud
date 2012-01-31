@@ -11,8 +11,8 @@ io = require('socket.io').listen(server);
 
 server.listen(7000);
 
-weechat.connect(8000, 'test', function(ok) {
-    if (ok) {
+weechat.connect(8000, 'test', function(err) {
+    if (!err) {
         init();
     }
 });
@@ -22,9 +22,10 @@ function init() {
         weechat.bufferlines(function(buffers) {
             buffers.forEach(function(buffer) {
                 buffer.lines = buffer.lines.map(function(line) {
+                    console.log(line)
                     return {
-                        prefix: line.prefixParts,
-                        message: line.messageParts
+                        prefix: weechat.style(line.prefix),
+                        message: weechat.style(line.message)
                     };
                 });
                 socket.emit('addBuffer', buffer);
@@ -44,8 +45,8 @@ function init() {
         weechat.onLine(function(line) {
             socket.emit('msg', {
                 bufferid: line.buffer,
-                from: line.prefixParts,
-                message: line.messageParts
+                from: weechat.style(line.prefix),
+                message: weechat.style(line.message)
             });
         });
 
