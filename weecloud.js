@@ -1,6 +1,5 @@
 var static = require('node-static'),
-weechat = require('./weechat/weechat.js'),
-color = require('./weechat/color.js');
+weechat = require('./weechat.js/weechat.js');
 
 var file = new(static.Server)('./static'),
 server = require('http').createServer(function(request, response) {
@@ -9,9 +8,6 @@ server = require('http').createServer(function(request, response) {
     });
 }),
 io = require('socket.io').listen(server);
-
-var getlines = 'hdata buffer:gui_buffers(*)/own_lines/first_line(*)/data date,displayed,prefix,message',
-getbuffers = 'hdata buffer:gui_buffers(*) number,full_name,short_name,type,nicklist,title,local_variables';
 
 server.listen(7000);
 
@@ -23,60 +19,38 @@ weechat.connect(8000, 'test', function(ok) {
 
 function init() {
     io.sockets.on('connection', function(socket) {
-        var buffers;
-        weechat.write('sync');
-
-        weechat.on('_buffer_opened', function(obj) {
-            console.log('**********');
-            console.log(obj);
-        });
-
-        weechat.on('_buffer_line_added', function(obj) {
-            obj.objects.forEach(function(o) {
-                console.log(o)
-                socket.emit('msg', {
-                    key: o.buffer.toString(),
-                    from: color.parse(o.prefix),
-                    msg: color.parse(o.message)
+        weechat.bufferlines(function(buffers) {
+            buffers.forEach(function(buffer) {
+                buffer.lines = buffer.lines.map(function(line) {
+                    return {
+                        prefix: line.prefixParts,
+                        message: line.messageParts
+                    };
                 });
-            });
-        });
-
-        getBuffers(function(b) {
-            buffers = b;
-            Object.keys(buffers).map(function(key) {
-                var buffer = b[key];
-                return {
-                    key: key,
-                    name: buffer.full_name,
-                    title: buffer.title,
-                    lines: buffer.lines.map(function(line) {
-                        return color.parse(line.prefix + ': ' + line.message);
-                    })
-                };
-            }).forEach(function(buffer) {
                 socket.emit('addBuffer', buffer);
             });
         });
 
-        socket.on('msg', function(msg) {
-            weechat.write('input ' + buffers[msg.key].full_name + ' ' + msg.line);
+        weechat.onOpen(function(buffer) {
+            buffer.id = buffer.pointers[0];
+            socket.emit('addBuffer', buffer);
         });
-    });
-}
 
-function getBuffers(cb) {
-    weechat.write(getbuffers, function(o) {
-        var buffers = {};
-        o.objects.forEach(function(buffer) {
-            buffer.lines = [];
-            buffers[buffer.pointers[0]] = buffer;
+        weechat.onClose(function(buffer) {
+            console.log('close buffer', buffer);
+            socket.emit('closeBuffer', buffer.buffer);
         });
-        weechat.write(getlines, function(o) {
-            o.objects.forEach(function(line) {
-                buffers[line.pointers[0]].lines.push(line);
+
+        weechat.onLine(function(line) {
+            socket.emit('msg', {
+                bufferid: line.buffer,
+                from: line.prefixParts,
+                message: line.messageParts
             });
-            cb(buffers);
+        });
+
+        socket.on('msg', function(msg) {
+            weechat.write('input ' + msg.id + ' ' + msg.line);
         });
     });
 }
