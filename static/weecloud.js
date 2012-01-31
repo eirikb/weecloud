@@ -3,11 +3,10 @@ $(function() {
     $tabs = $('ul.tabs'),
     $tabsContent = $('ul.tabs-content'),
     $status = $('#status'),
-    $buffers = {},
+    buffers = {},
     buffer = [],
     bufferPos = 0;
     active = 'active';
-    
 
     function parseParts(parts) {
         if (!parts) {
@@ -21,26 +20,50 @@ $(function() {
     }
 
     function append(id, line) {
-        var $buffer = $buffers[id];
+        var $buffer, buffer = buffers[id],
         $line = $('<p>').append(line);
 
-        $buffer.append($line);
-        $buffer.scrollTop($buffer.prop('scrollHeight'));
+        if (buffer && buffer.$buffer) {
+            $buffer = buffer.$buffer;
+
+            buffer.$buffer.append($line);
+            buffer.$buffer.scrollTop(buffer.$buffer.prop('scrollHeight'));
+            if (!$buffer.is(':visible')) {
+                buffer.unread++;
+                buffer.$counter.text('(' + buffer.unread + ')');
+            }
+        }
     }
 
-    function addTab(id, name) {
-        var $tab = $('<li>').append('<a href="#">' + name),
-        $buffer = $('<div class="buffer">'),
-        $tabContent = $('<li>').append($buffer);
+    function addTab(buffer) {
+        var $buffer, $tabContent, $a = $('<a href="#">').text(buffer.name),
+        $counter = $('<span>'),
+        $tab = $('<li>').append($a.append($counter));
 
-        $buffers[id] = $buffer;
+        $.each(buffers, function(id, b) {
+            if (b.number === buffer.number) {
+                $buffer = buffers[id].$buffer;
+                $tabContent = $buffer.parent();
+            }
+        });
 
-        $tabs.append($tab);
-        $tabsContent.append($tabContent);
+        if (!$buffer) {
+            $buffer = $('<div class="buffer">'),
+            $tabContent = $('<li>').append($buffer);
+            $tabs.append($tab);
+            $tabsContent.append($tabContent);
+        }
+
+        buffer.$buffer = $buffer;
+        buffer.$counter = $counter;
+        buffers[buffer.id] = buffer;
+
+        buffer.unread = 0;
 
         $tab.click(function() {
-            current = id;
-            console.log(id, current);
+            current = buffer.id;
+            buffer.unread = 0;
+            $counter.text('');
 
             $tabs.find('a').removeClass(active);
             $tab.find('a').addClass(active);
@@ -112,7 +135,7 @@ $(function() {
     });
 
     socket.on('addBuffer', function(buffer) {
-        addTab(buffer.id, buffer.name);
+        addTab(buffer);
         if (buffer.lines) {
             $.each(buffer.lines, function(i, line) {
                 append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
