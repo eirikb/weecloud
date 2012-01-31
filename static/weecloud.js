@@ -2,12 +2,17 @@ $(function() {
     var socket, current, $input = $('input'),
     $tabs = $('ul.tabs'),
     $tabsContent = $('ul.tabs-content'),
+    $status = $('#status'),
+    $buffers = {},
     buffer = [],
     bufferPos = 0;
-    active = 'active',
-    buffers = {};
+    active = 'active';
+    
 
     function parseParts(parts) {
+        if (!parts) {
+            return '';
+        }
         return $.map(parts, function(part) {
             var $container = $('<div>'),
             $part = $('<span>').css('color', part.color).text(part.part);
@@ -15,26 +20,28 @@ $(function() {
         }).join();
     }
 
-    function append(key, line) {
-        var $buffer = buffers[key],
+    function append(id, line) {
+        var $buffer = $buffers[id];
         $line = $('<p>').append(line);
 
         $buffer.append($line);
         $buffer.scrollTop($buffer.prop('scrollHeight'));
     }
 
-    function addTab(key, name) {
+    function addTab(id, name) {
         var $tab = $('<li>').append('<a href="#">' + name),
         $buffer = $('<div class="buffer">'),
         $tabContent = $('<li>').append($buffer);
 
-        buffers[key] = $buffer;
+        $buffers[id] = $buffer;
 
         $tabs.append($tab);
         $tabsContent.append($tabContent);
 
         $tab.click(function() {
-            current = key;
+            current = id;
+            console.log(id, current);
+
             $tabs.find('a').removeClass(active);
             $tab.find('a').addClass(active);
 
@@ -61,7 +68,7 @@ $(function() {
                 buffer.push(line);
                 bufferPos = buffer.length;
                 socket.emit('msg', {
-                    key: current,
+                    id: current,
                     line: line
                 });
             }
@@ -86,20 +93,31 @@ $(function() {
     });
 
     socket = io.connect();
+
     socket.on('connect', function() {
         buffers = {};
         $tabs.empty();
         $tabsContent.empty();
+        $status.hide();
     });
+
+    socket.on('disconnect', function() {
+        $tabs.empty();
+        $tabsContent.empty();
+        $status.show();
+    });
+
     socket.on('msg', function(msg) {
-        append(msg.key, parseParts(msg.from) + ': ' + parseParts(msg.msg));
+        append(msg.bufferid, parseParts(msg.from) + ': ' + parseParts(msg.message));
     });
 
     socket.on('addBuffer', function(buffer) {
-        addTab(buffer.key, buffer.name);
-        $.each(buffer.lines, function(i, parts) {
-            append(buffer.key, parseParts(parts));
-        });
+        addTab(buffer.id, buffer.name);
+        if (buffer.lines) {
+            $.each(buffer.lines, function(i, line) {
+                append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
+            });
+        }
     });
 
     $(window).resize(function() {
