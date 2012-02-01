@@ -24,7 +24,7 @@ weecloud.buffers = (function() {
         });
 
         if (!$buffer) {
-            $buffer = $('<div class="buffer">'),
+            $buffer = $('<div class="buffer">');
             $tabContent = $('<div class="tab-pane">').append($buffer);
             $tabs.append($tab);
             $tabsContent.append($tabContent);
@@ -96,8 +96,11 @@ weecloud.buffers = (function() {
         $tabsContent.empty();
     }
 
-    function msg(msg) {
-        weecloud.buffers.append(msg.bufferid, parseParts(msg.from) + ': ' + parseParts(msg.message));
+    function msg(m) {
+        var from = parseParts(m.from),
+        message = parsePart(m.message);
+
+        weecloud.buffers.append(m.bufferid, from + ': ' + message);
     }
 
     return {

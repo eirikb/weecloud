@@ -2,9 +2,10 @@ weecloud.input = (function() {
     var $input;
 
     $(function() {
-        $input = $('input'),
-        history = [],
+        var history = [],
         historyPos = 0;
+
+        $input = $('input');
 
         $input.keydown(function(e) {
             var line, currentPos = historyPos;
