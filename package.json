@@ -2,7 +2,7 @@
     "name": "weecloud",
     "bin": "./weecloud.js",
     "author": "Eirik Brandtzæg <eirikb@eirikb.no>",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repository": {
         "type": "git", 
         "url": "https://github.com/eirikb/weecloud.git"
