@@ -1,11 +1,11 @@
 {
     "name": "weecloud",
+    "bin": "./weecloud.js",
     "author": "Eirik Brandtzæg <eirikb@eirikb.no>",
-    "main": "weecloud.js",
     "version": "0.0.1",
     "repository": {
         "type": "git", 
-        "url": "https://github.com/eirikb/weecloud"
+        "url": "https://github.com/eirikb/weecloud.git"
     },
     "dependencies": {
         "weechat": "",

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var static = require('node-static'),
 weechat = require('./weechat.js/weechat.js');
 
