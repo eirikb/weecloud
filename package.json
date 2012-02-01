@@ -2,7 +2,8 @@
     "name": "weecloud",
     "bin": "./weecloud.js",
     "author": "Eirik Brandtzæg <eirikb@eirikb.no>",
-    "version": "0.0.2",
+    "description": "WeeChat web interface",
+    "version": "0.0.3",
     "repository": {
         "type": "git", 
         "url": "https://github.com/eirikb/weecloud.git"
