@@ -1,40 +1,42 @@
 var weecloud = {};
 
-$(function() {
-    var socket, current, $input = $('input'),
-    $status = $('#status'),
-    active = 'active';
+weecloud.main = (function() {
+    var socket, $status;
 
-    socket = io.connect();
+    $(function() {
+        $status = $('#status');
 
-    socket.on('connect', function() {
-        buffers = {};
-        $tabs.empty();
-        $tabsContent.empty();
-        $status.hide();
+        socket = io.connect();
+
+        socket.on('connect', function() {
+            weecloud.buffers.clear();
+
+            $status.hide();
+        });
+
+        socket.on('disconnect', function() {
+            weecloud.buffers.clear();
+            $status.show();
+        });
+
+        socket.on('msg', function(msg) {
+            weecloud.buffers.msg(msg);
+        });
+
+        socket.on('addBuffer', function(buffer) {
+            weecloud.buffers.addBuffer(buffer);
+        });
     });
 
-    socket.on('disconnect', function() {
-        $tabs.empty();
-        $tabsContent.empty();
-        $status.show();
-    });
+    function msg(line) {
+        socket.emit('msg', {
+            id: weecloud.buffers.current(),
+            line: line
+        });
+    }
 
-    socket.on('msg', function(msg) {
-        append(msg.bufferid, parseParts(msg.from) + ': ' + parseParts(msg.message));
-    });
-
-    socket.on('addBuffer', function(buffer) {
-        addTab(buffer);
-        if (buffer.lines) {
-            $.each(buffer.lines, function(i, line) {
-                append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
-            });
-        }
-    });
-
-    $(window).resize(function() {
-        $tabsContent.height(window.innerHeight - 90);
-    }).resize();
-});
+    return {
+        msg: msg
+    };
+})();
 

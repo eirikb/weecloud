@@ -1,9 +1,17 @@
 weecloud.buffers = (function() {
-    var $tabs = $('.nav-tabs'),
-    $tabsContent = $('.tab-content');
-    buffers = {};
+    var current, $tabs, $tabsContent, buffers = {},
+    active = 'active';
 
-    function addTab(buffer) {
+    $(function() {
+        $tabs = $('.nav-tabs');
+        $tabsContent = $('.tab-content');
+
+        $(window).resize(function() {
+            $tabsContent.height(window.innerHeight - 90);
+        }).resize();
+    });
+
+    function addBuffer(buffer) {
         var $buffer, $tabContent, $a = $('<a href="#">').text(buffer.name),
         $counter = $('<span>'),
         $tab = $('<li>').append($a.append($counter));
@@ -40,9 +48,15 @@ weecloud.buffers = (function() {
             $tabContent.addClass(active);
 
             $buffer.scrollTop($buffer.prop('scrollHeight'));
-            $input.focus();
+            weecloud.input.focus();
             return false;
         }).click();
+
+        if (buffer.lines) {
+            $.each(buffer.lines, function(i, line) {
+                append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
+            });
+        }
 
         $(window).resize(function() {
             $buffer.scrollTop($buffer.prop('scrollHeight'));
@@ -76,9 +90,24 @@ weecloud.buffers = (function() {
         }
     }
 
+    function clear() {
+        buffers = {};
+        $tabs.empty();
+        $tabsContent.empty();
+    }
+
+    function msg(msg) {
+        weecloud.buffers.append(msg.bufferid, parseParts(msg.from) + ': ' + parseParts(msg.message));
+    }
+
     return {
         addBuffer: addBuffer,
-        append: append
+        append: append,
+        clear: clear,
+        msg: msg,
+        current: function() {
+            return current;
+        }
     };
-});
+})();
 
