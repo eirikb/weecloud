@@ -17,9 +17,15 @@ weecloud.main = (function() {
             $status.hide();
             $modal.modal().find('form').submit(function() {
                 $wrongPass.hide();
+                localStorage.pass = $modal.find('input').val();
                 socket.emit('auth', $modal.find('input').val());
                 return false;
             });
+
+            if (localStorage.pass) {
+                $modal.find('input').val(localStorage.pass);
+                $modal.find('button').click();
+            }
         });
 
         socket.on('disconnect', function() {
