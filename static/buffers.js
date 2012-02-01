@@ -37,6 +37,21 @@ weecloud.buffers = (function() {
         buffer.unread = 0;
 
         $tab.click(function() {
+            var $b, $h;
+            if (current) {
+                $b = buffers[current].$buffer;
+                $h = $b.find('hr');
+                if ($h.size() === 0) {
+                    $b.append('<hr>');
+                } else {
+                    $h.remove();
+                }
+            }
+
+            if (buffer.unread === 0) {
+                $buffer.find('hr').remove();
+            }
+
             current = buffer.id;
             buffer.unread = 0;
             $counter.text('').css('color', '');
@@ -46,6 +61,7 @@ weecloud.buffers = (function() {
 
             $tabsContent.children().removeClass(active);
             $tabContent.addClass(active);
+
 
             $buffer.scrollTop($buffer.prop('scrollHeight'));
             weecloud.input.focus();
