@@ -4,6 +4,9 @@ weecloud.main = (function() {
     var socket, $status;
 
     $(function() {
+        var $modal = $('.modal'),
+        $wrongPass = $modal.find('span').hide();
+
         $status = $('#status');
 
         socket = io.connect();
@@ -12,6 +15,11 @@ weecloud.main = (function() {
             weecloud.buffers.clear();
 
             $status.hide();
+            $modal.modal().find('form').submit(function() {
+                $wrongPass.hide();
+                socket.emit('auth', $modal.find('input').val());
+                return false;
+            });
         });
 
         socket.on('disconnect', function() {
@@ -25,6 +33,14 @@ weecloud.main = (function() {
 
         socket.on('addBuffer', function(buffer) {
             weecloud.buffers.addBuffer(buffer);
+        });
+
+        socket.on('auth', function(ok) {
+            if (ok) {
+                $modal.modal('hide');
+            } else {
+                $wrongPass.show();
+            }
         });
     });
 
