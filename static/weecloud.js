@@ -1,7 +1,7 @@
 $(function() {
     var socket, current, $input = $('input'),
-    $tabs = $('ul.tabs'),
-    $tabsContent = $('ul.tabs-content'),
+    $tabs = $('.nav-tabs'),
+    $tabsContent = $('.tab-content'),
     $status = $('#status'),
     buffers = {},
     buffer = [],
@@ -49,7 +49,7 @@ $(function() {
 
         if (!$buffer) {
             $buffer = $('<div class="buffer">'),
-            $tabContent = $('<li>').append($buffer);
+            $tabContent = $('<div class="tab-pane">').append($buffer);
             $tabs.append($tab);
             $tabsContent.append($tabContent);
         }
@@ -65,8 +65,8 @@ $(function() {
             buffer.unread = 0;
             $counter.text('');
 
-            $tabs.find('a').removeClass(active);
-            $tab.find('a').addClass(active);
+            $tabs.find('li').removeClass(active);
+            $tab.addClass(active);
 
             $tabsContent.children().removeClass(active);
             $tabContent.addClass(active);

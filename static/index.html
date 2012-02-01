@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html> 
     <head>
-        <meta charset="utf-8">
         <title>WeeCloud</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="/base.css">
-        <link rel="stylesheet" href="/skeleton.css">
+        <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="/weecloud.css">
 
         <script src="http://code.jquery.com/jquery.min.js"></script>
@@ -14,14 +13,16 @@
         <script src="/weecloud.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="sixteen columns">
-                <p id="status"><strong>Connecting...</strong></p>
-                <ul class="tabs">
-                </ul>
-                <ul class="tabs-content">
-                </ul>
-                <input type="text" autofocus>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <p id="status"><strong>Connecting...</strong></p>
+                    <ul class="nav nav-tabs">
+                    </ul>
+                    <div class="tab-content">
+                    </div>
+                    <input type="text" autofocus>
+                </div>
             </div>
         </div>
     </body>
