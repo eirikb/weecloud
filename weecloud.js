@@ -1,9 +1,23 @@
-#!/usr/bin/env node
+#! /usr/bin / env node
 
 var static = require('node-static'),
 weechat = require('./weechat.js/weechat.js');
 
-var file = new(static.Server)('./static'),
+if (process.argv.length < 6) {
+    console.log('Must specify:');
+    console.log('  <int> - listening port for webapp');
+    console.log('  <string> - password for webapp');
+    console.log('  <int> - port for WeeChat Relay Protocol');
+    console.log('  <string> - password for WeeChat Relay Protocol');
+    console.log('\nUsage: weecloud 7000 8000 test');
+    process.exit();
+}
+
+var appPort = parseInt(process.argv[2], 10),
+appPassword = process.argv[3],
+weePort = parseInt(process.argv[4], 10),
+weePassword = process.argv[5],
+file = new(static.Server)('./static'),
 server = require('http').createServer(function(request, response) {
     request.addListener('end', function() {
         file.serve(request, response);
@@ -11,9 +25,9 @@ server = require('http').createServer(function(request, response) {
 }),
 io = require('socket.io').listen(server);
 
-server.listen(7000);
+server.listen(apapppPort);
 
-weechat.connect(8000, 'test', function(err) {
+weechat.connect(weePort, weePassword, function(err) {
     if (!err) {
         init();
     }
@@ -24,7 +38,6 @@ function init() {
         weechat.bufferlines(function(buffers) {
             buffers.forEach(function(buffer) {
                 buffer.lines = buffer.lines.map(function(line) {
-                    console.log(line)
                     return {
                         prefix: weechat.style(line.prefix),
                         message: weechat.style(line.message)
