@@ -39,7 +39,7 @@ weecloud.buffers = (function() {
         $tab.click(function() {
             current = buffer.id;
             buffer.unread = 0;
-            $counter.text('');
+            $counter.text('').css('color', '');
 
             $tabs.find('li').removeClass(active);
             $tab.addClass(active);
@@ -86,6 +86,9 @@ weecloud.buffers = (function() {
             if (!$buffer.is(':visible')) {
                 buffer.unread++;
                 buffer.$counter.text('(' + buffer.unread + ')');
+                if (line.match(buffer.nick)) {
+                    buffer.$counter.css('color', 'red');
+                }
             }
         }
     }
@@ -98,7 +101,7 @@ weecloud.buffers = (function() {
 
     function msg(m) {
         var from = parseParts(m.from),
-        message = parsePart(m.message);
+        message = parseParts(m.message);
 
         weecloud.buffers.append(m.bufferid, from + ': ' + message);
     }
