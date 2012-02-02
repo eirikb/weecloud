@@ -1,6 +1,19 @@
-!!!
+!!! 5
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title WeeCloud
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+    link(rel='stylesheet', href='http://twitter.github.com/bootstrap/assets/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/weecloud.css')
+
+    script(src='http://code.jquery.com/jquery.min.js')
+    script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js')
+    //- script(src='/socket.io/socket.io.js')
+
+    script(src='/js/main.js')
+    script(src='/js/buffers.js')
+    script(src='/js/input.js')
+
   body!= body

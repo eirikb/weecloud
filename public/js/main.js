@@ -60,5 +60,7 @@ weecloud.main = (function() {
     return {
         msg: msg
     };
-})();
+})
+//TODO: Not initializing yet
+//();
 
