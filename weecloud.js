@@ -13,7 +13,8 @@ if (process.argv.length < 6) {
     process.exit();
 }
 
-var appPort = parseInt(process.argv[2], 10),
+var appPort = process.env.PORT
+//parseInt(process.argv[2], 10),
 appPassword = process.argv[3],
 weePort = parseInt(process.argv[4], 10),
 weePassword = process.argv[5];
