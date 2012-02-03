@@ -3,6 +3,7 @@ var weecloud = {};
 weecloud.main = (function() {
     var socket, $status;
 
+    /*
     $(function() {
         var $modal = $('.modal'),
         $wrongPass = $modal.find('span').hide();
@@ -60,7 +61,6 @@ weecloud.main = (function() {
     return {
         msg: msg
     };
-})
-//TODO: Not initializing yet
-//();
+    */
+})();
 

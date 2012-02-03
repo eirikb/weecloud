@@ -2,7 +2,7 @@ var express = require('express'),
 routes = require('./routes')
 
 var app = module.exports = express.createServer(),
-port = process.env.PORT || 3000;
+port = process.env.PORT || 5000;
 
 app.configure(function() {
     app.set('views', __dirname + '/views');
