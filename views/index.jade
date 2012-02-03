@@ -1,8 +1,24 @@
-.container-fluid
-  .row-fluid
+.container
+  .row
     .span12
-      p#status
-        strong Connecting...
-      ul.nav.nav-tabs
-      .tab-content
-      input
+      .hero-unit
+        h1 WeeCloud
+          small Synchronizing interwebs with your  
+            a(href='http://weechat.org') WeeChat
+  section#connect
+    .page-header
+      h1 Connect to your WeeChat
+    .row
+      .span12
+        form.well.form-inline
+          .control-group
+            input.input-medium(name='host', placeholder='Your host/IP', data-host=host)
+            input.input-small(name='port', type='number', placeholder='Port')
+            input.input-small(name='password', type='password', placeholder='Password')
+            button.butn(type='submit')
+              i.icon-chevron-right
+              |  Connect
+          .control-group
+            a#insert-ip.btn.btn-small(href='#') 
+              i.icon-home
+              | Insert your IP
