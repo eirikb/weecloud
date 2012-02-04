@@ -1,5 +1,5 @@
 var express = require('express'),
-routes = require('./routes')
+routes = require('./routes');
 
 var app = module.exports = express.createServer(),
 port = process.env.PORT || 5000;
@@ -25,6 +25,8 @@ app.configure('production', function() {
 });
 
 app.get('/', routes.index);
+
+app.get('/relay:id', routes.relay);
 
 app.listen(port);
 console.log("Listening on port %d in %s mode", app.address().port, app.settings.env);

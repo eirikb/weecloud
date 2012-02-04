@@ -1,3 +1,8 @@
+input, input[type=checkbox] {
+    margin-right: 4px;
+}
+
+
 .buffer {
     overflow-y: scroll;
     height: 100%;
