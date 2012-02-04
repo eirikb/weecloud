@@ -14,6 +14,8 @@ function success(socket) {
     function login() {
         weechat.bufferlines(function(buffers) {
             buffers.forEach(function(buffer) {
+                // Only 10 last lines
+                buffer.lines = buffer.lines.slice(buffer.lines.length - 10);
                 buffer.lines = buffer.lines.map(function(line) {
                     return {
                         prefix: weechat.style(line.prefix),

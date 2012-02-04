@@ -30,8 +30,12 @@ app.configure('production', function() {
 });
 
 app.get('/', function(req, res) {
+    var host = req.socket.remoteAddress;
+    if (req.headers['x-forwarded-for']) {
+        host = req.headers['x-forwarded-for'];
+    }
     res.render('index', {
-        host: req.socket.remoteAddress
+        host: host
     });
 });
 
@@ -60,7 +64,7 @@ io.sockets.on('connection', function(socket) {
             weecloud.init(socket, ref);
         } else {
             socket.emit('error', 'Unkown guid: ' + g);
-        } 
+        }
     });
 });
 
@@ -69,5 +73,4 @@ function guid() {
 }
 
 app.listen(port);
-console.log("Listening on port %d in %s mode", app.address().port, app.settings.env);
 
