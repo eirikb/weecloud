@@ -1,12 +1,16 @@
-var weechat = require('weechat/weechat.js');
+var weechat = require('weechat');
 
-//weechat.connect(weePort, weePassword, function(err) {
+
+exports.init = function(socket, data) {
+weechat.connect(weePassword, function(err) {
  //   if (!err) {
   //      init();
   //  }
 //});
+});
+};
 
-function init() {
+function meh() {
     io.sockets.on('connection', function(socket) {
 
         function login() {
