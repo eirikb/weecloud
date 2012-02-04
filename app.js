@@ -6,6 +6,8 @@ io = require('socket.io').listen(app),
 port = process.env.PORT || 5000,
 refs = {};
 
+io.set('log level', 1);
+
 app.configure(function() {
     app.set('view options', {
         layout: false
