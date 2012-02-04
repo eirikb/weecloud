@@ -1,0 +1,21 @@
+extends layout
+
+block append head
+  script(src='/socket.io/socket.io.js')
+
+  script(src='/js/main.js')
+  script(src='/js/buffers.js')
+  script(src='/js/input.js')
+
+block content
+  .container-fluid
+    #info.row-fluid
+      .span12
+        h1#status Connecting...
+        a#retry(style='display:none', href='/') Try again
+
+    #buffers.row-fluid(style='display:none')
+      .span12
+         ul.nav.nav-tabs
+         .tab-content
+         input
