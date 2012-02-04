@@ -3,6 +3,7 @@
     "version": "0.0.3",
     "dependencies": {
         "express": "2.5.5",
-        "jade": ">= 0.0.1"
+        "jade": ">= 0.0.1",
+        "weechat": ""
     }
 }
