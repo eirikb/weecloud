@@ -29,6 +29,13 @@ weecloud.main = (function() {
 
             weecloud.buffers.addBuffer(buffer);
         });
+
+        socket.on('disconnect', function() {
+            $('#info').show();
+            $('#buffers').hide();
+            $status.text('Got disconnected! Something borked');
+            $('#retry').show();
+        });
     });
 
     function msg(line) {
