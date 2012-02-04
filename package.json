@@ -4,6 +4,7 @@
     "dependencies": {
         "express": "2.5.5",
         "jade": ">= 0.0.1",
-        "weechat": ""
+        "socket.io": "0.8.7",
+        "weechat": "0.0.3"
     }
 }
