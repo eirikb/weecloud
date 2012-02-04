@@ -2,6 +2,8 @@ $(function() {
     var connections = getConnections(),
     $remembered = $('tbody');
 
+    if (connections.length > 0) $('#history').show();
+
     $('[rel=popover]').popover();
 
     $('#insert-ip').click(function() {
