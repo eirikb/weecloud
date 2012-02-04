@@ -3,6 +3,8 @@ WeeCloud
 
 Node.js library for relaying WeeChat to a webapp
 
+Relaying with [weechat.js](https://github.com/eirikb/weechat.js)
+
 Usage
 ---
 
