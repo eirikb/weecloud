@@ -15,4 +15,4 @@ WeeChat Relay Protocol is bleeding edge, and does not work in 0.3.6.
 Start WeeChat Relay Protocol:  
 
     /set relay.network.password test
-    /relay add weechat 8000 
+    /relay add weechat 8000 test
