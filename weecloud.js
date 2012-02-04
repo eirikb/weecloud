@@ -1,62 +1,53 @@
 var weechat = require('weechat');
 
-
 exports.init = function(socket, data) {
-weechat.connect(weePassword, function(err) {
- //   if (!err) {
-  //      init();
-  //  }
-//});
-});
+    weechat.connect(data.port, data.host, data.password, function(err) {
+        if (!err) {
+            success(socket);
+        } else {
+            socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
+        }
+    });
 };
 
-function meh() {
-    io.sockets.on('connection', function(socket) {
-
-        function login() {
-            weechat.bufferlines(function(buffers) {
-                buffers.forEach(function(buffer) {
-                    buffer.lines = buffer.lines.map(function(line) {
-                        return {
-                            prefix: weechat.style(line.prefix),
-                            message: weechat.style(line.message)
-                        };
-                    });
-                    socket.emit('addBuffer', buffer);
-                });
-            });
-        }
-
-        socket.on('auth', function(password) {
-            if (password === appPassword) {
-                weechat.onOpen(function(buffer) {
-                    buffer.id = buffer.pointers[0];
-                    socket.emit('addBuffer', buffer);
-                });
-
-                weechat.onClose(function(buffer) {
-                    console.log('close buffer', buffer);
-                    socket.emit('closeBuffer', buffer.buffer);
-                });
-
-                weechat.onLine(function(line) {
-                    socket.emit('msg', {
-                        bufferid: line.buffer,
-                        from: weechat.style(line.prefix),
+function success(socket) {
+    function login() {
+        weechat.bufferlines(function(buffers) {
+            buffers.forEach(function(buffer) {
+                buffer.lines = buffer.lines.map(function(line) {
+                    return {
+                        prefix: weechat.style(line.prefix),
                         message: weechat.style(line.message)
-                    });
+                    };
                 });
+                socket.emit('addBuffer', buffer);
+            });
+        });
+    }
 
-                socket.on('msg', function(msg) {
-                    weechat.write('input ' + msg.id + ' ' + msg.line);
-                });
+    weechat.onOpen(function(buffer) {
+        buffer.id = buffer.pointers[0];
+        socket.emit('addBuffer', buffer);
+    });
 
-                socket.emit('auth', true);
-                login();
-            } else {
-                socket.emit('auth', false);
-            }
+    weechat.onClose(function(buffer) {
+        console.log('close buffer', buffer);
+        socket.emit('closeBuffer', buffer.buffer);
+    });
+
+    weechat.onLine(function(line) {
+        socket.emit('msg', {
+            bufferid: line.buffer,
+            from: weechat.style(line.prefix),
+            message: weechat.style(line.message)
         });
     });
+
+    socket.on('msg', function(msg) {
+        weechat.write('input ' + msg.id + ' ' + msg.line);
+    });
+
+    socket.emit('auth', true);
+    login();
 }
 
