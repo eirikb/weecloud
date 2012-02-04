@@ -1,32 +1,38 @@
-.container
-  .row
-    .span12
-      .hero-unit
-        h1 WeeCloud
-          small Synchronizing interwebs with your  
-            a(href='http://weechat.org') WeeChat
-  section#connect
-    .page-header
-      h1 Connect to your WeeChat
+extends layout
+
+block append head
+  script(src='/js/lobby.js')
+
+block content
+  .container
     .row
       .span12
-        form.well.form-inline(method='get', action='relay')
-          .control-group
-            input.input-medium(name='host', placeholder='Your host/IP', data-host=host)
-            input.input-small(name='port', type='number', placeholder='Port')
-            input.input-small(name='password', type='password', placeholder='Password')
-            button.btn.btn-primary(type='submit')
-              i.icon-chevron-right.icon-white
-              |  Connect
-          .control-group
-            a#insert-ip.btn.btn-small(href='#') 
-              i.icon-home
-              | Insert your IP
-          .control-group
-            label
-              input(type='checkbox')
-              | Remember this connection 
-              i.icon-info-sign.icon-yellow(
-                rel='popover'
-                data-original-title='Security warning',
-                data-content='Passwords are stored in plain text in your browser')
+        .hero-unit
+          h1 WeeCloud
+            small Synchronizing interwebs with your  
+              a(href='http://weechat.org') WeeChat
+    section#connect
+      .page-header
+        h1 Connect to your WeeChat
+      .row
+        .span12
+          form.well.form-inline(method='post', action='relay')
+            .control-group
+              input.input-medium(name='host', placeholder='Your host/IP', data-host=host)
+              input.input-small(name='port', type='number', placeholder='Port')
+              input.input-small(name='password', type='password', placeholder='Password')
+              button.btn.btn-primary(type='submit')
+                i.icon-chevron-right.icon-white
+                |  Connect
+            .control-group
+              a#insert-ip.btn.btn-small(href='#') 
+                i.icon-home
+                | Insert your IP
+            .control-group
+              label
+                input(type='checkbox')
+                | Remember this connection 
+                i.icon-info-sign.icon-yellow(
+                  rel='popover'
+                  data-original-title='Security warning',
+                  data-content='Passwords are stored in plain text in your browser')

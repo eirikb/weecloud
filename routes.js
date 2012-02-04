@@ -4,3 +4,9 @@ exports.index = function(req, res) {
     })
 };
 
+exports.relay = function(req, res) {
+    res.render('relay', {
+        host: req.socket.remoteAddress
+    })
+};
+

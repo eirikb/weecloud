@@ -1,39 +1,10 @@
-#! /usr/bin / env node
+var weechat = require('weechat/weechat.js');
 
-var static = require('node-static'),
-weechat = require('weechat/weechat.js');
-
-if (process.argv.length < 6) {
-    console.log('Must specify:');
-    console.log('  <int> - listening port for webapp');
-    console.log('  <string> - password for webapp');
-    console.log('  <int> - port for WeeChat Relay Protocol');
-    console.log('  <string> - password for WeeChat Relay Protocol');
-    console.log('\nUsage: weecloud 7000 8000 test');
-    process.exit();
-}
-
-var appPort = process.env.PORT
-//parseInt(process.argv[2], 10),
-appPassword = process.argv[3],
-weePort = parseInt(process.argv[4], 10),
-weePassword = process.argv[5];
-
-var file = new(static.Server)('./static'),
-server = require('http').createServer(function(request, response) {
-    request.addListener('end', function() {
-        file.serve(request, response);
-    });
-}),
-io = require('socket.io').listen(server);
-
-server.listen(appPort);
-
-weechat.connect(weePort, weePassword, function(err) {
-    if (!err) {
-        init();
-    }
-});
+//weechat.connect(weePort, weePassword, function(err) {
+ //   if (!err) {
+  //      init();
+  //  }
+//});
 
 function init() {
     io.sockets.on('connection', function(socket) {

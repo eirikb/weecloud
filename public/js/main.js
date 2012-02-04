@@ -3,6 +3,11 @@ var weecloud = {};
 weecloud.main = (function() {
     var socket, $status;
 
+    $(function() {
+    //console.log(req.params);
+        //location.pathname.match(/\d+$/)[0]
+    });
+
     /*
     $(function() {
         var $modal = $('.modal'),

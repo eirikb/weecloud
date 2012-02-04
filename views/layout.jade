@@ -1,22 +1,17 @@
 !!! 5
 html
   head
-    title WeeCloud
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    block head
+      title WeeCloud
+      meta(charset='utf-8')
+      meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-    link(rel='stylesheet', href='http://twitter.github.com/bootstrap/assets/css/bootstrap.css')
-    link(rel='stylesheet', href='/css/weecloud.css')
+      link(rel='stylesheet', href='http://twitter.github.com/bootstrap/assets/css/bootstrap.css')
+      link(rel='stylesheet', href='/css/weecloud.css')
 
-    script(src='http://code.jquery.com/jquery.min.js')
-    script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js')
-    script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js')
-    script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js')
-    //- script(src='/socket.io/socket.io.js')
-
-    script(src='/js/main.js')
-    script(src='/js/lobby.js')
-    script(src='/js/buffers.js')
-    script(src='/js/input.js')
-
-  body!= body
+      script(src='http://code.jquery.com/jquery.min.js')
+      script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js')
+      script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js')
+      script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js')
+  body
+    block content

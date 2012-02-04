@@ -1,10 +1,15 @@
 var express = require('express'),
-routes = require('./routes');
+weecloud = require('./weecloud.js');
 
 var app = module.exports = express.createServer(),
-port = process.env.PORT || 5000;
+io = require('socket.io').listen(app),
+port = process.env.PORT || 5000,
+refs = {};
 
 app.configure(function() {
+    app.set('view options', {
+        layout: false
+    });
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.bodyParser());
@@ -24,9 +29,33 @@ app.configure('production', function() {
     app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+app.get('/', function(req, res) {
+    res.render('index', {
+        host: req.socket.remoteAddress
+    });
+});
 
-app.get('/relay:id', routes.relay);
+app.get('/relay/:guid', function(req, res) {
+    var g = req.params.guid;
+
+    res.render('relay');
+});
+
+app.post('/relay', function(req, res) {
+    var g, b = req.body;
+
+    if (b.host && b.port && b.password) {
+        g = guid();
+        refs[g] = b;
+        res.redirect('/relay/' + g);
+    } else {
+        res.redirect('/');
+    }
+});
+
+function guid() {
+    return Math.floor(Math.random() * 10000);
+}
 
 app.listen(port);
 console.log("Listening on port %d in %s mode", app.address().port, app.settings.env);
