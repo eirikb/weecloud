@@ -53,6 +53,15 @@ app.post('/relay', function(req, res) {
     }
 });
 
+io.sockets.on('connection', function(socket) {
+    socket.on('sync', function(g) {
+        var ref = refs[g];
+        if (!ref) {
+            socket.emit('error', 'Unkown guid: ' + g);
+        }
+    });
+});
+
 function guid() {
     return Math.floor(Math.random() * 10000);
 }
