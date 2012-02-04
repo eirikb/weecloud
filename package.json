@@ -5,6 +5,6 @@
         "express": "2.5.5",
         "jade": ">= 0.0.1",
         "socket.io": "0.8.7",
-        "weechat": "0.0.3"
+        "weechat": "0.0.4"
     }
 }
