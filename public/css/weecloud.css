@@ -1,6 +1,15 @@
+body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
 #head {
     top: 0;
     height: 44px;
+}
+#head .deck {
+    height: 42px;
 }
 
 #main {
@@ -11,6 +20,28 @@
 #foot {
     bottom: 0;
     height: 48px;
+}
+#foot .deck {
+    height: 47px;
+}
+
+#head, #main, #foot {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    overflow: hidden;
+}
+
+#main .center {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.left, .right, .center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 input, input[type=checkbox] {
@@ -26,18 +57,24 @@ input, input[type=checkbox] {
 }
 
 
+/*
 .buffer {
     overflow-y: scroll;
     height: 100%;
 }
+*/
 
+/*
 .tab-content > div {
     height: 100%;
 }
+*/
 
+/*
 .buffer p {
     margin-bottom: 0px;
 }
+*/
 
 input[type="text"] {
     width: 100%;

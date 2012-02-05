@@ -8,16 +8,19 @@ block append head
   script(src='/js/input.js')
 
 block content
-  #head
-    ul.nav.nav-tabs
   .container-fluid
     #info.row-fluid
       .span12
         h1#status Connecting...
         a#retry(style='display:none', href='/') Try again
 
-    #buffers.row-fluid(style='display:none')
-      .span12
-         .tab-content
+  #head
+    .deck
+      ul.nav.nav-tabs
+  #main
+    .deck.center
+      #buffers(style='display:none')
+        .tab-content
   #foot
-    input
+    .deck
+      input

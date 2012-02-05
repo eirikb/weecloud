@@ -5,10 +5,6 @@ weecloud.buffers = (function() {
     $(function() {
         $tabs = $('.nav-tabs');
         $tabsContent = $('.tab-content');
-
-        $(window).resize(function() {
-            $tabsContent.height(window.innerHeight - 90);
-        }).resize();
     });
 
     function addBuffer(buffer) {
@@ -64,7 +60,9 @@ weecloud.buffers = (function() {
 
 
             $buffer.scrollTop($buffer.prop('scrollHeight'));
-            weecloud.input.focus();
+            if ($(window).width() > 1000) {
+                weecloud.input.focus();
+            }
             return false;
         }).click();
 
@@ -73,10 +71,6 @@ weecloud.buffers = (function() {
                 append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
             });
         }
-
-        $(window).resize(function() {
-            $buffer.scrollTop($buffer.prop('scrollHeight'));
-        });
     }
 
     function parseParts(parts) {
