@@ -1,3 +1,18 @@
+#head {
+    top: 0;
+    height: 44px;
+}
+
+#main {
+    top: 44px;
+    bottom: 48px;
+}
+
+#foot {
+    bottom: 0;
+    height: 48px;
+}
+
 input, input[type=checkbox] {
     margin-right: 4px;
 }
