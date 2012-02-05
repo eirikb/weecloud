@@ -58,7 +58,6 @@ weecloud.buffers = (function() {
             $tabsContent.children().removeClass(active);
             $tabContent.addClass(active);
 
-
             $buffer.scrollTop($buffer.prop('scrollHeight'));
             if ($(window).width() > 1000) {
                 weecloud.input.focus();
@@ -84,7 +83,7 @@ weecloud.buffers = (function() {
         }).join();
     }
 
-    function append(id, line) {
+    function append(id, line, incCounter) {
         var $buffer, buffer = buffers[id],
         $line = $('<p>').append(line);
 
@@ -93,7 +92,7 @@ weecloud.buffers = (function() {
 
             buffer.$buffer.append($line);
             buffer.$buffer.scrollTop(buffer.$buffer.prop('scrollHeight'));
-            if (!$buffer.is(':visible')) {
+            if (!$buffer.is(':visible') && incCounter) {
                 buffer.unread++;
                 buffer.$counter.text('(' + buffer.unread + ')');
                 if (line.match(buffer.nick)) {
@@ -111,9 +110,12 @@ weecloud.buffers = (function() {
 
     function msg(m) {
         var from = parseParts(m.from),
-        message = parseParts(m.message);
+        message = parseParts(m.message),
+        incCounter = false;
 
-        weecloud.buffers.append(m.bufferid, from + ': ' + message);
+        if (from) incCounter = ! from.match(/<--|-->/);
+
+        append(m.bufferid, from + ': ' + message, incCounter);
     }
 
     return {
