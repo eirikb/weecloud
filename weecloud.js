@@ -27,17 +27,16 @@ function success(socket) {
         });
     }
 
-    weechat.onOpen(function(buffer) {
+    weechat.on('open', function(buffer) {
         buffer.id = buffer.pointers[0];
         socket.emit('addBuffer', buffer);
     });
 
-    weechat.onClose(function(buffer) {
-        console.log('close buffer', buffer);
+    weechat.on('close', function(buffer) {
         socket.emit('closeBuffer', buffer.buffer);
     });
 
-    weechat.onLine(function(line) {
+    weechat.on('line', function(line) {
         socket.emit('msg', {
             bufferid: line.buffer,
             from: weechat.style(line.prefix),
