@@ -4,11 +4,12 @@
   "scripts": {
     "start": "app.js"
   },
-  "version": "0.0.4",
+  "version": "0.0.4-3",
   "dependencies": {
     "express": "2.5.5",
     "jade": ">= 0.0.1",
     "socket.io": "0.8.7",
+    "request": "2.9.100",
     "weechat": "0.0.5"
   },
   "engines": {

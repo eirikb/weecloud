@@ -30,6 +30,9 @@ block content
           .alert.alert-info 
             p Planned release date is:
             strong 1 March 2012
+            p Status complete (#{status}%):
+            .progress.progress-info
+              .bar(style='width: #{status}%')
     section#connect
       .page-header
         h1 Connect to your WeeChat
