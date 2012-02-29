@@ -67,6 +67,7 @@ weecloud.buffers = (function() {
 
         if (buffer.lines) {
             $.each(buffer.lines, function(i, line) {
+                console.log(line);
                 append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
             });
         }

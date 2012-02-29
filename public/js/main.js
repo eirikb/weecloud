@@ -15,8 +15,9 @@ weecloud.main = (function() {
         });
 
         socket.on('error', function(msg) {
+            $('.container-fluid > div').hide();
             $status.text(msg);
-            $('#retry').show();
+            $('#info, #retry').show();
         });
 
         socket.on('msg', function(msg) {
@@ -31,10 +32,9 @@ weecloud.main = (function() {
         });
 
         socket.on('disconnect', function() {
-            $('#info').show();
-            $('#buffers').hide();
+            $('.container-fluid > div').hide();
             $status.text('Got disconnected! Something borked');
-            $('#retry').show();
+            $('#info, #retry').show();
         });
     });
 
