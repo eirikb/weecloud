@@ -1,6 +1,7 @@
 {
   "name": "weecloud",
   "subdomain": "weecloud",
+  "main": "app",
   "scripts": {
     "start": "app.js"
   },
