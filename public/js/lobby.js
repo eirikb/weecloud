@@ -10,6 +10,7 @@ $(function() {
         var $host = $('[name=host]');
 
         $host.val($host.data('host'));
+        return false;
     });
 
     $('button:submit').click(function() {
