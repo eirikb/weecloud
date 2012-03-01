@@ -1,5 +1,4 @@
-//var weechat = require('weechat');
-var weechat = require('./weechat.js/weechat.js');
+var weechat = require('weechat');
 
 exports.init = function(socket, data) {
     weechat.connect(data.port, data.host, data.password, function(err) {
