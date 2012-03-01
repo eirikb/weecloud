@@ -79,7 +79,7 @@ weecloud.buffers = (function() {
         }
         return $.map(parts, function(part) {
             var $container = $('<div>'),
-            $part = $('<span>').css('color', part.color).text(part.part);
+            $part = $('<span>').css('color', part.color).text(part.text);
             return $container.append($part).html();
         }).join();
     }
@@ -91,8 +91,8 @@ weecloud.buffers = (function() {
         if (buffer && buffer.$buffer) {
             $buffer = buffer.$buffer;
 
-            buffer.$buffer.append($line);
-            buffer.$buffer.scrollTop(buffer.$buffer.prop('scrollHeight'));
+            $buffer.append($line);
+            $buffer.scrollTop($buffer.prop('scrollHeight'));
             if (!$buffer.is(':visible') && incCounter) {
                 buffer.unread++;
                 buffer.$counter.text('(' + buffer.unread + ')');
