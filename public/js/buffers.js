@@ -1,10 +1,11 @@
 weecloud.buffers = (function() {
-    var current, $tabs, $tabsContent, buffers = {},
+    var current, $deckCenter, $tabs, $tabsContent, buffers = {},
     active = 'active';
 
     $(function() {
         $tabs = $('.nav-tabs');
         $tabsContent = $('.tab-content');
+        $deckCenter = $('.deck.center');
     });
 
     function addBuffer(buffer) {
@@ -58,7 +59,7 @@ weecloud.buffers = (function() {
             $tabsContent.children().removeClass(active);
             $tabContent.addClass(active);
 
-            $buffer.scrollTop($buffer.prop('scrollHeight'));
+            $deckCenter.scrollTop($buffer.prop('scrollHeight'));
             if ($(window).width() > 1000) {
                 weecloud.input.focus();
             }
@@ -67,7 +68,6 @@ weecloud.buffers = (function() {
 
         if (buffer.lines) {
             $.each(buffer.lines, function(i, line) {
-                console.log(line);
                 append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
             });
         }
@@ -79,7 +79,10 @@ weecloud.buffers = (function() {
         }
         return $.map(parts, function(part) {
             var $container = $('<div>'),
-            $part = $('<span>').css('color', part.color).text(part.text);
+            $part = $('<span>').css({
+                'color': part.fg,
+                'background-color': part.bg
+            }).text(part.text);
             return $container.append($part).html();
         }).join();
     }
@@ -87,12 +90,13 @@ weecloud.buffers = (function() {
     function append(id, line, incCounter) {
         var $buffer, buffer = buffers[id],
         $line = $('<p>').append(line);
+        console.log(buffers, buffer);
 
         if (buffer && buffer.$buffer) {
             $buffer = buffer.$buffer;
 
             $buffer.append($line);
-            $buffer.scrollTop($buffer.prop('scrollHeight'));
+            $deckCenter.scrollTop($buffer.prop('scrollHeight'));
             if (!$buffer.is(':visible') && incCounter) {
                 buffer.unread++;
                 buffer.$counter.text('(' + buffer.unread + ')');
@@ -114,7 +118,7 @@ weecloud.buffers = (function() {
         message = parseParts(m.message),
         incCounter = false;
 
-        if (from) incCounter = ! from.match(/<--|-->/);
+        if (from) incCounter = ! from.match(/--|--/);
 
         append(m.bufferid, from + ': ' + message, incCounter);
     }
