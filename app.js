@@ -3,7 +3,7 @@ request = require('request'),
 weecloud = require('./weecloud.js');
 
 var app = module.exports = express.createServer(),
-io = require('socket.io').listen(app)
+io = require('socket.io').listen(app),
 port = process.env.PORT || 5000,
 refs = {};
 
@@ -44,8 +44,8 @@ app.get('/', function(req, res) {
     function(e, r, d) {
         var status, min, max;
         if (!e && d.length > 0) {
-            min = d[0]['closed_issues'];
-            max = d[0]['open_issues'];
+            min = d[0].closed_issues;
+            max = d[0].open_issues;
             status = Math.floor((min / max) * 100);
         }
         res.render('index', {
