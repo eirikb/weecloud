@@ -33,7 +33,7 @@ weecloud.main = (function() {
 
         socket.on('disconnect', function() {
             $('.container-fluid > div').hide();
-            $status.text('Got disconnected! Something borked');
+            $status.text('Got disconnected. Something borked');
             $('#info, #retry').show();
         });
     });
