@@ -15,9 +15,8 @@ function success(socket) {
         weechat.bufferlines(function(buffers) {
             buffers.forEach(function(buffer) {
                 // Only 10 last lines
-                buffer.lines = buffer.lines.slice(buffer.lines.length - 10);
+                buffer.lines = buffer.lines.slice(- 10);
                 buffer.lines = buffer.lines.map(function(line) {
-                    console.log(line.message, weechat.style(line.message))
                     return {
                         prefix: weechat.style(line.prefix),
                         message: weechat.style(line.message)
@@ -38,11 +37,12 @@ function success(socket) {
     });
 
     weechat.on('line', function(lines) {
-        console.log(lines);
-        socket.emit('msg', {
-            bufferid: line.buffer,
-            from: weechat.style(line.prefix),
-            message: weechat.style(line.message)
+        lines.forEach(function(line) {
+            socket.emit('msg', {
+                bufferid: line.buffer,
+                from: weechat.style(line.prefix),
+               message: weechat.style(line.message)
+            });
         });
     });
 
