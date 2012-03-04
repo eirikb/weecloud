@@ -9,7 +9,7 @@ weecloud.main = (function() {
         socket = io.connect();
 
         socket.on('connect', function() {
-            var g = location.pathname.match(/\d+$/)[0];
+            var g = location.pathname.replace(/^\/.+\//, '');
             $status.text('Synchronizing...');
             socket.emit('sync', g);
         });
