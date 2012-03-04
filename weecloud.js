@@ -15,7 +15,7 @@ function success(socket) {
         weechat.bufferlines(function(buffers) {
             buffers.forEach(function(buffer) {
                 // Only 10 last lines
-                buffer.lines = buffer.lines.slice(- 10);
+                buffer.lines = buffer.lines.slice( - 10);
                 buffer.lines = buffer.lines.map(function(line) {
                     return {
                         prefix: weechat.style(line.prefix),
@@ -28,8 +28,12 @@ function success(socket) {
     }
 
     weechat.on('open', function(buffer) {
-        buffer.id = buffer.pointers[0];
-        socket.emit('addBuffer', buffer);
+        if (buffer && buffer.pointers) {
+            buffer.id = buffer.pointers[0];
+            socket.emit('addBuffer', buffer);
+        } else {
+            console.error('Buffer has no pointers: ', buffer);
+        }
     });
 
     weechat.on('close', function(buffer) {
@@ -41,7 +45,7 @@ function success(socket) {
             socket.emit('msg', {
                 bufferid: line.buffer,
                 from: weechat.style(line.prefix),
-               message: weechat.style(line.message)
+                message: weechat.style(line.message)
             });
         });
     });
