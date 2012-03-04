@@ -90,13 +90,12 @@ weecloud.buffers = (function() {
     function append(id, line, incCounter) {
         var $buffer, buffer = buffers[id],
         $line = $('<p>').append(line);
-        console.log(buffers, buffer);
 
         if (buffer && buffer.$buffer) {
             $buffer = buffer.$buffer;
 
             $buffer.append($line);
-            $deckCenter.scrollTop($buffer.prop('scrollHeight'));
+            if ($buffer.is(':visible')) $deckCenter.scrollTop($buffer.prop('scrollHeight'));
             if (!$buffer.is(':visible') && incCounter) {
                 buffer.unread++;
                 buffer.$counter.text('(' + buffer.unread + ')');
