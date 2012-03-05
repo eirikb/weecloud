@@ -1,4 +1,4 @@
-var weechat = require('weechat.js');
+var weechat = require('weechat');
 
 var refs = [];
 
