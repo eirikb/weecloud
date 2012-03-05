@@ -49,7 +49,6 @@ function success(socket) {
 
     weechat.on('line', function(lines) {
         lines.forEach(function(line) {
-            console.log(weechat.style(line.prefix), weechat.style(line.message));
             socket.emit('msg', {
                 bufferid: line.buffer,
                 from: weechat.style(line.prefix),
