@@ -68,7 +68,7 @@ weecloud.buffers = (function() {
 
         if (buffer.lines) {
             $.each(buffer.lines, function(i, line) {
-                append(buffer.id, parseParts(line.prefx) + parseParts(line.message));
+                append(buffer.id, parseParts(line.prefix), parseParts(line.message), false);
             });
         }
     }
@@ -89,20 +89,27 @@ weecloud.buffers = (function() {
         }).join('');
     }
 
-    function append(id, line, incCounter) {
-        var $buffer, buffer = buffers[id],
-        $line = $('<p>').append(line);
-        if (!incCounter) $line.css('opacity', 0.5);
+    function append(id, from, message, incCounter) {
+        var $from, $buffer, buffer = buffers[id],
+        $line = $('<p>');
 
         if (buffer && buffer.$buffer) {
+            if (!incCounter) $line.css('opacity', 0.5);
             $buffer = buffer.$buffer;
 
+            $from = $(from);
+            $from.last().click(function() {
+                weecloud.input.setNick($(this).text());
+            });
+
+            $line.append($from).append(': ').append(message);
             $buffer.append($line);
+
             if ($buffer.is(':visible')) $deckCenter.scrollTop($buffer.prop('scrollHeight'));
             if (!$buffer.is(':visible') && incCounter) {
                 buffer.unread++;
                 buffer.$counter.text('(' + buffer.unread + ')');
-                if (line.match(buffer.nick)) {
+                if (message.match(buffer.nick)) {
                     buffer.$counter.css('color', 'red');
                 }
             }
@@ -121,8 +128,7 @@ weecloud.buffers = (function() {
         incCounter = false;
 
         if (from) incCounter = ! from.match(/--|--/);
-
-        append(m.bufferid, from + ': ' + message, incCounter);
+        append(m.bufferid, from, message, incCounter);
     }
 
     return {
