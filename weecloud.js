@@ -1,13 +1,20 @@
-var weechat = require('weechat');
+var weechat = require('./weechat.js/weechat.js');
+
+var refs = [];
 
 exports.init = function(socket, data) {
-    weechat.connect(data.port, data.host, data.password, function(err) {
-        if (!err) {
-            success(socket);
-        } else {
-            socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
-        }
-    });
+    if (refs.indexOf(data) < 0) {
+        weechat.connect(data.port, data.host, data.password, function(err) {
+            if (!err) {
+                refs.push(data);
+                success(socket);
+            } else {
+                socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
+            }
+        });
+    } else {
+        success(socket);
+    }
 };
 
 function success(socket) {
@@ -42,6 +49,7 @@ function success(socket) {
 
     weechat.on('line', function(lines) {
         lines.forEach(function(line) {
+            console.log(weechat.style(line.prefix), weechat.style(line.message));
             socket.emit('msg', {
                 bufferid: line.buffer,
                 from: weechat.style(line.prefix),

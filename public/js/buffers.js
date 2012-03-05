@@ -79,17 +79,20 @@ weecloud.buffers = (function() {
         }
         return $.map(parts, function(part) {
             var $container = $('<div>'),
+            fg = part.fg ? part.fg.split(' ').join('').toLowerCase() : '',
+            bg = part.bg ? part.bg.split(' ').join('').toLowerCase() : '',
             $part = $('<span>').css({
-                'color': part.fg,
-                'background-color': part.bg
+                'color': fg,
+                'background-color': bg
             }).text(part.text);
             return $container.append($part).html();
-        }).join();
+        }).join('');
     }
 
     function append(id, line, incCounter) {
         var $buffer, buffer = buffers[id],
         $line = $('<p>').append(line);
+        if (!incCounter) $line.css('opacity', 0.5);
 
         if (buffer && buffer.$buffer) {
             $buffer = buffer.$buffer;
