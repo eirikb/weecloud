@@ -78,13 +78,22 @@ weecloud.buffers = (function() {
             return '';
         }
         return $.map(parts, function(part) {
-            var $container = $('<div>'),
+            var links, $part, $container = $('<div>'),
+            linkRegex = /(http|www)\S+/g,
             fg = part.fg ? part.fg.split(' ').join('').toLowerCase() : '',
-            bg = part.bg ? part.bg.split(' ').join('').toLowerCase() : '',
+            bg = part.bg ? part.bg.split(' ').join('').toLowerCase() : '';
+
+            links = part.text.match(linkRegex);
+            if (links) {
+                $.each(links, function(i, link) {
+                    part.text = part.text.replace(link, '<a href="' + link + '">' + link + '</a>');
+                });
+            }
+
             $part = $('<span>').css({
                 'color': fg,
                 'background-color': bg
-            }).text(part.text);
+            }).append(part.text);
             return $container.append($part).html();
         }).join('');
     }
@@ -127,7 +136,7 @@ weecloud.buffers = (function() {
         message = parseParts(m.message),
         incCounter = false;
 
-        if (from) incCounter = ! from.match(/--|--/);
+        if (from) incCounter = ! from.match(/-- | --/);
         append(m.bufferid, from, message, incCounter);
     }
 
