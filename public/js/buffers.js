@@ -29,6 +29,7 @@ weecloud.buffers = (function() {
 
         buffer.$buffer = $buffer;
         buffer.$counter = $counter;
+        buffer.$a = $a;
         buffers[buffer.id] = buffer;
 
         buffer.unread = 0;
@@ -99,7 +100,7 @@ weecloud.buffers = (function() {
     }
 
     function append(id, from, message, incCounter) {
-        var $from, $buffer, buffer = buffers[id],
+        var $from, $a, $buffer, buffer = buffers[id],
         $line = $('<p>');
 
         if (buffer && buffer.$buffer) {
@@ -116,10 +117,13 @@ weecloud.buffers = (function() {
 
             if ($buffer.is(':visible')) $deckCenter.scrollTop($buffer.prop('scrollHeight'));
             if (!$buffer.is(':visible') && incCounter) {
+                $a = buffer.$a;
+                if (!$a.hasClass('label')) $a.addClass('label label-info');
                 buffer.unread++;
                 buffer.$counter.text('(' + buffer.unread + ')');
                 if (message.match(buffer.nick)) {
                     buffer.$counter.css('color', 'red');
+                    $a.removeClass('label-info').addClass('label-important');
                 }
             }
         }
