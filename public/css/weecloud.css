@@ -50,26 +50,6 @@ input, input[type=checkbox] {
     z-index: 50;
 }
 
-
-/*
-.buffer {
-    overflow-y: scroll;
-    height: 100%;
-}
-*/
-
-/*
-.tab-content > div {
-    height: 100%;
-}
-*/
-
-/*
-.buffer p {
-    margin-bottom: 0px;
-}
-*/
-
 input[type="text"] {
     width: 99%;
 }
