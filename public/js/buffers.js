@@ -140,7 +140,7 @@ weecloud.buffers = (function() {
         message = parseParts(m.message),
         incCounter = false;
 
-        if (from) incCounter = ! from.match(/-- | --/);
+        if (from) incCounter = ! from.match(/--/);
         append(m.bufferid, from, message, incCounter);
     }
 
