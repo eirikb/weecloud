@@ -87,7 +87,7 @@ weecloud.buffers = (function() {
             links = part.text.match(linkRegex);
             if (links) {
                 $.each(links, function(i, link) {
-                    part.text = part.text.replace(link, '<a href="' + link + '">' + link + '</a>');
+                    part.text = part.text.replace(link, '<a href="' + link + '" target="_blank">' + link + '</a>');
                 });
             }
 
