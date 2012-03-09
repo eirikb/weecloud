@@ -1,6 +1,13 @@
 weecloud.buffers = (function() {
     var current, $deckCenter, $tabs, $tabsContent, buffers = {},
-    active = 'active';
+    active = 'active',
+    kibo = new Kibo();
+
+    kibo.down('alt a', function() {
+        $tabs.find('a').filter(function() {
+            return $(this).text().match(/\(\d+\)/);
+        }).first().click();
+    });
 
     $(function() {
         $tabs = $('.nav-tabs');
@@ -95,6 +102,9 @@ weecloud.buffers = (function() {
                 'color': fg,
                 'background-color': bg
             }).append(part.text);
+            if (fg.match(/dark/i)) {
+                $part.css('color', changeColor.lighter($part.css('color'), 0.5));
+            }
             return $container.append($part).html();
         }).join('');
     }
