@@ -53,3 +53,7 @@ input, input[type=checkbox] {
 input[type="text"] {
     width: 99%;
 }
+
+body {
+    background-color: #202020;
+}
