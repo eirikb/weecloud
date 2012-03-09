@@ -1,67 +1,78 @@
-var weechat = require('weechat');
+var w = require('weechat');
 
-var refs = [];
+var handlers = {};
 
 exports.init = function(socket, data) {
-    if (refs.indexOf(data) < 0) {
-        weechat.connect(data.port, data.host, data.password, function(err) {
+    var weechat;
+    if (!handlers[data]) {
+        weechat = w.connect(data.port, data.host, data.password, function(err) {
             if (!err) {
-                refs.push(data);
-                success(socket);
+                handlers[data] = new Handler(weechat);
+                handlers[data].addSocket(socket);
             } else {
                 socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
             }
         });
     } else {
-        success(socket);
+        handlers[data].addSocket(socket);
     }
 };
 
-function success(socket) {
-    function login() {
-        weechat.bufferlines(function(buffers) {
-            buffers.forEach(function(buffer) {
-                // Only 10 last lines
-                buffer.lines = buffer.lines.slice( - 10);
-                buffer.lines = buffer.lines.map(function(line) {
-                    return {
-                        prefix: weechat.style(line.prefix),
-                        message: weechat.style(line.message)
-                    };
-                });
-                socket.emit('addBuffer', buffer);
-            });
+function Handler(weechat) {
+    if (! (this instanceof Handler)) return new Handler(weechat);
+    var sockets = [];
+
+    function emit(a, b) {
+        sockets.forEach(function(socket) {
+            socket.emit(a, b);
         });
     }
 
     weechat.on('open', function(buffer) {
         if (buffer && buffer.pointers) {
             buffer.id = buffer.pointers[0];
-            socket.emit('addBuffer', buffer);
+            emit('addBuffer', buffer);
         } else {
             console.error('Buffer has no pointers: ', buffer);
         }
     });
 
     weechat.on('close', function(buffer) {
-        socket.emit('closeBuffer', buffer.buffer);
+        emit('closeBuffer', buffer.buffer);
     });
 
     weechat.on('line', function(lines) {
         lines.forEach(function(line) {
-            socket.emit('msg', {
+            emit('msg', {
                 bufferid: line.buffer,
-                from: weechat.style(line.prefix),
-                message: weechat.style(line.message)
+                from: w.style(line.prefix),
+                message: w.style(line.message)
             });
         });
     });
 
-    socket.on('msg', function(msg) {
-        weechat.write('input ' + msg.id + ' ' + msg.line);
-    });
+    this.addSocket = function(socket) {
+        sockets.push(socket);
 
-    socket.emit('auth', true);
-    login();
+        socket.on('msg', function(msg) {
+            weechat.write('input ' + msg.id + ' ' + msg.line);
+        });
+
+        socket.emit('auth', true);
+
+        weechat.bufferlines(function(buffers) {
+            buffers.forEach(function(buffer) {
+                // Only 10 last lines
+                buffer.lines = buffer.lines.slice( - 10);
+                buffer.lines = buffer.lines.map(function(line) {
+                    return {
+                        prefix: w.style(line.prefix),
+                        message: w.style(line.message)
+                    };
+                });
+                socket.emit('addBuffer', buffer);
+            });
+        });
+    };
 }
 
