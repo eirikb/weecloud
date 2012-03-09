@@ -45,7 +45,7 @@ weecloud.input = (function() {
 
     function setNick(nick) {
         var v = $input.val();
-        $input.val(nick + ': ' + v.slice(v.indexOf(':') + 1));
+        $input.val(nick + ': ' + v.slice(v.indexOf(':') + 1).trim());
         $input.focus();
     }
 
