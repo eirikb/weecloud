@@ -10,7 +10,7 @@ weecloud.buffers = (function() {
     });
 
     $(function() {
-        $tabs = $('.nav-tabs');
+        $tabs = $('.nav');
         $tabsContent = $('.tab-content');
         $deckCenter = $('.deck.center');
     });
