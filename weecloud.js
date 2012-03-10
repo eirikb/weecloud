@@ -2,19 +2,19 @@ var w = require('weechat');
 
 var handlers = {};
 
-exports.init = function(socket, data) {
+exports.init = function(socket, ref, data) {
     var weechat;
-    if (!handlers[data]) {
+    if (!handlers[ref]) {
         weechat = w.connect(data.port, data.host, data.password, function(err) {
             if (!err) {
-                handlers[data] = new Handler(weechat);
-                handlers[data].addSocket(socket);
+                handlers[ref] = new Handler(weechat);
+                handlers[ref].addSocket(socket);
             } else {
                 socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
             }
         });
     } else {
-        handlers[data].addSocket(socket);
+        handlers[ref].addSocket(socket);
     }
 };
 
@@ -28,17 +28,21 @@ function Handler(weechat) {
         });
     }
 
-    weechat.on('open', function(buffer) {
-        if (buffer && buffer.pointers) {
-            buffer.id = buffer.pointers[0];
-            emit('addBuffer', buffer);
-        } else {
-            console.error('Buffer has no pointers: ', buffer);
-        }
+    weechat.on('open', function(buffers) {
+        buffers.forEach(function(buffer) {
+            if (buffer && buffer.pointers) {
+                buffer.id = buffer.pointers[0];
+                emit('addBuffer', buffer);
+            } else {
+                console.error('Buffer has no pointers: ', buffer);
+            }
+        });
     });
 
-    weechat.on('close', function(buffer) {
-        emit('closeBuffer', buffer.buffer);
+    weechat.on('close', function(buffers) {
+        buffers.forEach(function(buffer) {
+            emit('closeBuffer', buffer.buffer);
+        });
     });
 
     weechat.on('line', function(lines) {

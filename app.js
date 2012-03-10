@@ -78,7 +78,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('sync', function(g) {
         var ref = refs[g];
         if (ref) {
-            weecloud.init(socket, ref);
+            weecloud.init(socket, g, ref);
         } else {
             socket.emit('error', 'Unkown guid: ' + g);
         }
