@@ -87,7 +87,7 @@ weecloud.buffers = (function() {
         }
         return $.map(parts, function(part) {
             var links, $part, $container = $('<div>'),
-            linkRegex = /(http|www)\S+/g,
+            linkRegex = /(http\:\/\/|www\.)\S+\.\S+/g,
             fg = part.fg ? part.fg.split(' ').join('').toLowerCase() : '',
             bg = part.bg ? part.bg.split(' ').join('').toLowerCase() : '';
 
