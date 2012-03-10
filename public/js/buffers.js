@@ -133,6 +133,10 @@ weecloud.buffers = (function() {
             $line.append($from).append(': ').append(message);
             $buffer.append($line);
 
+            if (message.match(buffer.nick)) {
+                $line.css('background-color', '#402020');
+            }
+
             if ($buffer.is(':visible')) $deckCenter.scrollTop($buffer.prop('scrollHeight'));
             if (!$buffer.is(':visible') && incCounter) {
                 $a = buffer.$a;
