@@ -77,7 +77,7 @@ weecloud.buffers = (function() {
 
         if (buffer.lines) {
             $.each(buffer.lines, function(i, line) {
-                append(buffer.id, parseParts(line.prefix), parseParts(line.message), false);
+                append(buffer.id, line.date, parseParts(line.prefix), parseParts(line.message), false);
             });
         }
     }
@@ -110,13 +110,20 @@ weecloud.buffers = (function() {
         }).join('');
     }
 
-    function append(id, from, message, incCounter) {
+    function append(id, date, from, message, incCounter) {
         var $from, $a, $buffer, buffer = buffers[id],
         $line = $('<p>');
 
         if (buffer && buffer.$buffer) {
             if (!incCounter) $line.css('opacity', 0.5);
             $buffer = buffer.$buffer;
+
+            date = parseInt(date, 10) * 1000;
+            if (!isNaN(date)) {
+                date = new Date(date);
+                date = [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+                $line.append($('<span>').text(date + ' '));
+            }
 
             $from = $(from);
             $from.last().click(function() {
@@ -152,8 +159,7 @@ weecloud.buffers = (function() {
         incCounter = false;
 
         if (from) incCounter = ! from.match(/--/);
-        from = '(' + m.date + ') ' + from;
-        append(m.bufferid, from, message, incCounter);
+        append(m.bufferid, m.date, from, message, incCounter);
     }
 
     return {

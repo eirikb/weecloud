@@ -46,6 +46,7 @@ function Handler(weechat) {
             emit('msg', {
                 bufferid: line.buffer,
                 from: w.style(line.prefix),
+                date: line.date,
                 message: w.style(line.message)
             });
         });
@@ -67,6 +68,7 @@ function Handler(weechat) {
                 buffer.lines = buffer.lines.map(function(line) {
                     return {
                         prefix: w.style(line.prefix),
+                        date: line.date,
                         message: w.style(line.message)
                     };
                 });
