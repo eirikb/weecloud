@@ -5,7 +5,7 @@
   "scripts": {
     "start": "app.js"
   },
-  "version": "0.0.8",
+  "version": "0.0.9",
   "dependencies": {
     "express": "2.5.5",
     "jade": ">= 0.0.1",
