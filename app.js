@@ -5,7 +5,8 @@ weecloud = require('./weecloud.js');
 var app = module.exports = express.createServer(),
 io = require('socket.io').listen(app),
 port = process.env.PORT || 5000,
-refs = {};
+refs = {},
+package = require('./package.json');
 
 io.set('log level', 1);
 
@@ -50,6 +51,7 @@ app.get('/', function(req, res) {
         }
         res.render('index', {
             status: status,
+            version: package.version,
             host: host
         });
     });

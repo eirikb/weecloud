@@ -152,6 +152,7 @@ weecloud.buffers = (function() {
         incCounter = false;
 
         if (from) incCounter = ! from.match(/--/);
+        from = '(' + m.date + ') ' + from;
         append(m.bufferid, from, message, incCounter);
     }
 

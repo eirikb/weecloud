@@ -1,6 +1,15 @@
 $(function() {
     var connections = getConnections(),
-    $remembered = $('tbody');
+    $remembered = $('tbody'),
+    $version = $('#version'),
+    version = $version.data('version');
+
+    if (!localStorage.version) localStorage.version = version;
+
+    if (version !== localStorage.version) {
+        $version.show();
+        localStorage.version = version;
+    }
 
     if (connections.length > 0) $('#history').show();
 

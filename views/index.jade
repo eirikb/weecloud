@@ -17,6 +17,11 @@ block content
     section#headsup
       .row
         .span12
+          #version.hide.alert.alert-success(data-version=version)
+            strong New version (
+              a(href='https://github.com/eirikb/weecloud/commits')= version
+              | )
+            p This browser has not seen this version before
           .alert.alert-error
             strong Beta Alpha Charlie!
             p 
