@@ -63,6 +63,7 @@ weecloud.buffers = (function() {
 
             $tabs.find('li').removeClass(active);
             $tab.addClass(active);
+            $tab.children('a').removeClass();
 
             $tabsContent.children().removeClass(active);
             $tabContent.addClass(active);
