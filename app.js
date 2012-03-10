@@ -43,14 +43,14 @@ app.get('/', function(req, res) {
         json: true
     },
     function(e, r, d) {
-        var status, min, max;
+        var devStatus, min, max;
         if (!e && d.length > 0) {
             min = d[0].closed_issues;
             max = d[0].open_issues;
-            status = Math.floor((min / max) * 100);
+            devStatus = Math.floor((min / max) * 100);
         }
         res.render('index', {
-            status: status,
+            devStatus: devStatus,
             version: package.version,
             host: host
         });
