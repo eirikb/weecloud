@@ -76,9 +76,9 @@ app.post('/relay', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
     socket.on('sync', function(g) {
-        var ref = refs[g];
-        if (ref) {
-            weecloud.init(socket, g, ref);
+        var data = refs[g];
+        if (data) {
+            weecloud.init(socket, data);
         } else {
             socket.emit('error', 'Unkown guid: ' + g);
         }
