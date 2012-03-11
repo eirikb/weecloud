@@ -1,4 +1,5 @@
-var w = require('weechat');
+var w = require('weechat'),
+sanitize = require('validator').sanitize;
 
 var handlers = {};
 
@@ -35,6 +36,14 @@ exports.init = function(socket, data) {
     }
 };
 
+function getMessage(message) {
+    message = w.style(message).map(function(part) {
+        part.text = sanitize(part.text).xss();
+        return part;
+    });
+    return message;
+}
+
 function Handler(weechat) {
     if (! (this instanceof Handler)) return new Handler(weechat);
     var sockets = [];
@@ -68,7 +77,7 @@ function Handler(weechat) {
                 bufferid: line.buffer,
                 from: w.style(line.prefix),
                 date: line.date,
-                message: w.style(line.message)
+                message: getMessage(line.message)
             });
         });
     });
@@ -90,7 +99,7 @@ function Handler(weechat) {
                     return {
                         prefix: w.style(line.prefix),
                         date: line.date,
-                        message: w.style(line.message)
+                        message: getMessage(line.message)
                     };
                 });
                 socket.emit('addBuffer', buffer);
