@@ -31,6 +31,10 @@ exports.init = function(socket, data) {
                 socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
             }
         });
+        weechat.on('error', function(err) {
+            socket.emit('error', 'Something borked  -  ' + err);
+            console.error(err);
+        });
     } else {
         handler.addSocket(socket);
     }
