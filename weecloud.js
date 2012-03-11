@@ -2,17 +2,19 @@ var w = require('weechat');
 
 var handlers = {};
 
-function getHandler(data) {   
-    var h = handlers;      
+function getHandler(data) {
+    var h = handlers;
 
-    ['host', 'port', 'password'].forEach(function(n) {    
-        if (h) h = h[data[n]];   
-    });   
+    ['host', 'port', 'password'].forEach(function(n) {
+        if (h) h = h[data[n]];
+    });
     return h;
 }
 
-function putHandler(data, handler) {   
-    var h = handlers[data.host] = handlers[data.host] || {};  h = h[data.port] = {};  h[data.password] = handler;
+function putHandler(data, handler) {
+    var h = handlers[data.host] = handlers[data.host] || {};
+    h = h[data.port] = {};
+    h[data.password] = handler;
 }
 
 exports.init = function(socket, data) {
