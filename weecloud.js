@@ -95,10 +95,9 @@ function Handler(weechat) {
 
         socket.emit('auth', true);
 
-        weechat.bufferlines(function(buffers) {
+        // Only 10 last lines
+        weechat.bufferlines(10, function(buffers) {
             buffers.forEach(function(buffer) {
-                // Only 10 last lines
-                buffer.lines = buffer.lines.slice( - 10);
                 buffer.lines = buffer.lines.map(function(line) {
                     return {
                         prefix: w.style(line.prefix),
