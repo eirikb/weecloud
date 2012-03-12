@@ -5,14 +5,14 @@
   "scripts": {
     "start": "app.js"
   },
-  "version": "0.0.11",
+  "version": "0.0.11-1",
   "dependencies": {
     "express": "2.5.5",
     "jade": ">= 0.0.1",
     "socket.io": "0.8.7",
     "request": "2.9.100",
     "validator": "0.4.2",
-    "weechat": "0.0.8"
+    "weechat": "0.0.9"
   },
   "engines": {
     "node": "0.6.x"
