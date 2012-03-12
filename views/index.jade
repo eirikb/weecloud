@@ -22,21 +22,12 @@ block content
               a(href='https://github.com/eirikb/weecloud/commits')= version
               | )
             p This browser has not seen this version before
-          .alert.alert-error
-            strong Beta Alpha Charlie!
-            p 
-              | Just to make it clear this site is under heavy development.
-            p 
-              | The reason this page is available at this early point is because
-              | it is 
-              a(href='https://github.com/eirikb/weecloud') open source 
-              | and can already be used locally anyway.
           .alert.alert-info 
-            p Planned release date is:
-            strong 12 March 2012
-            p Status complete (#{devStatus}%):
-            .progress.progress-info
-              .bar(style='width: #{devStatus}%')
+            strong Released!
+            p Kinda. It's still a bit bumpy, but might work.
+            p Please see the 
+              a(href='#help') help
+              |  section for info on running WeeCloud locally.
     section#connect
       .page-header
         h1 Connect to your WeeChat
@@ -72,14 +63,23 @@ block content
                 th Port
                 th 
             tbody
-      h2 Help
+      h2#help Help
       .row
         .span12
           p 
             a(href='http://www.weechat.org/download') WeeChat 0.3.7  
             | is required to connect WeeCloud to your weechat.
           p WeeChat Relay Protocol can be enabled like this:
-          .well
-            p /set relay.network.password test 
-            p /relay add weechat 8000
+          pre
+            | /set relay.network.password test 
+            | /relay add weechat 8000
           p 
+      h3 Running locally
+      .row
+        .span12
+          pre
+            | git clone https://github.com/eirikb/weecloud
+            | cd weecloud
+            | npm install
+            | node app.js
+          
