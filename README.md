@@ -15,3 +15,11 @@ Start WeeChat Relay Protocol:
 
     /set relay.network.password test
     /relay add weechat 8000
+
+### Running locally
+
+    git clone https://github.com/eirikb/weecloud
+    cd weecloud
+    npm install
+    node app.js
+
