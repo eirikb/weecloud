@@ -1,12 +1,11 @@
 var express = require('express'),
-request = require('request'),
 weecloud = require('./weecloud.js');
 
 var app = module.exports = express.createServer(),
 io = require('socket.io').listen(app),
 port = process.env.PORT || 5000,
 refs = {},
-package = require('./package.json');
+pkg = require('./package.json');
 
 io.set('log level', 1);
 
@@ -38,25 +37,10 @@ app.get('/', function(req, res) {
     if (req.headers['x-forwarded-for']) {
         host = req.headers['x-forwarded-for'];
     }
-
-    request.get({
-        url: 'https://api.github.com/repos/eirikb/weecloud/milestones',
-        json: true
-    },
-    function(e, r, d) {
-        var devStatus, min, max;
-        if (!e && d.length > 0) {
-            min = d[0].closed_issues;
-            max = d[0].open_issues;
-            devStatus = Math.floor((min / max) * 100);
-        }
-        res.render('index', {
-            devStatus: devStatus,
-            version: package.version,
-            host: host
-        });
+    res.render('index', {
+        version: pkg.version,
+        host: host
     });
-
 });
 
 app.get('/relay/:guid', function(req, res) {
