@@ -34,6 +34,7 @@ app.configure('production', function() {
 
 app.get('/', function(req, res) {
     var host = req.socket.remoteAddress;
+    console.log(host);
     if (req.headers['x-forwarded-for']) {
         host = req.headers['x-forwarded-for'];
     }
