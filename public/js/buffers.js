@@ -77,7 +77,10 @@ weecloud.buffers = (function() {
 
         if (buffer.lines) {
             $.each(buffer.lines, function(i, line) {
-                append(buffer.id, line.date, parseParts(line.prefix), parseParts(line.message), false);
+                var from = parseParts(line.prefix),
+                incCounter = !('' + from).match(/--/);
+
+                append(buffer.id, line.date, from,  parseParts(line.message), incCounter);
             });
         }
     }
