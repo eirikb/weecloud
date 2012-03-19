@@ -42,7 +42,7 @@ exports.init = function(socket, data) {
 
 function getMessage(message) {
     message = w.style(message).map(function(part) {
-        part.text = sanitize(part.text).xss();
+        part.text = sanitize(part.text).entityEncode();
         return part;
     });
     return message;
