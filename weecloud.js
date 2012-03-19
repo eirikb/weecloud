@@ -95,8 +95,8 @@ function Handler(weechat) {
 
         socket.emit('auth', true);
 
-        // Only 10 last lines
-        weechat.bufferlines(10, function(buffers) {
+        // Only 20 last lines
+        weechat.bufferlines(20, function(buffers) {
             buffers.forEach(function(buffer) {
                 buffer.lines = buffer.lines.map(function(line) {
                     return {
