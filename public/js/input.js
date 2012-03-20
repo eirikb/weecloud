@@ -1,4 +1,4 @@
-weecloud.input = (function() {
+(function() {
     var $input;
 
     $(function() {
@@ -39,19 +39,5 @@ weecloud.input = (function() {
         });
     });
 
-    function focus() {
-        $input.focus();
-    }
-
-    function setNick(nick) {
-        var v = $input.val();
-        $input.val(nick + ': ' + v.slice(v.indexOf(':') + 1).trim());
-        $input.focus();
-    }
-
-    return {
-        focus: focus,
-        setNick: setNick
-    };
 })();
 
