@@ -28,9 +28,11 @@ Contribution
 ---
 
 Contributers:  
- *  [dennis](https://github.com/dennisse)
- *  Pingu1
+
+*  [dennis](https://github.com/dennisse)
+*  Pingu1
 
 Special thanks to:  
- *  xtff
- *  FlashCode
+
+*  xt
+*  FlashCode
