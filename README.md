@@ -23,3 +23,14 @@ Start WeeChat Relay Protocol:
     npm install
     node app.js
 
+
+Contribution
+---
+
+Contributers:  
+ *  [dennis](https://github.com/dennisse)
+ *  Pingu1
+
+Special thanks to:  
+ *  xtff
+ *  FlashCode
