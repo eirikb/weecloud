@@ -7,18 +7,20 @@ block append head
 
   script(src='/js/main.js')
   script(src='/js/buffers.js')
+  script(src='/js/channels.js')
   script(src='/js/input.js')
   script(src='/js/info.js')
+  script(src='/js/color.js')
 
 block content
   if guid
     input#guid(type='hidden', value=guid)
   #header
-    span#error.hidden.label.label-error
+    span#important.hide.label.label-important
     span#info.label.label-info Connecting...
+    a#home.hide(href='/') Home
   #center
     #channels
     #nicklist
-    #chat
-      #scroll
+    #buffers
   #footer
