@@ -8,10 +8,14 @@ block append head
   script(src='/js/main.js')
   script(src='/js/buffers.js')
   script(src='/js/input.js')
+  script(src='/js/info.js')
 
 block content
+  if guid
+    input#guid(type='hidden', value=guid)
   #header
-    span stuff
+    span#error.hidden.label.label-error
+    span#info.label.label-info Connecting...
   #center
     #channels
     #nicklist

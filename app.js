@@ -43,8 +43,10 @@ app.get('/', function(req, res) {
     });
 });
 
-app.get('/relay/:guid', function(req, res) {
-    res.render('relay');
+app.get('/relay', function(req, res) {
+    res.render('relay', {
+        guid: ''
+    });
 });
 
 app.post('/relay', function(req, res) {
@@ -53,7 +55,9 @@ app.post('/relay', function(req, res) {
     if (b.host && b.port && b.password) {
         g = guid();
         refs[g] = b;
-        res.redirect('/relay/' + g);
+        res.render('relay', {
+            guid: g
+        });
     } else {
         res.redirect('/');
     }
