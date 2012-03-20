@@ -10,16 +10,11 @@ block append head
   script(src='/js/input.js')
 
 block content
-  .container-fluid
-    #info.row-fluid
-      .span12
-        h1#status Connecting...
-        a#retry(style='display:none', href='/') Try again
-    #main
-      ul.span2.nav.nav-list
-      .deck.center
-        #buffers.span10(style='display:none')
-          .tab-content
-    #foot
-      .deck
-        input(type='text')
+  #header
+    span stuff
+  #center
+    #channels
+    #nicklist
+    #chat
+      #scroll
+  #footer
