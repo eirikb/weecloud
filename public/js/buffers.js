@@ -1,10 +1,14 @@
-buffers = (function() {
+weecloud.buffers = (function() {
     var self = {};
 
     function appendLine($buffer, date, from, message) {
-        var from = weecloud.color(from),
-        message = weecloud.color(message),
-        $wrapper = $('<p>');
+        var $wrapper = $('<p>');
+
+        from = weecloud.color(from);
+        message = weecloud.color(message);
+
+        // Fade lines that might not have nicknames
+        if (from.match(/--/)) $wrapper.css('opacity', 0.5);
 
         date = builddate(date);
 
@@ -18,7 +22,7 @@ buffers = (function() {
     }
 
     function scrollBottom($buffer) {
-        $('#buffers').scrollTop($buffer.prop('scrollHeight'));
+        $('#buffers').scrollTop($buffer.prop('scrollHeight') + 100);
     }
 
     socket.on('buffer', function(buffer) {
@@ -36,6 +40,10 @@ buffers = (function() {
     socket.on('msg', function(msg) {
         var $buffer = $('#buffer-' + msg.bufferid);
         appendLine($buffer, msg.date, msg.from, msg.message);
+    });
+
+    socket.on('disconnect', function() {
+        $('#buffers').empty();
     });
 
     self.show = function(bufferId) {

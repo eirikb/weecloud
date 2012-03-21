@@ -22,14 +22,18 @@
 
         $channel.click(function() {
             setActive($channel);
-            buffers.show(buffer.id);
+            weecloud.buffers.show(buffer.id);
             $('select').val(buffer.id);
         });
 
         setActive($channel);
 
-        $('#channels').append($('<li>').append($channel));
+        $('#channels ul').append($('<li>').append($channel));
         $('select').append($sChannel);
+    });
+
+    socket.on('disconnect', function() {
+        $('#channels ul').empty();
     });
 
 })();
