@@ -37,7 +37,7 @@ app.get('/', function(req, res) {
     if (req.headers['x-forwarded-for']) {
         host = req.headers['x-forwarded-for'];
     }
-    res.render('index', {
+    res.render('lobby', {
         version: pkg.version,
         host: host
     });

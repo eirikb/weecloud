@@ -1,6 +1,10 @@
 extends layout
 
 block append head
+  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
+  link(rel='stylesheet', href='/css/lobby.css')
+
+  script(src='/js/lib/bootstrap.min.js')
   script(src='/js/lobby.js')
   include tracking
 

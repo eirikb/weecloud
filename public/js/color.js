@@ -22,7 +22,7 @@ weecloud.color = (function() {
                 'background-color': bg
             }).append(part.text);
             if (fg.match(/dark/i)) {
-                $part.css('color', changeColor.lighter($part.css('color'), 0.5));
+                $part.css('color', changecolor.lighter($part.css('color'), 0.5));
             }
             return $container.append($part).html();
         }).join('');

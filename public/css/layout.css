@@ -1,0 +1,65 @@
+body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+#content, #footer, #center {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+}
+
+#header, #footer {
+    height: 27px;
+}
+
+#footer {
+    bottom: 0;
+}
+
+#center {
+    top: 32px;
+    bottom: 32px;
+}
+
+#buffers {
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+#channels, #nicklist {
+    width: 160px;
+    height: 100%;
+}
+
+#channels {
+    float: left;
+}
+
+#nicklist {
+    float: right;
+}
+
+input {
+    width: 100%; 
+    height: 30px;
+    margin-left: 160px;
+}
+
+select {
+    display: none;
+}
+
+@media (max-width: 480px) { 
+    #channels, #nicklist {
+        display: none;
+    }
+    input {
+        margin-left: 0;
+    }
+    select {
+        display: inline-block;
+    }
+}

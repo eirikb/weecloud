@@ -27,6 +27,7 @@ exports.init = function(socket, data) {
                 handler = new Handler(weechat);
                 putHandler(data, handler);
                 handler.addSocket(socket);
+                socket.emit('auth');
             } else {
                 socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
             }
@@ -95,8 +96,8 @@ function Handler(weechat) {
 
         socket.emit('auth', true);
 
-        // Only 20 last lines
-        weechat.bufferlines(20, function(buffers) {
+        // Only 30 last lines
+        weechat.bufferlines(30, function(buffers) {
             buffers.forEach(function(buffer) {
                 buffer.lines = buffer.lines.map(function(line) {
                     return {
