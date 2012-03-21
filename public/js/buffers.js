@@ -18,7 +18,7 @@ buffers = (function() {
         $('#buffers').scrollTop($buffer.prop('scrollHeight'));
     }
 
-    socket.on('addBuffer', function(buffer) {
+    socket.on('buffer', function(buffer) {
         var $buffer = $('<div>');
 
         $buffer.attr('id', 'buffer-' + buffer.id);

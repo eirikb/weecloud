@@ -12,6 +12,10 @@
     });
 
     socket.on('auth', function() {
+        $('#info').show().text('Synchronizing...');
+    });
+
+    socket.on('synced', function() {
         $('#info').hide();
     });
 })();

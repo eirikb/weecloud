@@ -106,8 +106,9 @@ function Handler(weechat) {
                         message: getMessage(line.message)
                     };
                 });
-                socket.emit('addBuffer', buffer);
+                socket.emit('buffer', buffer);
             });
+            socket.emit('synced', 'done');
         });
     };
 }
