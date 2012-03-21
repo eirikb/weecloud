@@ -4,11 +4,11 @@ builddate = (function() {
         if (!isNaN(date)) {
             date = new Date(date);
             return $.map([date.getHours(), date.getMinutes(), date.getSeconds()], function(t) {
-                return t < 10 ? '0' + t: t
+                return t < 10 ? '0' + t: t;
             }).join(':') + ' ';
         }
         return false;
 
-    }
+    };
 })();
 
