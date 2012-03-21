@@ -25,6 +25,7 @@ body {
 
 #buffers {
     height: 100%;
+    word-wrap: break-word;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
@@ -48,10 +49,6 @@ input {
     margin-left: 160px;
 }
 
-select {
-    display: none;
-}
-
 @media (max-width: 480px) { 
     #channels, #nicklist {
         display: none;
@@ -59,7 +56,7 @@ select {
     input {
         margin-left: 0;
     }
-    select {
+    select.hide {
         display: inline-block;
     }
 }
