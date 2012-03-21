@@ -24,12 +24,12 @@ body {
     padding-left: 8px;
 }
 
-#channels, #nicklist {
+#channellist, #nicklist {
     background-color: #555;
     border-right: 1px solid #666;
 }
 
-#channels a {
+#channellist a {
     display: block;
     width: 120px; height: 25px;
     padding-left: 6px;
@@ -44,7 +44,7 @@ body {
     cursor: pointer;
 }
 
-#channels .active {
+#channellist .active {
     background-color: #872A36;
     border-color: #333 #555 #555 #333;
 }

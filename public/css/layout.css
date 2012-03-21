@@ -30,12 +30,12 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-#channels, #nicklist {
+#channellist, #nicklist {
     width: 160px;
     height: 100%;
 }
 
-#channels {
+#channellist {
     float: left;
 }
 
@@ -50,7 +50,7 @@ input {
 }
 
 @media (max-width: 480px) { 
-    #channels, #nicklist {
+    #channellist, #nicklist {
         display: none;
     }
     input {

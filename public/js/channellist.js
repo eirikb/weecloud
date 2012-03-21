@@ -1,7 +1,7 @@
 (function() {
 
     function setActive($channel) {
-        $('#channels .active').removeClass('active');
+        $('#channellist .active').removeClass('active');
         $channel.addClass('active');
     }
 
@@ -28,12 +28,12 @@
 
         setActive($channel);
 
-        $('#channels ul').append($('<li>').append($channel));
+        $('#channellist ul').append($('<li>').append($channel));
         $('select').append($sChannel);
     });
 
     socket.on('disconnect', function() {
-        $('#channels ul').empty();
+        $('#channellist ul').empty();
     });
 
 })();
