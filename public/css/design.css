@@ -35,18 +35,18 @@ body {
     padding-left: 6px;
     line-height: 25px;
     color: #ddd;
-    background-color: #872A36;
+    background-color: #9E3140;
+    border-color: #BD3B4C #872A36 #444 #BD3B4C;
     margin-bottom: 5px;
     margin-left: 4px;
-    border-color: #333 #555 #555 #333;
     border-style: solid;
     border-width: 1px;
     cursor: pointer;
 }
 
 #channels .active {
-    background-color: #9E3140;
-    border-color: #BD3B4C #872A36 #444 #BD3B4C;
+    background-color: #872A36;
+    border-color: #333 #555 #555 #333;
 }
 
 input {
