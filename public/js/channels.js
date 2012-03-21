@@ -1,8 +1,12 @@
 (function() {
     socket.on('addBuffer', function(buffer) {
-        var $channel = $('<p>').text(buffer.name);
+        var $channel = $('<a>').text(buffer.name);
 
-        $('#channels').append($channel);
+        $channel.click(function() {
+            buffers.show(buffer.id);
+        });
+
+        $('#channels').append($('<li>').append($channel));
     });
 })();
 
