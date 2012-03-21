@@ -20,14 +20,19 @@ block append head
 block content
   if guid
     input#guid(type='hidden', value=guid)
+
   #header
     span#important.hide.label.label-important
+    span#warning.hide.label.label-warning
     span#info.label.label-info Connecting...
     a#home.hide(href='/') Home
     select.hide
+
   #center
-    ul#channels.nav
+    #channels
+      ul.nav
     #nicklist
     #buffers
+
   #footer
-    input(type='text')
+    input.input-xxlarge(type='text')
