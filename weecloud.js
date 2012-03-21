@@ -7,7 +7,7 @@ function getHandler(data) {
     var h = handlers;
 
     ['host', 'port', 'password'].forEach(function(n) {
-        if (h) h = h[data[n]];
+        if (h) h = h[data[n]];
     });
     return h;
 }
