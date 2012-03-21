@@ -1,4 +1,5 @@
 (function() {
+
     socket.on('disconnect', function() {
         $('#home').show();
         $('#important').hide();
@@ -18,5 +19,6 @@
     socket.on('synced', function() {
         $('#info').hide();
     });
+
 })();
 

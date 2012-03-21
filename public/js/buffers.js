@@ -6,7 +6,10 @@ buffers = (function() {
         message = weecloud.color(message),
         $wrapper = $('<p>');
 
-        $wrapper.append(from).append(message);
+        date = builddate(date);
+
+        $wrapper.append(date);
+        $wrapper.append(from + ': ').append(message);
 
         $buffer.append($wrapper);
         if ($buffer.is(':visible')) {
