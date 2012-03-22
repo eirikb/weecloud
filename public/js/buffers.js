@@ -1,5 +1,10 @@
 weecloud.buffers = (function() {
-    var current, self = {};
+    var $current, $container, self = {},
+    containerId = '#buffers';
+
+    $(function() {
+        $container = $(containerId);
+    });
 
     function appendLine($buffer, date, from, message) {
         var $wrapper = $('<p>');
@@ -9,7 +14,6 @@ weecloud.buffers = (function() {
 
         // Fade lines that might not have nicknames
         if (from.match(/--/)) $wrapper.css('opacity', 0.5);
-
         date = builddate(date);
 
         $wrapper.append(date);
@@ -22,14 +26,15 @@ weecloud.buffers = (function() {
     }
 
     function scrollBottom($buffer) {
-        $('#buffers').scrollTop($buffer.prop('scrollHeight') + 100);
+        $container.scrollTop($buffer.prop('scrollHeight') + 100);
     }
 
     socket.on('buffer', function(buffer) {
         var $buffer = $('<div>');
 
         $buffer.attr('id', 'buffer-' + buffer.id);
-        $('#buffers').append($buffer);
+
+        $container.append($buffer);
         self.show(buffer.id);
 
         $.each(buffer.lines, function(i, line) {
@@ -38,26 +43,30 @@ weecloud.buffers = (function() {
     });
 
     socket.on('msg', function(msg) {
-        var $buffer = $('#buffer-' + msg.bufferid);
+        var $buffer = self.getByBufferId(msg.bufferid);
         appendLine($buffer, msg.date, msg.from, msg.message);
     });
 
     socket.on('disconnect', function() {
-        $('#buffers').empty();
+        $container.empty();
     });
 
     self.show = function(bufferId) {
-        var $buffer = $('#buffer-' + bufferId);
+        var $buffer = self.getByBufferId(bufferId);
 
-        $('#buffers div').hide();
+        // Hide every buffer
+        $container.children('div').hide();
         $buffer.show();
 
         scrollBottom($buffer);
-        current = bufferId;
     };
 
-    self.current = function() {
-        return current;
+    self.getByBufferId = function(bufferId) {
+        return $container.find('#buffer-' + bufferId);
+    };
+
+    self.getCurrent = function() {
+        return $current;
     };
 
     return self;

@@ -3,7 +3,7 @@
     $(function() {
         var history = [],
         historyPos = 0,
-        $input = $('input');
+        $input = $('#footer input');
 
         $input.keydown(function(e) {
             var line, currentPos = historyPos;
@@ -16,7 +16,7 @@
                     historyPos = history.length;
 
                     socket.emit('msg', {
-                        id: weecloud.buffers.current(),
+                        id: weecloud.buffers.getOpen().data('id'),
                         line: line
                     });
                 }
