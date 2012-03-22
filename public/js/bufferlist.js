@@ -61,11 +61,18 @@
     }
 
     socket.on('buffer', function(buffer) {
-        var group, $group, $buffer = $('<a>').text(buffer.name),
+        var group, channel, $group, $buffer = $('<a>'),
         $sBuffer = $('<option>').text(buffer.name);
 
-        if (buffer.channel) group = buffer.name.replace(buffer.channel, '').slice(0, - 1);
-        else group = 'default';
+        if (buffer.channel) {
+            group = buffer.name.replace(buffer.channel, '').slice(0, - 1);
+            channel = buffer.channel;
+        } else {
+            group = 'default';
+            channel = buffer.name;
+        }
+
+        $buffer.text(channel);
 
         $group = getOrSetGroup(group);
 
