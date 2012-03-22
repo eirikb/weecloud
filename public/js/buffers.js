@@ -1,5 +1,5 @@
 weecloud.buffers = (function() {
-    var self = {};
+    var current, self = {};
 
     function appendLine($buffer, date, from, message) {
         var $wrapper = $('<p>');
@@ -53,6 +53,11 @@ weecloud.buffers = (function() {
         $buffer.show();
 
         scrollBottom($buffer);
+        current = bufferId;
+    };
+
+    self.current = function() {
+        return current;
     };
 
     return self;

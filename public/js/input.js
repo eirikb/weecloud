@@ -1,10 +1,8 @@
 (function() {
-    var $input;
 
     $(function() {
         var history = [],
-        historyPos = 0;
-
+        historyPos = 0,
         $input = $('input');
 
         $input.keydown(function(e) {
@@ -16,7 +14,11 @@
                     $input.val('');
                     history.push(line);
                     historyPos = history.length;
-                    weecloud.main.msg(line);
+
+                    socket.emit('msg', {
+                        id: weecloud.buffers.current(),
+                        line: line
+                    });
                 }
                 return false;
             case 38:
