@@ -15,11 +15,25 @@
         // Remove active from every buffer
         $container.find('.active').removeClass('active');
         $buffer.addClass('active');
+        $buffer.data('count', 0);
+        updateCount($buffer);
+        $current = $buffer;
+    }
+
+    function updateCount($buffer) {
+        var count = $buffer.data('count'),
+        $counter = $buffer.find('span');
+
+        if (count <= 0) $counter.hide();
+        else $counter.show().text('(' + count + ')');
     }
 
     socket.on('buffer', function(buffer) {
         var $buffer = $('<a>').text(buffer.name),
         $sBuffer = $('<option>').text(buffer.name);
+
+        // For update counting
+        $buffer.append('<span>');
 
         $buffer.attr('id', 'bufferlist-' + buffer.id);
         $sBuffer.data('ref', $buffer);
@@ -41,7 +55,16 @@
         $container.empty();
     });
 
-    socket.on('msg', function(msg) {});
+    socket.on('msg', function(msg) {
+        var $buffer = $container.find('#bufferlist-' + msg.bufferid),
+        count = $buffer.data('count');
+
+        if ($buffer !== $current) {
+            count++;
+            $buffer.data('count', count);
+            updateCount($buffer);
+        }
+    });
 
 })();
 
