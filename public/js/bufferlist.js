@@ -12,7 +12,7 @@
     });
 
     function setActive($buffer) {
-        // Remove active from every buffer
+        // Remove active from every active buffer
         $container.find('.active').removeClass('active');
         $buffer.addClass('active');
         $buffer.data('count', 0);
@@ -28,9 +28,31 @@
         else $counter.show().text('(' + count + ')');
     }
 
+    function getOrSetGroup(name) {
+        var $button, $group = $('#group-' + name);
+        if ($group.size() === 0) {
+            $button =  $('<button>').addClass('btn btn-mini').text(name);
+            $button.click(function() {
+                $group.children('ul').slideToggle();
+            });
+            //$container.append($button);
+
+            $group = $('<li>').attr('id', 'group-' + name).slideUp(0);
+            $group.append($button);
+            $group.append($('<ul>').addClass('nav'));
+            $container.children('ul').append($group);
+        }
+        return $group.find('ul');
+    }
+
     socket.on('buffer', function(buffer) {
-        var $buffer = $('<a>').text(buffer.name),
+        var group, $group, $buffer = $('<a>').text(buffer.name),
         $sBuffer = $('<option>').text(buffer.name);
+
+        if (buffer.channel) group = buffer.name.replace(buffer.channel, '').slice(0, -1);
+        else group = 'default';
+
+        $group = getOrSetGroup(group);
 
         // For update counting
         $buffer.append('<span>');
@@ -47,7 +69,7 @@
 
         setActive($buffer);
 
-        $container.find('ul').append($('<li>').append($buffer));
+        $group.append($('<li>').append($buffer));
         $('select').append($sBuffer);
     });
 
@@ -59,10 +81,14 @@
         var $buffer = $container.find('#bufferlist-' + msg.bufferid),
         count = $buffer.data('count');
 
-        if ($buffer !== $current) {
-            count++;
-            $buffer.data('count', count);
-            updateCount($buffer);
+        // Checks if the msg is a real message and not a status (quit/join)
+        // Didn't see any other soltuion at the moment
+        if (!weecloud.color(msg.from).match(/--/)) {
+            if ($buffer.attr('id') !== $current.attr('id')) {
+                count++;
+                $buffer.data('count', count);
+                updateCount($buffer);
+            }
         }
     });
 
