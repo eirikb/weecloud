@@ -11,7 +11,7 @@ body {
 }
 
 #header, #footer {
-    height: 27px;
+    height: 35px;
 }
 
 #footer {
@@ -19,8 +19,8 @@ body {
 }
 
 #center {
-    top: 32px;
-    bottom: 32px;
+    top: 37px;
+    bottom: 37px;
 }
 
 #buffers {
@@ -33,6 +33,7 @@ body {
 #bufferlist, #nicklist {
     width: 160px;
     height: 100%;
+    overflow: hidden;
 }
 
 #bufferlist {
@@ -50,7 +51,7 @@ input {
 }
 
 @media (max-width: 480px) { 
-    #bufferlist, #nicklist {
+    #bufferlist, #nicklist, #hidebufferlist {
         display: none;
     }
     input {

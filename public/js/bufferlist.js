@@ -2,12 +2,29 @@
     var $container, containerId = '#bufferlist';
 
     $(function() {
+        var width;
+
         $container = $(containerId);
+        width = $container.width();
 
         $('select').change(function() {
             $(this).find(':selected').each(function() {
                 $(this).data('ref').click();
             });
+        });
+
+        $('#hidebufferlist').click(function() {
+            if ($container.width() < 10) {
+                $container.animate({
+                    width: width
+                },
+                1000);
+            } else {
+                $container.animate({
+                    width: 0
+                },
+                1000);
+            }
         });
     });
 
@@ -31,12 +48,10 @@
     function getOrSetGroup(name) {
         var $button, $group = $('#group-' + name);
         if ($group.size() === 0) {
-            $button =  $('<button>').addClass('btn btn-mini').text(name);
+            $button = $('<button>').addClass('btn btn-mini').text(name);
             $button.click(function() {
                 $group.children('ul').slideToggle();
             });
-            //$container.append($button);
-
             $group = $('<li>').attr('id', 'group-' + name).slideUp(0);
             $group.append($button);
             $group.append($('<ul>').addClass('nav'));
@@ -49,7 +64,7 @@
         var group, $group, $buffer = $('<a>').text(buffer.name),
         $sBuffer = $('<option>').text(buffer.name);
 
-        if (buffer.channel) group = buffer.name.replace(buffer.channel, '').slice(0, -1);
+        if (buffer.channel) group = buffer.name.replace(buffer.channel, '').slice(0, - 1);
         else group = 'default';
 
         $group = getOrSetGroup(group);
