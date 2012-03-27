@@ -1,7 +1,7 @@
 wc.buffers = (function() {
     var self = {};
 
-    var $current, $container, containerId = '#buffers';
+    var $container, containerId = '#buffers';
 
     $(function() {
         $container = $(containerId);
@@ -59,15 +59,13 @@ wc.buffers = (function() {
         $container.children('div').hide();
         $buffer.show();
 
+        self.current = bufferId;
+
         scrollBottom($buffer);
     };
 
     self.getByBufferId = function(bufferId) {
         return $container.find('#buffer-' + bufferId);
-    };
-
-    self.getCurrent = function() {
-        return $current;
     };
 
     return self;

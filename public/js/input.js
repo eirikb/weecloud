@@ -17,7 +17,7 @@ wc.input = (function() {
                     historyPos = history.length;
 
                     wc.socket.emit('msg', {
-                        id: wc.buffers.getOpen().data('id'),
+                        id: wc.buffers.current,
                         line: line
                     });
                 }
