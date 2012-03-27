@@ -14,20 +14,6 @@ wc.bufferlist = (function() {
                 $(this).data('ref').click();
             });
         });
-
-        $('#hidebufferlist').click(function() {
-            if ($container.width() < 10) {
-                $container.animate({
-                    width: width
-                },
-                1000);
-            } else {
-                $container.animate({
-                    width: 0
-                },
-                1000);
-            }
-        });
     });
 
     function setActive($buffer) {
