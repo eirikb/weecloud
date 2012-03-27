@@ -1,5 +1,7 @@
-builddate = (function() {
-    return function(date) {
+wc.date = (function() {
+    var self = {};
+
+    self.build = function(date) {
         date = parseInt(date, 10) * 1000;
         if (!isNaN(date)) {
             date = new Date(date);
@@ -8,7 +10,8 @@ builddate = (function() {
             }).join(':') + ' ';
         }
         return false;
-
     };
+
+    return self;
 })();
 

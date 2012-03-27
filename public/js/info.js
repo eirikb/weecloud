@@ -1,28 +1,30 @@
-(function() {
+wc.info = (function() {
+    var self = {};
 
-    socket.on('disconnect', function() {
+    wc.socket.on('disconnect', function() {
         $('#home').show();
         $('#important').hide();
         $('#warning').show().text('Disconnected');
     });
 
-    socket.on('error', function(err) {
+    wc.socket.on('error', function(err) {
         $('#home').show();
         $('#info').hide();
         $('#important').show().text('Error: ' + err);
     });
 
-    socket.on('connect', function() {
+    wc.socket.on('connect', function() {
         $('#home, #important').hide();
     });
 
-    socket.on('auth', function() {
+    wc.socket.on('auth', function() {
         $('#info').show().text('Synchronizing...');
     });
 
-    socket.on('synced', function() {
+    wc.socket.on('synced', function() {
         $('#info').hide();
     });
 
+    return self;
 })();
 

@@ -1,4 +1,5 @@
-(function() {
+wc.input = (function() {
+    var self = {};
 
     $(function() {
         var history = [],
@@ -15,8 +16,8 @@
                     history.push(line);
                     historyPos = history.length;
 
-                    socket.emit('msg', {
-                        id: weecloud.buffers.getOpen().data('id'),
+                    wc.socket.emit('msg', {
+                        id: wc.buffers.getOpen().data('id'),
                         line: line
                     });
                 }
@@ -41,5 +42,6 @@
         });
     });
 
+    return self;
 })();
 

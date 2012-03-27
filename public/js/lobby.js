@@ -1,3 +1,4 @@
+// Not following the module pattern, only meant for lobby
 $(function() {
     var connections = getConnections(),
     $remembered = $('tbody'),

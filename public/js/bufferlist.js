@@ -1,4 +1,6 @@
-(function() {
+wc.bufferlist = (function() {
+    var self = {};
+
     var $container, containerId = '#bufferlist';
 
     $(function() {
@@ -60,7 +62,7 @@
         return $group.find('ul');
     }
 
-    socket.on('buffer', function(buffer) {
+    wc.socket.on('buffer', function(buffer) {
         var group, channel, $group, $buffer = $('<a>'),
         $sBuffer = $('<option>').text(buffer.name);
 
@@ -85,7 +87,7 @@
 
         $buffer.click(function() {
             setActive($buffer);
-            weecloud.buffers.show(buffer.id);
+            wc.buffers.show(buffer.id);
             $('select').val(buffer.id);
         });
 
@@ -95,17 +97,17 @@
         $('select').append($sBuffer);
     });
 
-    socket.on('disconnect', function() {
+    wc.socket.on('disconnect', function() {
         $container.empty();
     });
 
-    socket.on('msg', function(msg) {
+    wc.socket.on('msg', function(msg) {
         var $buffer = $container.find('#bufferlist-' + msg.bufferid),
         count = $buffer.data('count');
 
         // Checks if the msg is a real message and not a status (quit/join)
         // Didn't see any other soltuion at the moment
-        if (!weecloud.color(msg.from).match(/--/)) {
+        if (!wc.color.parse(msg.from).match(/--/)) {
             if ($buffer.attr('id') !== $current.attr('id')) {
                 count++;
                 $buffer.data('count', count);
@@ -114,5 +116,6 @@
         }
     });
 
+    return self;
 })();
 

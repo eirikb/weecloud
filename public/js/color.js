@@ -1,6 +1,7 @@
-weecloud.color = (function() {
+wc.color = (function() {
+    var self = {};
 
-    return function(parts) {
+    self.parse = function(parts) {
         if (!parts) {
             return '';
         }
@@ -27,5 +28,7 @@ weecloud.color = (function() {
             return $container.append($part).html();
         }).join('');
     };
+
+    return self;
 })();
 
