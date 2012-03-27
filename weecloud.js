@@ -63,7 +63,7 @@ function Handler(weechat) {
         buffers.forEach(function(buffer) {
             if (buffer && buffer.pointers) {
                 buffer.id = buffer.pointers[0];
-                emit('addBuffer', buffer);
+                emit('buffer', buffer);
             } else {
                 console.error('Buffer has no pointers: ', buffer);
             }
