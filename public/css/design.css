@@ -29,7 +29,7 @@ body {
 #buffers {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    background-color: #383838;
+    background-color: #1E1E1E;
     border-top: 1px solid #222;
     border-left: 1px solid #222;
     padding-left: 8px;
@@ -72,7 +72,6 @@ body {
 
 input {
     color: #FFF;
-    margin-left: 160px;
     background-color: #555;
     border-color: #222 #999 #999 #222;
     border-style: solid;
