@@ -1,5 +1,5 @@
-var w = require('weechat'),
-sanitize = require('validator').sanitize;
+var WeeChat = require('weechat');
+var sanitize = require('validator').sanitize;
 
 var handlers = {};
 
@@ -19,12 +19,14 @@ function putHandler(data, handler) {
 }
 
 exports.init = function(socket, data) {
-    var weechat, handler = getHandler(data);
+    var handler = getHandler(data);
+    var weeChat = new WeeChat();
+
 
     if (!handler) {
-        weechat = w.connect(data.port, data.host, data.password, function(err) {
+        weeChat.connect(data.host, data.port, data.password, function(err) {
             if (!err) {
-                handler = new Handler(weechat);
+                handler = new Handler(weeChat);
                 putHandler(data, handler);
                 handler.addSocket(socket);
                 socket.emit('auth');
@@ -32,7 +34,7 @@ exports.init = function(socket, data) {
                 socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
             }
         });
-        weechat.on('error', function(err) {
+        weeChat.on('error', function(err) {
             socket.emit('error', 'Something borked  -  ' + err);
             console.error(err);
         });
@@ -41,7 +43,7 @@ exports.init = function(socket, data) {
     }
 };
 
-function getMessage(message) {
+function getMessage(w, message) {
     message = w.style(message).map(function(part) {
         part.text = sanitize(part.text).entityEncode();
         return part;
@@ -49,8 +51,8 @@ function getMessage(message) {
     return message;
 }
 
-function Handler(weechat) {
-    if (! (this instanceof Handler)) return new Handler(weechat);
+function Handler(weeChat) {
+    if (! (this instanceof Handler)) return new Handler(weeChat);
     var sockets = [];
 
     function emit(a, b) {
@@ -59,7 +61,7 @@ function Handler(weechat) {
         });
     }
 
-    weechat.on('open', function(buffers) {
+    weeChat.on('open', function(buffers) {
         buffers.forEach(function(buffer) {
             if (buffer && buffer.pointers) {
                 buffer.id = buffer.pointers[0];
@@ -70,19 +72,19 @@ function Handler(weechat) {
         });
     });
 
-    weechat.on('close', function(buffers) {
+    weeChat.on('close', function(buffers) {
         buffers.forEach(function(buffer) {
             emit('closeBuffer', buffer.buffer);
         });
     });
 
-    weechat.on('line', function(lines) {
+    weeChat.on('line', function(lines) {
         lines.forEach(function(line) {
             emit('msg', {
                 bufferid: line.buffer,
-                from: w.style(line.prefix),
+                from: weeChat.style(line.prefix),
                 date: line.date,
-                message: getMessage(line.message)
+                message: getMessage(weeChat, line.message)
             });
         });
     });
@@ -91,19 +93,19 @@ function Handler(weechat) {
         sockets.push(socket);
 
         socket.on('msg', function(msg) {
-            weechat.write('input ' + msg.id + ' ' + msg.line);
+            weeChat.write('input ' + msg.id + ' ' + msg.line);
         });
 
         socket.emit('auth', true);
 
         // Only 30 last lines
-        weechat.bufferlines(30, function(buffers) {
+        weeChat.bufferlines(30, function(buffers) {
             buffers.forEach(function(buffer) {
                 buffer.lines = buffer.lines.map(function(line) {
                     return {
-                        prefix: w.style(line.prefix),
+                        prefix: weeChat.style(line.prefix),
                         date: line.date,
-                        message: getMessage(line.message)
+                        message: getMessage(weeChat, line.message)
                     };
                 });
                 socket.emit('buffer', buffer);
