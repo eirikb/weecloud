@@ -1,11 +1,11 @@
-var express = require('express'),
-weecloud = require('./weecloud.js');
+var express = require('express');
+var weecloud = require('./weecloud.js');
 
-var app = module.exports = express.createServer(),
-io = require('socket.io').listen(app),
-port = process.env.PORT || 5000,
-refs = {},
-pkg = require('./package.json');
+var app = module.exports = express.createServer();
+var io = require('socket.io').listen(app);
+var port = process.env.PORT || 5000;
+var refs = {};
+var pkg = require('./package.json');
 
 io.set('log level', 1);
 
