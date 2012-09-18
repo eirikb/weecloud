@@ -7,9 +7,9 @@
   },
   "version": "0.1.0",
   "dependencies": {
-    "express": "2.5.5",
+    "express": "3.0.0rc4",
     "jade": ">= 0.0.1",
-    "socket.io": "0.9.7",
+    "socket.io": "0.9.10",
     "validator": "0.4.2",
     "weechat": "0.0.13"
   },
