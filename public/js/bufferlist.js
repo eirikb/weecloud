@@ -88,6 +88,12 @@ wc.bufferlist = (function() {
             setActive($buffer);
             wc.buffers.show(buffer.id);
             $('select').val(buffer.id);
+            if ($('#syncmovement').is(':checked')) {
+                wc.socket.emit('msg', {
+                    id: wc.buffers.current,
+                    line: '/buffer ' + buffer.channel
+                });
+            }
         });
 
         setActive($buffer);
