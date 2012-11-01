@@ -1,7 +1,9 @@
 wc.bufferlist = (function() {
     var self = {};
 
-    var $container, containerId = '#bufferlist';
+    var $container;
+    var containerId = '#bufferlist';
+    var groups = {};
 
     $(function() {
         var width;
@@ -27,33 +29,35 @@ wc.bufferlist = (function() {
 
     function updateCount($buffer) {
         var count = $buffer.data('count'),
-        $counter = $buffer.find('span');
+            $counter = $buffer.find('span');
 
         if (count <= 0) $counter.hide();
         else $counter.show().text('(' + count + ')');
     }
 
     function getOrSetGroup(name) {
-        var $button, $group = $('#group-' + name);
-        if ($group.size() === 0) {
-            $button = $('<button>').addClass('btn btn-mini').text(name);
-            $button.click(function() {
-                $group.children('ul').slideToggle();
-            });
-            $group = $('<li>').attr('id', 'group-' + name).slideUp(0);
-            $group.append($button);
-            $group.append($('<ul>').addClass('nav'));
-            $container.children('ul').append($group);
-        }
+        var $group = groups[name];
+        if ($group) return $group.find('ul');
+
+        $group = $('<li>').attr('id', 'group-' + name).slideUp(0);
+        groups[name] = $group;
+
+        var $button = $('<button>').addClass('btn btn-mini').text(name);
+        $button.click(function() {
+            $group.children('ul').slideToggle();
+        });
+        $group.append($button);
+        $group.append($('<ul>').addClass('nav'));
+        $container.children('ul').append($group);
         return $group.find('ul');
     }
 
     wc.socket.on('buffer', function(buffer) {
         var group, channel, $group, $buffer = $('<a>'),
-        $sBuffer = $('<option>').text(buffer.name);
+            $sBuffer = $('<option>').text(buffer.name);
 
         if (buffer.channel) {
-            group = buffer.name.replace(buffer.channel, '').slice(0, - 1);
+            group = buffer.name.replace(buffer.channel, '').slice(0, -1);
             channel = buffer.channel;
         } else {
             group = 'default';
@@ -89,7 +93,7 @@ wc.bufferlist = (function() {
 
     wc.socket.on('msg', function(msg) {
         var $buffer = $container.find('#bufferlist-' + msg.bufferid),
-        count = $buffer.data('count');
+            count = $buffer.data('count');
 
         // Checks if the msg is a real message and not a status (quit/join)
         // Didn't see any other soltuion at the moment
@@ -104,4 +108,3 @@ wc.bufferlist = (function() {
 
     return self;
 })();
-
