@@ -1,6 +1,7 @@
 var wc = {};
 
 wc.socket = io.connect();
+kibo = new Kibo();
 
 wc.socket.on('connect', function() {
     $(function() {

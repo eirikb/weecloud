@@ -18,6 +18,14 @@ wc.bufferlist = (function() {
         });
     });
 
+    kibo.down('alt a', function() {
+        var $buffer = $('#bufferlist a').sort(function(a, b) {
+            return $(b).data('count') - $(a).data('count');
+        }).first();
+        if ($buffer.data('count') <= 0) return;
+        $buffer.click();
+    });
+
     function setActive($buffer) {
         // Remove active from every active buffer
         $container.find('.active').removeClass('active');
