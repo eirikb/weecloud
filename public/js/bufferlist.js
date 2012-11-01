@@ -39,7 +39,7 @@ wc.bufferlist = (function() {
         var $group = groups[name];
         if ($group) return $group.find('ul');
 
-        $group = $('<li>').attr('id', 'group-' + name).slideUp(0);
+        $group = $('<li>').attr('id', 'group-' + name);
         groups[name] = $group;
 
         var $button = $('<button>').addClass('btn btn-mini').text(name);
@@ -67,6 +67,7 @@ wc.bufferlist = (function() {
         $buffer.text(channel);
 
         $group = getOrSetGroup(group);
+        if (group === 'default' || group === 'server') $group.slideUp(0);
 
         // For update counting
         $buffer.append('<span>');
