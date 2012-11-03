@@ -34,6 +34,7 @@ wc.bufferlist = (function() {
             return false;
         });
     });
+    /*
     kibo.down('esc', function() {
         _.each(_.range(1, 10), function(i) {
             kibo.down('' + i, function() {
@@ -44,6 +45,7 @@ wc.bufferlist = (function() {
             });
         });
     });
+   */
 
     function setActive($buffer) {
         // Remove active from every active buffer
