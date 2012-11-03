@@ -4,6 +4,7 @@ wc.bufferlist = (function() {
     var $container;
     var containerId = '#bufferlist';
     var groups = {};
+    var $buffers = {};
 
     $(function() {
         var width;
@@ -24,6 +25,22 @@ wc.bufferlist = (function() {
         }).first();
         if ($buffer.data('count') <= 0) return;
         $buffer.click();
+    });
+    _.each(_.range(1, 10), function(i) {
+        kibo.down('alt ' + i, function() {
+            var $buffer = $buffers[i];
+            if (!$buffer) return;
+            $buffer.click();
+        });
+    });
+    kibo.down('esc', function() {
+        _.each(_.range(1, 10), function(i) {
+            kibo.down('' + i, function() {
+                var $buffer = $buffers[i];
+                if (!$buffer) return;
+                $buffer.click();
+            });
+        });
     });
 
     function setActive($buffer) {
@@ -63,6 +80,7 @@ wc.bufferlist = (function() {
     wc.socket.on('buffer', function(buffer) {
         var group, channel, $group, $buffer = $('<a>'),
             $sBuffer = $('<option>').text(buffer.name);
+        $buffers[buffer.number] = $buffer;
 
         if (buffer.channel) {
             group = buffer.name.replace(buffer.channel, '').slice(0, -1);
