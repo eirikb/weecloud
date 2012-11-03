@@ -18,7 +18,7 @@ wc.buffers = (function() {
         date = wc.date.build(date);
 
         $wrapper.append(date);
-        $wrapper.append(from + ': ').append(message);
+        $wrapper.append('<span class="from">' + from + '</span>: ').append(message);
         $wrapper.find('a').each(function() {
             var $a = $(this);
             var $img = $('<img>').attr('src', '/img/open.jpg');
@@ -27,6 +27,11 @@ wc.buffers = (function() {
                 $('#preview').modal();
             });
             $a.after($img);
+        });
+        $wrapper.find('.from').click(function() {
+            var $input = $('#footer input');
+            if ($input.val().length > 0) return;
+            $input.val($(this).text() + ': ');
         });
 
         $buffer.append($wrapper);
