@@ -31,6 +31,7 @@ wc.bufferlist = (function() {
             var $buffer = $buffers[i];
             if (!$buffer) return;
             $buffer.click();
+            return false;
         });
     });
     kibo.down('esc', function() {
@@ -39,6 +40,7 @@ wc.bufferlist = (function() {
                 var $buffer = $buffers[i];
                 if (!$buffer) return;
                 $buffer.click();
+                return false;
             });
         });
     });
@@ -50,6 +52,7 @@ wc.bufferlist = (function() {
         $buffer.data('count', 0);
         updateCount($buffer);
         $current = $buffer;
+        $('#footer input').focus();
     }
 
     function updateCount($buffer) {
