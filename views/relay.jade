@@ -19,6 +19,13 @@ block append head
   script(src='/js/date.js')
 
 block content
+  #preview.modal.hide.fade
+    .modal-header
+    .modal-body
+      iframe#preview-content
+    .modal-footer
+      button.btn(data-dismiss='modal', aria-hidden='true') Close
+  a.btn(href='#preview', role='button', data-toggle='modal') Preview
   if guid
     input#guid(type='hidden', value=guid)
 

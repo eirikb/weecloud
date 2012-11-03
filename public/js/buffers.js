@@ -19,6 +19,15 @@ wc.buffers = (function() {
 
         $wrapper.append(date);
         $wrapper.append(from + ': ').append(message);
+        $wrapper.find('a').each(function() {
+            var $a = $(this);
+            var $img = $('<img>').attr('src', '/img/open.jpg');
+            $img.click(function() {
+                $('#preview-content').attr('src', $a.attr('href'));
+                $('#preview').modal();
+            });
+            $a.after($img);
+        });
 
         $buffer.append($wrapper);
         if ($buffer.is(':visible')) {
