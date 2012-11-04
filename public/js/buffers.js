@@ -31,7 +31,7 @@ wc.buffers = (function() {
         $wrapper.find('.from').click(function() {
             var $input = $('#footer input');
             if ($input.val().length > 0) return;
-            $input.val($(this).text() + ': ');
+            $input.val($(this).text() + ': ').focus();
         });
 
         $buffer.append($wrapper);
