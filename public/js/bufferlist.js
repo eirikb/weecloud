@@ -63,11 +63,13 @@ wc.bufferlist = (function() {
     }
 
     function updateCount($buffer) {
-        var count = $buffer.data('count'),
-            $counter = $buffer.find('span');
+        var count = $buffer.data('count');
+        var $counter = $buffer.find('span');
 
-        if (count <= 0) $counter.hide();
+        if (count <= 0) $counter.hide().text('');
         else $counter.show().text('(' + count + ')');
+
+        $buffer.data('ref').text($buffer.text());
     }
 
     function getOrSetGroup(name) {
@@ -88,8 +90,8 @@ wc.bufferlist = (function() {
     }
 
     wc.socket.on('buffer', function(buffer) {
-        var group, channel, $group, $buffer = $('<a>'),
-            $sBuffer = $('<option>').text(buffer.name);
+        var group, channel, $group, $buffer = $('<a>');
+        var $sBuffer = $('<option>').text(buffer.name);
         $buffers[buffer.number] = $buffer;
 
         if (buffer.channel) {
@@ -109,6 +111,7 @@ wc.bufferlist = (function() {
         $buffer.append('<span>');
 
         $buffer.attr('id', 'bufferlist-' + buffer.id);
+        $buffer.data('ref', $sBuffer);
         $sBuffer.data('ref', $buffer);
         $sBuffer.val(buffer.id);
 
@@ -135,8 +138,8 @@ wc.bufferlist = (function() {
     });
 
     wc.socket.on('msg', function(msg) {
-        var $buffer = $container.find('#bufferlist-' + msg.bufferid),
-            count = $buffer.data('count');
+        var $buffer = $container.find('#bufferlist-' + msg.bufferid);
+        var count = $buffer.data('count');
 
         // Checks if the msg is a real message and not a status (quit/join)
         // Didn't see any other soltuion at the moment
