@@ -34,18 +34,23 @@ wc.bufferlist = (function() {
             return false;
         });
     });
-    /*
+    var esc = 0;
+    kibo.down('any', function() {
+        if (esc < 0) return;
+        esc--;
+    });
     kibo.down('esc', function() {
-        _.each(_.range(1, 10), function(i) {
-            kibo.down('' + i, function() {
-                var $buffer = $buffers[i];
-                if (!$buffer) return;
-                $buffer.click();
-                return false;
-            });
+        esc = 2;
+    });
+    _.each(_.range(1, 10), function(i) {
+        kibo.down('' + i, function() {
+            if (esc <= 0) return;
+            var $buffer = $buffers[i];
+            if (!$buffer) return;
+            $buffer.click();
+            return false;
         });
     });
-   */
 
     function setActive($buffer) {
         // Remove active from every active buffer
