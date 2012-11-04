@@ -45,7 +45,7 @@ $(function() {
             $.each(connection, function(name, val) {
                 $('[name=' + name + ']').val(val);
             });
-            $('button:submit').click();
+            $('#connect-btn').click();
         });
 
         $tr.append('<td>' + connection.host);
