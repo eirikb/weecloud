@@ -5,6 +5,7 @@ wc.bufferlist = (function() {
     var containerId = '#bufferlist';
     var groups = {};
     var $buffers = {};
+    var $current;
 
     $(function() {
         var width;
@@ -144,7 +145,7 @@ wc.bufferlist = (function() {
         // Checks if the msg is a real message and not a status (quit/join)
         // Didn't see any other soltuion at the moment
         if (!wc.color.parse(msg.from).match(/--/)) {
-            if ($buffer.attr('id') !== $current.attr('id')) {
+            if ($current && ($buffer.attr('id') !== $current.attr('id'))) {
                 count++;
                 $buffer.data('count', count);
                 updateCount($buffer);
