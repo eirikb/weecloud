@@ -1,19 +1,19 @@
 {
-  "name": "weecloud",
-  "subdomain": "weecloud",
-  "main": "app",
-  "scripts": {
-    "start": "app.js"
-  },
-  "version": "0.1.0",
-  "dependencies": {
-    "express": "3.0.0rc4",
-    "jade": ">= 0.0.1",
-    "socket.io": "0.9.10",
-    "validator": "0.4.2",
-    "weechat": "0.0.13"
-  },
-  "engines": {
-    "node": "0.8.x"
-  }
+    "name": "weecloud",
+    "subdomain": "weecloud",
+    "main": "app",
+    "scripts": {
+        "start": "app.js"
+    },
+    "version": "0.1.1",
+    "dependencies": {
+        "express": "3.0.0rc4",
+        "jade": ">= 0.0.1",
+        "socket.io": "0.9.10",
+        "validator": "0.4.2",
+        "weechat": "0.0.13"
+    },
+    "engines": {
+        "node": "0.8.x"
+    }
 }
