@@ -24,7 +24,8 @@ $(function() {
     });
 
     $('button:submit').click(function() {
-        var c, names = ['host', 'port', 'password'];
+        var c;
+        var names = ['host', 'port', 'password'];
 
         if ($(':checkbox').is(':checked')) {
             connection = {};
@@ -37,8 +38,8 @@ $(function() {
     });
 
     $.each(connections, function(i, connection) {
-        var $tr = $('<tr>'),
-        $btn = $('<button>').addClass('btn');
+        var $tr = $('<tr>');
+        var $btn = $('<button>').addClass('btn');
 
         $btn.text('Connect');
         $btn.click(function() {
@@ -58,8 +59,7 @@ $(function() {
     function getConnections() {
         try {
             return JSON.parse(localStorage.connections);
-        } catch(e) {}
+        } catch (e) {}
         return [];
     }
 });
-
