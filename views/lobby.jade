@@ -32,13 +32,6 @@ block content
               = ' '
               input.input-small(name='password', type='password', placeholder='Password')
               = ' '
-              button#connect-btn.btn.btn-primary(type='submit')
-                i.icon-chevron-right.icon-white
-                |  Connect
-            .control-group
-              a#insert-ip.btn.btn-small(href='#') 
-                i.icon-home
-                | Insert your IP
             .control-group
               label.checkbox
                 input(type='checkbox')
@@ -46,6 +39,9 @@ block content
                 a.icon-info-sign.icon-yellow.passinfo(
                   href='#'
                   title='Passwords are stored in plain text in your browser')
+            button#connect-btn.btn.btn-primary(type='submit')
+              i.icon-chevron-right.icon-white
+              |  Connect
       #history.row(style='display:none')
         .span12
           h3 Remembered connections
