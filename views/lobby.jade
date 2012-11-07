@@ -1,17 +1,17 @@
 extends layout
 
 block append head
+  link(rel='stylesheet', href='/css/lobby.css')
   script(src='/js/lobby.js')
-  include tracking
 
 block content
+  header.jumbotron.subhead
+    .container
+      h1 WeeCloud
+        p.lead 
+          a(href='http://weechat.org') WeeChat 
+          | in your browser
   .container
-    .row
-      .span12
-        header.jumbotron.subhead
-          h1 WeeCloud
-            small Synchronizing interwebs with your  
-              a(href='http://weechat.org') WeeChat
     section#headsup
       .row
         .span12
@@ -21,15 +21,16 @@ block content
               | )
             p This browser has not seen this version before
     section#connect
-      .page-header
-        h1 Connect to your WeeChat
       .row
         .span12
           form.well.form-inline(method='post', action='relay')
             .control-group
-              input.input-medium(name='host', placeholder='Your host/IP', data-host=host)
+              input.input-medium(name='host', type='text', placeholder='Your host/IP')
+              = ' '
               input.input-small(name='port', type='number', placeholder='Port')
+              = ' '
               input.input-small(name='password', type='password', placeholder='Password')
+              = ' '
               button#connect-btn.btn.btn-primary(type='submit')
                 i.icon-chevron-right.icon-white
                 |  Connect
@@ -38,7 +39,7 @@ block content
                 i.icon-home
                 | Insert your IP
             .control-group
-              label
+              label.checkbox
                 input(type='checkbox')
                 | Remember this connection 
                 i.icon-info-sign.icon-yellow(
@@ -75,3 +76,5 @@ block content
             | npm install
             | node app.js
           
+  include tracking
+

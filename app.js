@@ -46,9 +46,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/relay', function(req, res) {
-    res.render('relay', {
-        guid: ''
-    });
+    res.redirect('/');
 });
 
 app.post('/relay', function(req, res) {
