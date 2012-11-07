@@ -1,17 +1,10 @@
 extends layout
 
 block append head
-  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
-  link(rel='stylesheet', href='/css/lobby.css')
-
-  script(src='/js/lib/bootstrap.min.js')
   script(src='/js/lobby.js')
   include tracking
 
 block content
-  a(href='https://github.com/eirikb/weecloud')
-    img.fork(src='//s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png', alt='Fork me on GitHub')
-
   .container
     .row
       .span12
