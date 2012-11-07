@@ -2,14 +2,18 @@
 html
   head
     block head
-      title WeeCloud
-      meta(charset='utf-8')
-      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title WeeCloud
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-      link(rel='stylesheet', href='http://twitter.github.com/bootstrap/assets/css/bootstrap.css')
+    link(rel='stylesheet', href='http://twitter.github.com/bootstrap/assets/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/lobby.css')
 
-      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js')
-      script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js')
-      script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js')
   body
     block content
+
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js')
+    script(src='/js/lobby.js')
+    script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js')
