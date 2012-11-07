@@ -3,6 +3,7 @@ extends layout
 block append head
   link(rel='stylesheet', href='/css/lobby.css')
   script(src='/js/lobby.js')
+  script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js')
 
 block content
   header.jumbotron.subhead
@@ -42,10 +43,9 @@ block content
               label.checkbox
                 input(type='checkbox')
                 | Remember this connection 
-                i.icon-info-sign.icon-yellow(
-                  rel='popover'
-                  data-original-title='Security warning',
-                  data-content='Passwords are stored in plain text in your browser')
+                a.icon-info-sign.icon-yellow.passinfo(
+                  href='#'
+                  title='Passwords are stored in plain text in your browser')
       #history.row(style='display:none')
         .span12
           h3 Remembered connections

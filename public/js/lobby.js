@@ -1,9 +1,11 @@
 // Not following the module pattern, only meant for lobby
 $(function() {
-    var connections = getConnections(),
-    $remembered = $('tbody'),
-    $version = $('#version'),
-    version = $version.data('version');
+    var connections = getConnections();
+    var $remembered = $('tbody');
+    var $version = $('#version');
+    var version = $version.data('version');
+
+    $('.passinfo').tooltip();
 
     if (!localStorage.version) localStorage.version = version;
 
