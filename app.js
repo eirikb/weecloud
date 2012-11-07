@@ -6,11 +6,9 @@ var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8080;
 var refs = {};
 var pkg = require('./package.json');
-
-io.set('log level', 1);
 
 app.configure(function() {
     app.set('view options', {
@@ -28,6 +26,7 @@ app.configure('development', function() {
         dumpExceptions: true,
         showStack: true
     }));
+    io.set('log level', 1);
 });
 
 app.configure('production', function() {
