@@ -21,11 +21,11 @@ block content
         .span12
           form.well.form-inline(method='post', action='relay')
             .control-group
-              input.input-medium(name='host', type='text', placeholder='Your host/IP')
+              input#host.input-medium(name='host', type='text', placeholder='Your host/IP')
               = ' '
-              input.input-small(name='port', type='number', placeholder='Port')
+              input#port.input-small(name='port', type='number', placeholder='Port')
               = ' '
-              input.input-small(name='password', type='password', placeholder='Password')
+              input#password.input-small(name='password', type='password', placeholder='Password')
               = ' '
             .control-group
               label.checkbox
@@ -37,7 +37,7 @@ block content
             button#connect-btn.btn.btn-primary(type='submit')
               i.icon-chevron-right.icon-white
               |  Connect
-      #history.row(style='display:none')
+      #connections.row(style='display:none')
         .span12
           h3 Remembered connections
           table.table.well.table-striped
@@ -66,6 +66,14 @@ block content
             | cd weecloud
             | npm install
             | node app.js
+
+    
+    script#connection-template(type="text/template")
+      .view
+        label Host: <%= host %>
+        label Port: <%= port %>
+        label Password: <%= password %>
+        button.delete Delete
           
   include tracking
 

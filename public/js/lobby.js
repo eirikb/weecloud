@@ -1,65 +1,97 @@
-// Not following the module pattern, only meant for lobby
-$(function() {
-    var connections = getConnections();
-    var $remembered = $('tbody');
-    var $version = $('#version');
-    var version = $version.data('version');
+var lobby = lobby || {};
 
-    $('.passinfo').tooltip();
+(function() {
+    lobby.Connection = Backbone.Model.extend({
+        defaults: {
+            host: '',
+            port: 0,
+            password: ''
+        },
+    });
+}());
 
-    if (!localStorage.version) localStorage.version = version;
+(function() {
+    var ConnectionList = Backbone.Collection.extend({
 
-    if (version !== localStorage.version) {
-        $version.show();
-        localStorage.version = version;
-    }
-
-    if (connections.length > 0) $('#history').show();
-
-    $('#insert-ip').click(function() {
-        var $host = $('[name=host]');
-
-        $host.val($host.data('host'));
-        return false;
+        model: lobby.Connection,
+        localStorage: new Store('connections')
     });
 
-    $('button:submit').click(function() {
-        var c;
-        var names = ['host', 'port', 'password'];
+    lobby.Connections = new ConnectionList();
 
-        if ($(':checkbox').is(':checked')) {
-            connection = {};
-            $.each(names, function(i, name) {
-                connection[name] = $('[name=' + name + ']').val();
-            });
-            connections.push(connection);
-            localStorage.connections = JSON.stringify(connections);
+}());
+
+
+$(function() {
+    lobby.ConnectionView = Backbone.View.extend({
+
+        tagName: 'li',
+        template: _.template($('#connection-template').html()),
+
+        events: {
+            'click .destroy': 'clear'
+        },
+
+        initialize: function() {
+            this.model.on('change', this.render, this);
+            this.model.on('delete', this.remove, this);
+        },
+
+        render: function() {
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        },
+
+        clear: function() {
+            this.model.destroy();
         }
     });
+});
 
-    $.each(connections, function(i, connection) {
-        var $tr = $('<tr>');
-        var $btn = $('<button>').addClass('btn');
 
-        $btn.text('Connect');
-        $btn.click(function() {
-            $.each(connection, function(name, val) {
-                $('[name=' + name + ']').val(val);
-            });
-            $('#connect-btn').click();
-        });
+$(function($) {
+    lobby.lobbyView = Backbone.View.extend({
 
-        $tr.append('<td>' + connection.host);
-        $tr.append('<td>' + connection.port);
-        $tr.append($('<td>').append($btn));
+        el: '#connect',
 
-        $remembered.append($tr);
+        events: {
+            'click #connect-btn': 'create'
+        },
+
+        initialize: function() {
+            this.host = this.$('#host');
+            this.port = this.$('#port');
+            this.password = this.$('#password');
+            this.connections = this.$('#connections')
+            lobby.Connections.on('all', this.render, this);
+            lobby.Connections.fetch();
+        },
+
+        render: function() {
+            this.connections.show();
+        },
+
+        addOne: function(connection) {
+            //var view = new lobby.ConnectionView({
+            //model: connection
+            //});
+            //$('#connections').lobbyend(view.render().el);
+        },
+        create: function(e) {
+            lobby.Connections.create(this.newAttributes());
+            return false;
+        },
+        newAttributes: function() {
+            return {
+                host: this.host.val().trim(),
+                port: this.port.val().trim(),
+                password: this.password.val().trim()
+            };
+        },
+
     });
+});
 
-    function getConnections() {
-        try {
-            return JSON.parse(localStorage.connections);
-        } catch (e) {}
-        return [];
-    }
+$(function() {
+    new lobby.lobbyView();
 });
