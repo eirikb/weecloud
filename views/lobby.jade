@@ -29,7 +29,7 @@ block content
               = ' '
             .control-group
               label.checkbox
-                input(type='checkbox')
+                input#remember(type='checkbox')
                 | Remember this connection 
                 a.icon-info-sign.icon-yellow.passinfo(
                   href='#'
@@ -45,7 +45,7 @@ block content
               tr
                 th Host
                 th Port
-                th 
+                th
             tbody
       h2#help Help
       .row
@@ -69,11 +69,12 @@ block content
 
     
     script#connection-template(type="text/template")
-      .view
-        label Host: <%= host %>
-        label Port: <%= port %>
-        label Password: <%= password %>
-        button.delete Delete
+      td <%= host %>
+      td <%= port %>
+      td
+        a.btn.destroy Delete
+        = ' '
+        a.btn.connect Connect
           
   include tracking
 
