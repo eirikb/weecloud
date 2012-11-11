@@ -24,10 +24,7 @@ $(function() {
         },
 
         connect: function() {
-            var host = this.model.get('host');
-            var port = this.model.get('port');
-            var password = this.model.get('password');
-            window.lobbyView.connect(host, port, password);
+            window.lobbyView.connect(this.model);
         }
     });
 });

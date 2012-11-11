@@ -52,10 +52,10 @@ $(function() {
             };
         },
 
-        connect: function(host, port, password) {
-            this.host.val(host);
-            this.port.val(port);
-            this.password.val(password);
+        connect: function(model) {
+            this.host.val(model.get('host'));
+            this.port.val(model.get('port'));
+            this.password.val(model.get('password'));
             this.connectBtn.click();
         }
     });
