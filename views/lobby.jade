@@ -1,5 +1,13 @@
 extends layout
 
+block append scripts
+ script(src='/js/models/connection.js')
+ script(src='/js/collections/connections.js')
+ script(src='/js/views/connection.js')
+ script(src='/js/views/lobby.js')
+ script(src='/js/lobby.js')
+
+
 block content
   header.jumbotron.subhead
     .container

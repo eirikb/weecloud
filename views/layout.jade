@@ -1,13 +1,13 @@
 !!! 5
 html
   head
-    block head
     title WeeCloud
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
     link(rel='stylesheet', href='http://twitter.github.com/bootstrap/assets/css/bootstrap.css')
     link(rel='stylesheet', href='/css/lobby.css')
+    block head
 
   body
     block content
@@ -20,9 +20,4 @@ html
     script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js')
     script(src='https://raw.github.com/marquete/kibo/master/kibo.js')
     script(src='https://raw.github.com/eirikb/changecolor/master/changecolor.min.js')
-
-    script(src='/js/models/connection.js')
-    script(src='/js/collections/connections.js')
-    script(src='/js/views/connection.js')
-    script(src='/js/views/lobby.js')
-    script(src='/js/lobby.js')
+    block scripts
