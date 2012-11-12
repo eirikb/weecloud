@@ -6,6 +6,6 @@ var lobby = lobby || {};
             host: '',
             port: 0,
             password: ''
-        },
+        }
     });
 }());

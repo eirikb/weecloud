@@ -12,7 +12,7 @@ $(function() {
             this.port = this.$('#port');
             this.password = this.$('#password');
             this.connectBtn = this.$('#connect-btn');
-            this.connections = this.$('#connections')
+            this.connections = this.$('#connections');
 
             this.$('.passinfo').tooltip();
 
