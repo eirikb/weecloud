@@ -1,22 +1,7 @@
 extends layout
 
 block append head
-  link(rel='stylesheet', href='/css/layout.css')
-  link(rel='stylesheet', href='/css/design.css')
-
   script(src='/socket.io/socket.io.js')
-
-  script(src='https://raw.github.com/marquete/kibo/master/kibo.js')
-  script(src='https://raw.github.com/eirikb/changecolor/master/changecolor.min.js')
-  script(src='/js/lib/bootstrap.min.js')
-
-  script(src='/js/main.js')
-  script(src='/js/buffers.js')
-  script(src='/js/bufferlist.js')
-  script(src='/js/input.js')
-  script(src='/js/info.js')
-  script(src='/js/color.js')
-  script(src='/js/date.js')
 
 block content
   #preview.modal.hide.fade
