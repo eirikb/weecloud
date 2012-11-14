@@ -1,32 +1,18 @@
 extends layout
 
-block append head
+block append scripts
   script(src='/socket.io/socket.io.js')
+  script(src='/js/models/message.js')
+  script(src='/js/models/buffer.js')
+  script(src='/js/collections/buffers.js')
+  script(src='/js/views/buffer.js')
+  script(src='/js/views/relay.js')
+  script(src='/js/relay.js')
 
 block content
-  #preview.modal.hide.fade
-    .modal-header
-    .modal-body
-      iframe#preview-content
-    .modal-footer
-      button.btn(data-dismiss='modal', aria-hidden='true') Close
-  if guid
-    input#guid(type='hidden', value=guid)
-
-  #header
-    span#important.hide.label.label-important
-    span#warning.hide.label.label-warning
-    span#info.label.label-info Connecting...
-    a#home.hide(href='/') Home
-    select.hide
-
-  #center
-    #bufferlist
-      label.checkbox Sync movement
-        input#syncmovement(type='checkbox')
-      ul.nav
-    #nicklist
-    #buffers
-
-  #footer
-    input.input-xxlarge(type='text')
+  .container-fluid
+    .row-fluid
+      .span1
+        label Bufferlist
+      .span11
+        label Chat
