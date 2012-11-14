@@ -3,7 +3,9 @@ $(function() {
 
         events: {},
 
-        initialize: function() {},
+        initialize: function() {
+            relay.Buffers.fetch();
+        },
 
         render: function() {}
     });

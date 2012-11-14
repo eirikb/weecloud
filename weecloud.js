@@ -99,6 +99,8 @@ function Handler(weeChat) {
         socket.emit('auth', true);
 
         // Only 30 last lines
+        // TODO: Remove
+        /*
         weeChat.bufferlines(30, function(buffers) {
             buffers.forEach(function(buffer) {
                 buffer.lines = buffer.lines.map(function(line) {
@@ -112,6 +114,7 @@ function Handler(weeChat) {
             });
             socket.emit('synced', 'done');
         });
+       */
     };
 }
 

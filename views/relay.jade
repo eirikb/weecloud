@@ -1,7 +1,7 @@
 extends layout
 
 block append scripts
-  script(src='/socket.io/socket.io.js')
+  script#socket(src='/socket.io/socket.io.js', data-guid=guid)
   script(src='/js/models/message.js')
   script(src='/js/models/buffer.js')
   script(src='/js/collections/buffers.js')
@@ -14,5 +14,6 @@ block content
     .row-fluid
       .span1
         label Bufferlist
+        ul#buffers
       .span11
         label Chat
