@@ -4,4 +4,5 @@
     });
 
     relay.Buffers = new BufferList();
+    relay.Buffers.type = 'buffers';
 }());

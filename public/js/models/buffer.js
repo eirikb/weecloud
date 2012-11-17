@@ -1,9 +1,7 @@
 (function() {
     relay.Buffer = Backbone.Model.extend({
         defaults: {
-            from: '',
-            to: '',
-            content: ''
+            id: 0
         }
     });
 }());

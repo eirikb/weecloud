@@ -13,13 +13,20 @@ $(function() {
         else console.error('sync fail');
     });
 
-    Backbone.sync = function(method, model) {
-        var options = Array.prototype.slice.call(arguments).slice(2);
+    socket.on('buffers', function(buffers) {
+        console.log(buffers);
+    });
 
+    Backbone.sync = function(method, model, options) {
+        if (model.type) socket.emit(method + ':' + model.type, options);
+        else console.log('Oh noes, no type:', arguments);
+        //var options = Array.prototype.slice.call(arguments).slice(2);
+        /*
         ({
             read: function() {
                 console.log('read!', model, options);
             }
         })[method]();
+       */
     };
 });
