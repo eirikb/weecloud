@@ -1,5 +1,18 @@
 $(function() {
 
+    Backbone.sync = function(method, model, options) {
+        if (model.type) socket.emit(method + ':' + model.type, options);
+        else console.log('Oh noes, no type:', arguments);
+        //var options = Array.prototype.slice.call(arguments).slice(2);
+        /*
+        ({
+            read: function() {
+                console.log('read!', model, options);
+            }
+        })[method]();
+       */
+    };
+
     var socket = io.connect();
     console.log('connecting...');
     socket.on('connect', function() {
@@ -17,16 +30,7 @@ $(function() {
         console.log(buffers);
     });
 
-    Backbone.sync = function(method, model, options) {
-        if (model.type) socket.emit(method + ':' + model.type, options);
-        else console.log('Oh noes, no type:', arguments);
-        //var options = Array.prototype.slice.call(arguments).slice(2);
-        /*
-        ({
-            read: function() {
-                console.log('read!', model, options);
-            }
-        })[method]();
-       */
-    };
+    socket.on('error', function(err) {
+        console.log('Error from server:', err);
+    });
 });

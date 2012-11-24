@@ -72,10 +72,6 @@ io.sockets.on('connection', function(socket) {
             socket.emit('error', 'Unkown guid: ' + g);
         }
     });
-    socket.on('read:buffers', function() {
-        console.log('read buffers!');
-        socket.emit('buffers', [2,3]);
-    });
 });
 
 function S4() {

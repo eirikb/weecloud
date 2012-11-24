@@ -13,6 +13,10 @@
         "validator": "",
         "weechat": ""
     },
+    "devDependencies": {
+        "mocha": "*",
+        "socket.io-client": "*"
+    },
     "engines": {
         "node": "0.8.x"
     }

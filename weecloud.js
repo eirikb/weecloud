@@ -29,7 +29,7 @@ exports.init = function(socket, data) {
                 handler = new Handler(weeChat);
                 putHandler(data, handler);
                 handler.addSocket(socket);
-                socket.emit('auth');
+                socket.emit('auth', true);
             } else {
                 socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
             }
@@ -95,8 +95,10 @@ function Handler(weeChat) {
         socket.on('msg', function(msg) {
             weeChat.write('input ' + msg.id + ' ' + msg.line);
         });
-
-        socket.emit('auth', true);
+    socket.on('read:buffers', function() {
+        console.log('read buffers!');
+        socket.emit('buffers', [2,3]);
+    });
 
         // Only 30 last lines
         // TODO: Remove
