@@ -8,6 +8,7 @@ $(function() {
 
         initialize: function() {
             console.log(1, arguments);
+            this.model.on('change', this.render, this);
         },
 
         render: function() {
