@@ -64,6 +64,7 @@ app.post('/relay', function(req, res) {
 });
 
 io.sockets.on('connection', function(socket) {
+    console.log('connect')
     socket.on('sync', function(g) {
         var data = refs[g];
         if (data) {

@@ -3,10 +3,15 @@ $(function() {
 
         el: '#buffers',
 
-        events: {},
+        events: {
+        },
 
-        initialize: function() {},
+        initialize: function() {
+            console.log(1, arguments);
+        },
 
-        render: function() {}
+        render: function() {
+            console.log(2, arguments);
+        }
     });
 });

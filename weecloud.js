@@ -29,7 +29,6 @@ exports.init = function(socket, data) {
                 handler = new Handler(weeChat);
                 putHandler(data, handler);
                 handler.addSocket(socket);
-                socket.emit('auth', true);
             } else {
                 socket.emit('error', 'Oh noes, errors! :(   -   ' + err);
             }
@@ -52,7 +51,7 @@ function getMessage(w, message) {
 }
 
 function Handler(weeChat) {
-    if (! (this instanceof Handler)) return new Handler(weeChat);
+    if (!(this instanceof Handler)) return new Handler(weeChat);
     var sockets = [];
 
     function emit(a, b) {
@@ -90,33 +89,20 @@ function Handler(weeChat) {
     });
 
     this.addSocket = function(socket) {
+        socket.emit('auth', true);
         sockets.push(socket);
 
         socket.on('msg', function(msg) {
             weeChat.write('input ' + msg.id + ' ' + msg.line);
         });
-    socket.on('read:buffers', function() {
-        console.log('read buffers!');
-        socket.emit('buffers', [2,3]);
-    });
-
-        // Only 30 last lines
-        // TODO: Remove
-        /*
-        weeChat.bufferlines(30, function(buffers) {
-            buffers.forEach(function(buffer) {
-                buffer.lines = buffer.lines.map(function(line) {
-                    return {
-                        prefix: weeChat.style(line.prefix),
-                        date: line.date,
-                        message: getMessage(weeChat, line.message)
-                    };
-                });
-                socket.emit('buffer', buffer);
+        socket.on('read:buffers', function(x, cb) {
+            console.log(arguments);
+            console.log('read buffers!');
+            var cmd = 'hdata buffer:gui_buffers(*) number,full_name,type,title';
+            weeChat.write(cmd, function(buffers) {
+                cb(buffers);
+                //socket.emit('buffers', buffers);
             });
-            socket.emit('synced', 'done');
         });
-       */
     };
 }
-

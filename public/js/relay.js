@@ -1,16 +1,14 @@
 $(function() {
 
     Backbone.sync = function(method, model, options) {
-        if (model.type) socket.emit(method + ':' + model.type, options);
-        else console.log('Oh noes, no type:', arguments);
-        //var options = Array.prototype.slice.call(arguments).slice(2);
-        /*
-        ({
-            read: function() {
-                console.log('read!', model, options);
-            }
-        })[method]();
-       */
+        if (model.type) {
+            socket.emit(method + ':' + model.type, options, function(buffers) {
+                console.log('response', buffers);
+                options.success(buffers);
+            });
+        } else {
+            console.log('Oh noes, no type:', arguments);
+        }
     };
 
     var socket = io.connect();
@@ -26,9 +24,7 @@ $(function() {
         else console.error('sync fail');
     });
 
-    socket.on('buffers', function(buffers) {
-        console.log(buffers);
-    });
+    socket.on('buffers', function(buffers) {});
 
     socket.on('error', function(err) {
         console.log('Error from server:', err);
