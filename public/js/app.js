@@ -2,12 +2,12 @@ $(function() {
 
   var servers = new ServerCollection();
 
-  function addBuffer(model) {
-    var server = servers.get(model.server);
+  function addBuffer(buffer) {
+    var server = servers.get(buffer.server);
     if (!server) {
       server = new Server({
-        title: model.server,
-        id: model.server
+        title: buffer.server,
+        id: buffer.server
       });
 
       servers.add(server);
@@ -17,7 +17,6 @@ $(function() {
       $('#bufferlist').append(serverView.render().$el);
     }
 
-    var buffer = new Buffer(model);
     server.get('buffers').add(buffer);
   }
 

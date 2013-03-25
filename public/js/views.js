@@ -6,7 +6,7 @@ $(function() {
       this.listenTo(this.model, 'add:buffers', this.addBuffer);
     },
 
-    addBuffer: function(buffer, collection) {
+    addBuffer: function(buffer) {
       var bufferMenuView = new BufferMenuView({
         model: buffer
       });
@@ -53,7 +53,6 @@ $(function() {
     open: function() {
       var messages = this.model.get('messages');
       if (messages.length > 0) return;
-      console.log('fetching messages...');
 
       socket.emit('get:messages', this.model.id, 20, function(m) {
         _.each(m, function(message) {
@@ -63,9 +62,10 @@ $(function() {
     },
 
     addMessage: function(message) {
-      var model = new Message(message);
-      console.log(model)
-      var view = new MessageView(model);
+      var view = new MessageView({
+        model: message
+      });
+      this.$el.append(view.render().$el);
     },
 
     render: function() {
@@ -79,9 +79,13 @@ $(function() {
     template: _.template($('#message-template').html()),
 
     render: function() {
-      console.log(1)
-      //var tpl = this.template(this.model.toJSON()).trim();
-      //this.setElement(tpl.trim(), true);
+      var text = _.map(this.model.get('message'), function(m) {
+        return m.text;
+      }).join('');
+      this.model.set('text', text);
+
+      var tpl = this.template(this.model.toJSON()).trim();
+      this.setElement(tpl.trim(), true);
       return this;
     }
   });
