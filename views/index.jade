@@ -28,6 +28,33 @@ html
             ul#bufferlist.nav.nav-tabs.span2
             #buffers.tab-content.span9
 
+      .modal.hide.fade
+        .modal-header
+          h3 WeeCloud - Connect
+        .modal-body
+          form.form-horizontal
+            .control-group
+              label.control-label(for='host') Host
+              .controls
+                input#host(type='text', placeholder='Host')
+            .control-group
+              label.control-label(for='port') Port
+              .controls
+                input#port(type='number', placeholder='Port')
+            .control-group
+              label.control-label(for='password') Password
+              .controls
+                input#password(type='password', placeholder='Password')
+            .control-group
+              .controls
+                label.checkbox
+                  input#store(type='checkbox')
+                  | Remember connection
+                  i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
+
+        .modal-footer
+          a.btn.btn-primary(href='#') Connect
+
     script(type='text/template', id='server-menu-template')
       | <li id="server-<%= id %>" class="nav nav-header"><%= title %></li>
 
@@ -55,3 +82,4 @@ html
     script(src='/js/collections.js')
     script(src='/js/views.js')
     script(src='/js/app.js')
+    script(src='/js/connect.js')

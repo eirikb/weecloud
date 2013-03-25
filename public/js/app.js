@@ -28,16 +28,6 @@ $(function() {
 
   socket = io.connect();
 
-  socket.on('connect', function() {
-    socket.emit('connect', {
-      host: 'localhost',
-      port: 8000,
-      password: 'test'
-    }, function(data) {
-      socket.emit('init');
-    });
-  });
-
   socket.on('open:buffer', function(buffer) {
     addBuffer(buffer);
   });
@@ -51,4 +41,6 @@ $(function() {
 
     buffer.get('messages').add(message);
   });
+
+  $('.tip').tooltip();
 });
