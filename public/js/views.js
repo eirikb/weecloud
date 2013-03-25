@@ -52,9 +52,15 @@ $(function() {
 
     open: function() {
       var messages = this.model.get('messages');
-      if (messages.length > 0) return;
+      if (messages.length === 0) this.getMessages(messages);
 
-      socket.emit('get:messages', this.model.id, 20, function(m) {
+      this.$el.nanoScroller({
+        scroll: 'bottom'
+      });
+    },
+
+    getMessages: function(messages) {
+      socket.emit('get:messages', this.model.id, 200, function(m) {
         _.each(m, function(message) {
           messages.add(message);
         });
@@ -65,12 +71,16 @@ $(function() {
       var view = new MessageView({
         model: message
       });
-      this.$el.append(view.render().$el);
+      this.$el.children().append(view.render().$el);
+      this.$el.nanoScroller({
+        scroll: 'bottom'
+      });
     },
 
     render: function() {
       var tpl = this.template(this.model.toJSON()).trim();
       this.setElement(tpl.trim(), true);
+      this.$el.nanoScroller();
       return this;
     }
   });
@@ -79,10 +89,10 @@ $(function() {
     template: _.template($('#message-template').html()),
 
     render: function() {
-      var text = _.map(this.model.get('message'), function(m) {
-        return m.text;
-      }).join('');
+      var text = utils.color(this.model.get('message'));
+      var from = utils.color(this.model.get('from'));
       this.model.set('text', text);
+      this.model.set('from', from);
 
       var tpl = this.template(this.model.toJSON()).trim();
       this.setElement(tpl.trim(), true);

@@ -1,6 +1,7 @@
 $(function() {
 
   var servers = new ServerCollection();
+  var buffers = new BufferCollection();
 
   function addBuffer(buffer) {
     var server = servers.get(buffer.server);
@@ -17,7 +18,12 @@ $(function() {
       $('#bufferlist').append(serverView.render().$el);
     }
 
+    buffer = new Buffer(buffer);
     server.get('buffers').add(buffer);
+    buffers.add(buffer);
+
+    if ($('#bufferlist .active').length > 0) return;
+    $('#bufferlist a').tab('show');
   }
 
   socket = io.connect();
@@ -37,6 +43,12 @@ $(function() {
   });
 
   socket.on('message', function(message) {
-    //console.log(line);
+    var buffer = buffers.get(message.bufferid);
+    if (!buffer) {
+      console.log('Unkown buffer: ', message.bufferid);
+      return;
+    }
+
+    buffer.get('messages').add(message);
   });
 });
