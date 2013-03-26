@@ -15,7 +15,7 @@ $(function() {
       var serverView = new ServerView({
         model: server
       });
-      $('#bufferlist').append(serverView.render().$el);
+      $('#bufferlist ul').append(serverView.render().$el);
     }
 
     buffer = new Buffer(buffer);

@@ -24,4 +24,10 @@ Buffer = Backbone.RelationalModel.extend({
   }]
 });
 
-Message = Backbone.RelationalModel.extend({});
+Message = Backbone.RelationalModel.extend({
+  initialize: function() {
+    var date = new Date(this.get('date') * 1000);
+    date = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-');
+    this.set('date', date);
+  }
+});
