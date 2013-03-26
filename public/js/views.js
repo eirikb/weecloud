@@ -87,11 +87,6 @@ $(function() {
     template: _.template($('#message-template').html()),
 
     render: function() {
-      var text = utils.color(this.model.get('message'));
-      var from = utils.color(this.model.get('from'));
-      this.model.set('text', text);
-      this.model.set('from', from);
-
       var tpl = this.template(this.model.toJSON()).trim();
       this.setElement(tpl.trim(), true);
       return this;
