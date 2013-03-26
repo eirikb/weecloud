@@ -14,7 +14,7 @@ $(function() {
         model: buffer
       });
       this.$el.after(bufferMenuView.render().$el);
-      $('#buffers').append(bufferView.render().$el);
+      $('#buffers').children().append(bufferView.render().$el);
     },
 
     render: function() {
@@ -28,7 +28,7 @@ $(function() {
     template: _.template($('#buffer-menu-template').html()),
 
     events: {
-      'show': 'open'
+      'shown': 'open'
     },
 
     open: function() {
@@ -53,10 +53,7 @@ $(function() {
     open: function() {
       var messages = this.model.get('messages');
       if (messages.length === 0) this.getMessages(messages);
-
-      this.$el.nanoScroller({
-        scroll: 'bottom'
-      });
+      this.scrollBottom();
     },
 
     getMessages: function(messages) {
@@ -71,16 +68,17 @@ $(function() {
       var view = new MessageView({
         model: message
       });
-      this.$el.children().append(view.render().$el);
-      this.$el.nanoScroller({
-        scroll: 'bottom'
-      });
+      this.$el.append(view.render().$el);
+      this.scrollBottom();
+    },
+
+    scrollBottom: function() {
+      $('#buffers').scrollTop($('.tab-pane.active').height());
     },
 
     render: function() {
       var tpl = this.template(this.model.toJSON()).trim();
       this.setElement(tpl.trim(), true);
-      this.$el.nanoScroller();
       return this;
     }
   });

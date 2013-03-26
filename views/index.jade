@@ -7,7 +7,6 @@ html
 
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css')
-    link(rel='stylesheet', href='http://jamesflorentino.github.com/nanoScrollerJS/css/nanoscroller.css')
     link(rel='stylesheet', href='/css/style.css')
 
     script
@@ -21,12 +20,19 @@ html
       })();
 
   body
-    .container-fluid
-      .row-fluid
-        .span12
-          .tabbable.tabs-left
-            ul#bufferlist.nav.nav-tabs.span2
-            #buffers.tab-content.span9
+
+
+    #center.row-fluid
+      a.btn.visible-phone(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-list
+      .nav-collapse.collapse
+        #bufferlist.tabbable.tabs-left.pull-left
+          ul.nav.nav-tabs
+      #nicklist
+        .hidden-phone.pull-right
+          ul.unsyled
+      #buffers
+        .tab-content
 
       .modal.hide.fade
         .modal-header
@@ -63,10 +69,10 @@ html
         | <a href="#<%= id %>" data-toggle="tab"><%= title %></a>
 
     script(type='text/template', id='buffer-template')
-      | <div class="tab-pane nano" id="<%= id %>"><div class="content"></div></div>
+      | <div class="tab-pane" id="<%= id %>"></div>
 
     script(type='text/template', id='message-template')
-      | <div class="well well-small"><h5><%= from %></h5><%= text %></div>
+      | <div class="well well-small"><a href="#"><%= from %></a><%= text %><span class="muted pull-right"><%= date %></span></div>
 
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')
@@ -74,7 +80,6 @@ html
     script(src='//cdnjs.cloudflare.com/ajax/libs/backbone-relational/0.7.0/backbone-relational.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.0.0-rc6-bundled/backbone.marionette.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
-    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery.nanoscroller/0.6.8/jquery.nanoscroller.min.js')
 
     script(src='/socket.io/socket.io.js')
     script(src='/js/utils.js')

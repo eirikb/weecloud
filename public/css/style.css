@@ -1,7 +1,12 @@
-#buffers {
-  position: absolute;
-  left: 15%;
-  right: 0;
+#center {
   top: 0;
   bottom: 0;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+}
+
+#buffers {
+  overflow-y: scroll;
+  height: 100%;
 }
