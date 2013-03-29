@@ -57,7 +57,7 @@ $(function() {
     },
 
     getMessages: function(messages) {
-      socket.emit('get:messages', this.model.id, 20, function(m) {
+      socket.emit('get:messages', this.model.id, 200, function(m) {
         _.each(m, function(message) {
           messages.add(message);
         });

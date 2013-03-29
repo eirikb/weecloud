@@ -42,7 +42,7 @@ html
             .control-group
               label.control-label(for='host') Host
               .controls
-                input#host(type='text', placeholder='Host')
+                input#host(type='text', placeholder='Host', autofocus)
             .control-group
               label.control-label(for='port') Port
               .controls
@@ -72,14 +72,20 @@ html
       | <div class="tab-pane" id="<%= id %>"></div>
 
     script(type='text/template', id='message-template')
-      | <div class="well well-small"><a href="#"><%= from %></a><%= text %><span class="muted pull-right"><%= date %></span></div>
+      | <div class="well well-small">
+      |   <a href="#"><%= from %></a>
+      |   <%= text %>
+      |   <span class="muted pull-right">
+      |     <%= moment(date).formatTimeToday() %>
+      |   </span>
+      | </div>
 
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/backbone-relational/0.7.0/backbone-relational.min.js')
-    script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.0.0-rc6-bundled/backbone.marionette.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js')
 
     script(src='/socket.io/socket.io.js')
     script(src='/js/utils.js')
