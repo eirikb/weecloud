@@ -28,9 +28,7 @@ html
       .nav-collapse.collapse
         #bufferlist.tabbable.tabs-left.pull-left
           ul.nav.nav-tabs
-      #nicklist
-        .hidden-phone.pull-right
-          ul.unsyled
+      #userlist.hidden-phone.pull-right
       #buffers
         .tab-content
     #input
@@ -81,6 +79,14 @@ html
       |     <%= moment(date).formatTimeToday() %>
       |   </span>
       | </div>
+
+    script(type='text/template', id='user-list-template')
+      | <ul class="unstyled"></ul>
+
+    script(type='text/template', id='user-template')
+      | <li>
+      |   <a href="#"><%= title %></a>
+      | </li>
 
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')

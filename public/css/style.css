@@ -11,6 +11,10 @@
   height: 100%;
 }
 
+#userlist {
+  padding: 15px;
+}
+
 #input {
   position: absolute;
   bottom: 0;

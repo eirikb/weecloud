@@ -53,6 +53,8 @@ $(function() {
     open: function() {
       var messages = this.model.get('messages');
       if (messages.length === 0) this.getMessages(messages);
+      var users = this.model.get('users');
+      if (users.length === 0) this.getUsers(users);
       this.scrollBottom();
     },
 
@@ -60,6 +62,19 @@ $(function() {
       socket.emit('get:messages', this.model.id, 20, function(m) {
         _.each(m, function(message) {
           messages.add(message);
+        });
+      });
+    },
+
+    getUsers: function(users) {
+      var userListView = new UserListView({
+        model: this.model
+      });
+      $('#userlist').append(userListView.render().$el);
+
+      socket.emit('get:users', this.model.id, function(u) {
+        _.each(u, function(user) {
+          users.add(user);
         });
       });
     },
@@ -104,10 +119,39 @@ $(function() {
       if (e.keyCode !== 13) return;
 
       var buffer = buffers.active;
-
       socket.emit('message', buffer.id, this.$el.val());
-
       this.$el.val('');
+    }
+  });
+
+  UserListView = Backbone.View.extend({
+    template: _.template($('#user-list-template').html()),
+
+    initialize: function() {
+      this.listenTo(this.model, 'add:users', this.addUser);
+    },
+
+    addUser: function(user) {
+      var view = new UserView({
+        model: user
+      });
+      this.$el.append(view.render().$el);
+    },
+
+    render: function() {
+      var tpl = this.template(this.model.toJSON()).trim();
+      this.setElement(tpl.trim(), true);
+      return this;
+    }
+  });
+
+  UserView = Backbone.View.extend({
+    template: _.template($('#user-template').html()),
+
+    render: function() {
+      var tpl = this.template(this.model.toJSON()).trim();
+      this.setElement(tpl.trim(), true);
+      return this;
     }
   });
 });

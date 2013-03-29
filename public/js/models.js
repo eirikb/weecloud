@@ -21,8 +21,19 @@ Buffer = Backbone.RelationalModel.extend({
       key: 'livesIn',
       includeInJSON: 'id'
     }
+  }, {
+    type: Backbone.HasMany,
+    key: 'users',
+    relatedModel: 'User',
+    collectionType: 'UserCollection',
+    reverseRelation: {
+      key: 'livesIn',
+      includeInJSON: 'id'
+    }
   }]
 });
+
+User = Backbone.RelationalModel.extend({});
 
 Message = Backbone.RelationalModel.extend({
   initialize: function() {

@@ -18,3 +18,7 @@ BufferCollection = Backbone.Collection.extend({
 MessageCollection = Backbone.Collection.extend({
   model: Message
 });
+
+UserCollection = Backbone.Collection.extend({
+  model: User
+});
