@@ -34,5 +34,9 @@ $(function() {
         socket.emit('init');
       });
     });
+
+    $host.keydown(function(e) {
+      if (e.keyCode === 13) $('.modal .btn').click();
+    });
   });
 });
