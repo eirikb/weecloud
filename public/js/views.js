@@ -32,7 +32,7 @@ $(function() {
     },
 
     open: function() {
-      this.model.trigger('open');
+      this.model.trigger('open', this.model);
     },
 
     render: function() {
@@ -57,7 +57,7 @@ $(function() {
     },
 
     getMessages: function(messages) {
-      socket.emit('get:messages', this.model.id, 200, function(m) {
+      socket.emit('get:messages', this.model.id, 20, function(m) {
         _.each(m, function(message) {
           messages.add(message);
         });
@@ -90,6 +90,24 @@ $(function() {
       var tpl = this.template(this.model.toJSON()).trim();
       this.setElement(tpl.trim(), true);
       return this;
+    }
+  });
+
+  InputView = Backbone.View.extend({
+    el: '#input input',
+
+    events: {
+      keypress: 'keypress'
+    },
+
+    keypress: function(e) {
+      if (e.keyCode !== 13) return;
+
+      var buffer = buffers.active;
+
+      socket.emit('message', buffer.id, this.$el.val());
+
+      this.$el.val('');
     }
   });
 });

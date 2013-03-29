@@ -3,7 +3,16 @@ ServerCollection = Backbone.Collection.extend({
 });
 
 BufferCollection = Backbone.Collection.extend({
-  model: Buffer
+  model: Buffer,
+
+  initialize: function() {
+    this.active = null;
+    this.listenTo(this, 'open', this.setActive, this);
+  },
+
+  setActive: function(buffer) {
+    this.active = buffer;
+  }
 });
 
 MessageCollection = Backbone.Collection.extend({

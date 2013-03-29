@@ -1,7 +1,9 @@
 $(function() {
 
-  var servers = new ServerCollection();
-  var buffers = new BufferCollection();
+  servers = new ServerCollection();
+  buffers = new BufferCollection();
+
+  new InputView();
 
   function addBuffer(buffer) {
     var server = servers.get(buffer.server);
