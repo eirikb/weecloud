@@ -62,11 +62,11 @@ html
         a.btn.btn-primary(href='#') Connect
 
     script(type='text/template', id='server-menu-template')
-      | <li id="server-<%= id %>" class="nav nav-header"><%= title %></li>
+      | <li id="server-<%= id %>" class="nav nav-header"><%- title %></li>
 
     script(type='text/template', id='buffer-menu-template')
       li 
-        | <a href="#<%= id %>" data-toggle="tab"><%= title %></a>
+        | <a href="#<%= id %>" data-toggle="tab"><%- title %></a>
 
     script(type='text/template', id='buffer-template')
       | <div class="tab-pane" id="<%= id %>"></div>
@@ -76,7 +76,7 @@ html
       |   <a href="#"><%= from %></a>
       |   <%= text %>
       |   <span class="muted pull-right">
-      |     <%= moment(date).formatTimeToday() %>
+      |     <%- moment(date).formatTimeToday() %>
       |   </span>
       | </div>
 
@@ -85,7 +85,7 @@ html
 
     script(type='text/template', id='user-template')
       | <li>
-      |   <a href="#"><%= title %></a>
+      |   <a href="#"><%- title %></a>
       | </li>
 
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')

@@ -3,25 +3,19 @@ utils = {
     if (!parts) return '';
 
     return $.map(parts, function(part) {
-      var links, $part, $container = $('<div>'),
-        linkRegex = /(https?\:\/\/|www\.)\S+\.\S+/g,
-        fg = part.fg ? part.fg.split(' ').join('').toLowerCase() : '',
-        bg = part.bg ? part.bg.split(' ').join('').toLowerCase() : '';
+      var $container = $('<div>');
+      var linkExp = /((https?\:\/\/|www\.)\S+\.\S+)/ig;
 
-      links = part.text.match(linkRegex);
-      if (links) {
-        $.each(links, function(i, link) {
-          part.text = part.text.replace(link, '<a href="' + link + '" target="_blank">' + link + '</a>');
-        });
-      }
+      var fg = ('' + part.fg).replace(/ /, '');
+      var bg = ('' + part.bg).replace(/ /, '');
 
       $part = $('<span>').css({
         'color': fg,
         'background-color': bg
-      }).append(part.text);
-      if (fg.match(/dark/i)) {
-        $part.css('color', $part.css('color'), 0.5);
-      }
+      }).text(part.text);
+
+      $part.html($part.html().replace(linkExp, '<a href="$1">$1</a>'));
+
       return $container.append($part).html();
     }).join('');
   }

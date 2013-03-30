@@ -74,7 +74,10 @@ $(function() {
 
       socket.emit('get:users', this.model.id, function(u) {
         _.each(u, function(user) {
-          users.add(user);
+          users.add({
+            title: user,
+            id: user
+          });
         });
       });
     },
@@ -147,6 +150,14 @@ $(function() {
 
   UserView = Backbone.View.extend({
     template: _.template($('#user-template').html()),
+
+    initialize: function() {
+      this.listenTo(this.model, 'remove', this.removeUser);
+    },
+
+    removeUser: function() {
+      this.$el.remove();
+    },
 
     render: function() {
       var tpl = this.template(this.model.toJSON()).trim();
