@@ -1,6 +1,6 @@
 #center {
   top: 0;
-  bottom: 30px;
+  bottom: 43px;
   position: absolute;
   width: 100%;
   overflow: hidden;
@@ -24,4 +24,8 @@
 
 #input input {
   width: 100%;
+}
+
+.message {
+  word-wrap: break-word;
 }

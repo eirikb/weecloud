@@ -42,28 +42,12 @@ $(function() {
     }
 
     buffer.get('messages').add(message);
-  });
 
-  socket.on('join', function(message, user) {
-    var buffer = buffers.get(message.bufferid);
-    if (!buffer) {
-      console.log('Unkown buffer: ', message.bufferid);
-      return;
-    }
-
-    buffer.get('users').add(user);
-    buffer.get('messages').add(message);
-  });
-
-  socket.on('part', function(message, user) {
-    var buffer = buffers.get(message.bufferid);
-    if (!buffer) {
-      console.log('Unkown buffer: ', message.bufferid);
-      return;
-    }
-
-    buffer.get('users').remove(user);
-    buffer.get('messages').add(message);
+    var type = message.type;
+    var user = message.user;
+    var users = buffer.get('users');
+    if (type === 'join') users.add(message.user);
+    else if (type === 'part') users.remove(user);
   });
 
   $('.tip').tooltip();
