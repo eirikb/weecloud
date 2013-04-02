@@ -46,7 +46,7 @@ $(function() {
     var type = message.type;
     var user = message.user;
     var users = buffer.get('users');
-    if (type === 'join') users.add(message.user);
+    if (type === 'join') users.add(user);
     else if (type === 'part') users.remove(user);
   });
 
