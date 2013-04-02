@@ -52,13 +52,14 @@ $(function() {
 
     open: function() {
       var messages = this.model.get('messages');
-      if (messages.length === 0) this.getMessages(messages);
+      if (!messages.ready) this.getMessages(messages);
       var users = this.model.get('users');
-      if (users.length === 0) this.getUsers(users);
+      if (!users.ready) this.getUsers(users);
       this.scrollBottom();
     },
 
     getMessages: function(messages) {
+      messages.ready = true;
       socket.emit('get:messages', this.model.id, 20, function(m) {
         _.each(m, function(message) {
           messages.add(message);
@@ -67,6 +68,7 @@ $(function() {
     },
 
     getUsers: function(users) {
+      users.ready = true;
       var userListView = new UserListView({
         model: this.model
       });
@@ -74,10 +76,7 @@ $(function() {
 
       socket.emit('get:users', this.model.id, function(u) {
         _.each(u, function(user) {
-          users.add({
-            title: user,
-            id: user
-          });
+          users.add(user);
         });
       });
     },
@@ -132,6 +131,7 @@ $(function() {
 
     initialize: function() {
       this.listenTo(this.model, 'add:users', this.addUser);
+      this.listenTo(this.model, 'open', this.open);
     },
 
     addUser: function(user) {
@@ -144,7 +144,13 @@ $(function() {
     render: function() {
       var tpl = this.template(this.model.toJSON()).trim();
       this.setElement(tpl.trim(), true);
+      this.open();
       return this;
+    },
+
+    open: function() {
+      $('#userlist ul').hide();
+      this.$el.show();
     }
   });
 

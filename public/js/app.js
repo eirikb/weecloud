@@ -51,10 +51,7 @@ $(function() {
       return;
     }
 
-    buffer.get('users').add({
-      title: user,
-      id: user
-    });
+    buffer.get('users').add(user);
     buffer.get('messages').add(message);
   });
 
