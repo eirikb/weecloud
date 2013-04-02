@@ -73,7 +73,7 @@ html
 
     script(type='text/template', id='message-template')
       | <div class="message <% if (type === 'message') { %> well well-small <% } %>">
-      |   <a href="#"><%= from %></a>
+      |   <a <% if (type === 'message') { %> class="label label-info" <% } %> href="#"><%= from %></a>
       |   <%= text %>
       |   <span class="muted pull-right">
       |     <%- moment(date).formatTimeToday() %>
