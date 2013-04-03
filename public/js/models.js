@@ -12,6 +12,9 @@ Server = Backbone.RelationalModel.extend({
 });
 
 Buffer = Backbone.RelationalModel.extend({
+  defaults: {
+    activity: 0
+  },
   relations: [{
     type: Backbone.HasMany,
     key: 'messages',
@@ -30,7 +33,12 @@ Buffer = Backbone.RelationalModel.extend({
       key: 'livesIn',
       includeInJSON: 'id'
     }
-  }]
+  }],
+
+  incActivity: function() {
+    var activity = this.get('activity');
+    this.set('activity', activity + 1);
+  }
 });
 
 User = Backbone.RelationalModel.extend({});

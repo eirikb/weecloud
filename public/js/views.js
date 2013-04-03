@@ -31,8 +31,19 @@ $(function() {
       'shown': 'open'
     },
 
+    initialize: function() {
+      this.listenTo(this.model, 'change:activity', this.activity);
+    },
+
+    activity: function() {
+      var activity = this.model.get('activity');
+      if (!activity) activity = '';
+      this.$('.badge').text(activity);
+    },
+
     open: function() {
       this.model.trigger('open', this.model);
+      this.model.set('activity', 0);
     },
 
     render: function() {
@@ -87,6 +98,10 @@ $(function() {
       });
       this.$el.append(view.render().$el);
       this.scrollBottom();
+
+      if (this.model === this.model.collection.active) return;
+      if (message.get('type') !== 'message') return;
+      this.model.incActivity();
     },
 
     scrollBottom: function() {

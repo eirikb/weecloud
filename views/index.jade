@@ -21,7 +21,6 @@ html
 
   body
 
-
     #center.row-fluid
       a.btn.visible-phone(data-toggle='collapse', data-target='.nav-collapse')
         span.icon-list
@@ -66,7 +65,9 @@ html
 
     script(type='text/template', id='buffer-menu-template')
       li 
-        | <a href="#<%= id %>" data-toggle="tab"><%- title %></a>
+        | <a href="#<%= id %>" data-toggle="tab">
+        | <span class="badge"></span>
+        | <%- title %></a>
 
     script(type='text/template', id='buffer-template')
       | <div class="tab-pane" id="<%= id %>"></div>
