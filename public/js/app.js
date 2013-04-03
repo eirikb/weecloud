@@ -31,6 +31,7 @@ $(function() {
   socket = io.connect();
 
   socket.on('open:buffer', function(buffer) {
+    console.log('wat', buffer);
     addBuffer(buffer);
   });
 
