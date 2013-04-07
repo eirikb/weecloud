@@ -8,7 +8,8 @@
 
 #buffers {
   overflow-y: scroll;
-  height: 100%;
+  /* TODO: Make 100% for devices */
+  height: 98%;
 }
 
 #userlist {
