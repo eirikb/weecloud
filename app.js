@@ -4,6 +4,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var weecloud = require('./lib/weecloud');
 
+var package = require('./package.json');
+
 io.set('log level', 0);
 
 server.listen(3000);
@@ -14,7 +16,7 @@ app.configure(function() {
 });
 
 app.get('/', function(req, res) {
-  res.render('index');
+  res.render('index', package);
 });
 
 io.sockets.on('connection', function(socket) {

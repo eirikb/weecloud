@@ -20,6 +20,8 @@ $(function() {
       var password = $password.val();
       var store = $store.prop('checked');
 
+      $('#error').hide();
+
       localStorage.host = store ? host : '';
       localStorage.port = store ? port : '';
       localStorage.password = store ? password : '';

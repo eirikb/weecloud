@@ -35,7 +35,9 @@ html
 
     .modal.hide.fade
       .modal-header
-        h3 WeeCloud - Connect
+        h3 WeeCloud 
+          small= version
+          |  - Connect
       .modal-body
         form.form-horizontal
           .control-group
@@ -56,6 +58,7 @@ html
                 input#store(type='checkbox')
                 | Remember connection
                 i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
+          #error.alert.alert-error.hide
 
       .modal-footer
         a.btn.btn-primary(href='#') Connect

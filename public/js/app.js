@@ -49,5 +49,9 @@ $(function() {
     else if (type === 'part') users.remove(user);
   });
 
+  socket.on('error', function(err) {
+    $('#error').text(err).show();
+  });
+
   $('.tip').tooltip();
 });
