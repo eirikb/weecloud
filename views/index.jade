@@ -21,7 +21,7 @@ html
 
   body
 
-    #center.row-fluid
+    #center.hide.row-fluid
       a.btn.visible-phone(data-toggle='collapse', data-target='.nav-collapse')
         span.icon-list
       .nav-collapse.collapse
@@ -30,38 +30,39 @@ html
       #userlist.hidden-phone.pull-right
       #buffers
         .tab-content
-    #input
+    #input.hide
       input(type='text')
 
-    .modal.hide.fade
-      .modal-header
-        h3 WeeCloud 
-          small= version
-          |  - Connect
-      .modal-body
-        form.form-horizontal
-          .control-group
-            label.control-label(for='host') Host
-            .controls
-              input#host(type='text', placeholder='Host', autofocus)
-          .control-group
-            label.control-label(for='port') Port
-            .controls
-              input#port(type='number', placeholder='Port')
-          .control-group
-            label.control-label(for='password') Password
-            .controls
-              input#password(type='password', placeholder='Password')
-          .control-group
-            .controls
-              label.checkbox
-                input#store(type='checkbox')
-                | Remember connection
-                i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
-          #error.alert.alert-error.hide
+    .container
+      section#connect.box
+        .modal-header
+          h3 WeeCloud 
+            small= version
+            |  - Connect
+        .modal-body
+          form.form-horizontal
+            .control-group
+              label.control-label(for='host') Host
+              .controls
+                input#host(type='text', placeholder='Host', autofocus)
+            .control-group
+              label.control-label(for='port') Port
+              .controls
+                input#port(type='number', placeholder='Port')
+            .control-group
+              label.control-label(for='password') Password
+              .controls
+                input#password(type='password', placeholder='Password')
+            .control-group
+              .controls
+                label.checkbox
+                  input#store(type='checkbox')
+                  | Remember connection
+                  i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
+            #error.alert.alert-error.hide
 
-      .modal-footer
-        a.btn.btn-primary(href='#') Connect
+        .modal-footer
+          a.btn.btn-primary(href='#') Connect
 
     script(type='text/template', id='server-menu-template')
       | <li id="server-<%= id %>" class="nav nav-header"><%- title %></li>

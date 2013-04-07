@@ -1,11 +1,10 @@
 $(function() {
   socket.on('connect', function() {
-    $('.modal').modal();
     var $host = $('#host');
     var $port = $('#port');
     var $password = $('#password');
     var $store = $('#store');
-    var $btn = $('.modal .btn');
+    var $btn = $('#connect .btn');
 
     if (window.localStorage) {
       $host.val(localStorage.host);
@@ -32,7 +31,9 @@ $(function() {
         port: port,
         password: password
       }, function(data) {
-        $('.modal').modal('hide');
+        console.log(data)
+        $('#connect').hide();
+        $('#center, #input').show();
 
         socket.emit('init');
       });
@@ -40,7 +41,7 @@ $(function() {
 
     var kibo = new Kibo();
     kibo.down('enter', function() {
-      if ($('.modal').is(':visible')) $btn.click();
+      if ($('#connect').is(':visible')) $btn.click();
     });
   });
 });

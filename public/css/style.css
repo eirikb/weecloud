@@ -31,3 +31,11 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.box {
+  margin: 15px 0;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
