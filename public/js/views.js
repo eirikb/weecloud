@@ -67,6 +67,8 @@ $(function() {
       var users = this.model.get('users');
       if (!users.ready) this.getUsers(users);
       this.scrollBottom();
+
+      socket.emit('open', this.model.id, this.model.get('number'));
     },
 
     getMessages: function(messages) {
