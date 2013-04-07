@@ -7,10 +7,15 @@
   overflow: hidden;
 }
 
+@media (max-width: 979px) {
+  #center {
+    top: 30px;
+  }
+}
+
 #buffers {
   overflow-y: scroll;
-  /* TODO: Make 100% for devices */
-  height: 98%;
+  height: 100%;
 }
 
 #userlist {
