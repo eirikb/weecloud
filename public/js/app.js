@@ -36,7 +36,7 @@ $(function() {
   socket.on('message', function(message) {
     var buffer = buffers.get(message.bufferid);
     if (!buffer) {
-      console.log('Unkown buffer: ', message.bufferid);
+      console.log('Unknown buffer: ', message.bufferid);
       return;
     }
 
