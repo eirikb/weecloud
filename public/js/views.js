@@ -118,6 +118,17 @@ $(function() {
   MessageView = Backbone.View.extend({
     template: _.template($('#message-template').html()),
 
+    events: {
+      'click .nick': 'clickNick'
+    },
+
+    clickNick: function() {
+      var nick = this.$el.find('.nick').text();
+      inputView.setNick(nick);
+      inputView.focus();
+      return false;
+    },
+
     render: function() {
       var tpl = this.template(this.model.toJSON()).trim();
       this.setElement(tpl.trim(), true);
@@ -128,16 +139,54 @@ $(function() {
   InputView = Backbone.View.extend({
     el: '#input input',
 
-    events: {
-      keypress: 'keypress'
+    initialize: function() {
+      var k = new Kibo(this.el);
+      var self = this;
+      k.down('tab', function() {
+        return self.tab();
+      });
+      k.down('enter', function() {
+        return self.enter();
+      });
+
+      buffers.on('open', function() {
+        self.$el.focus();
+      });
     },
 
-    keypress: function(e) {
-      if (e.keyCode !== 13) return;
+    tab: function() {
+      var lineSplit = this.$el.val().split(' ');
+      var nickPart = _.last(lineSplit);
+      var user = buffers.active.findByNickPart(nickPart);
+      if (!user) return false;
 
+      lineSplit.pop();
+      var line = lineSplit.join(' ');
+      this.$el.val(line);
+      this.setNick(user.get('title'));
+      return false;
+    },
+
+    setNick: function(nick) {
+      var line = this.$el.val();
+      var empty = line.length === 0;
+
+      if (!empty) line += ' ';
+      line += nick;
+      if (empty) line += ':';
+      line += ' ';
+
+      this.$el.val(line);
+    },
+
+    enter: function() {
       var buffer = buffers.active;
       socket.emit('message', buffer.id, this.$el.val());
       this.$el.val('');
+    },
+
+    focus: function() {
+      this.$el.focus();
     }
   });
 

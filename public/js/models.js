@@ -38,6 +38,13 @@ Buffer = Backbone.RelationalModel.extend({
   incActivity: function() {
     var activity = this.get('activity');
     this.set('activity', activity + 1);
+  },
+
+  findByNickPart: function(part) {
+    part = part.toLowerCase();
+    return this.get('users').find(function(user) {
+      return user.get('title').toLowerCase().indexOf(part) >= 0;
+    });
   }
 });
 

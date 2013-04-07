@@ -2,8 +2,7 @@ $(function() {
 
   servers = new ServerCollection();
   buffers = new BufferCollection();
-
-  new InputView();
+  inputView = new InputView();
 
   function addBuffer(buffer) {
     var server = servers.get(buffer.server);
@@ -31,7 +30,6 @@ $(function() {
   socket = io.connect();
 
   socket.on('open:buffer', function(buffer) {
-    console.log('wat', buffer);
     addBuffer(buffer);
   });
 

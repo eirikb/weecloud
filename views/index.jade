@@ -74,7 +74,7 @@ html
 
     script(type='text/template', id='message-template')
       | <div class="message <% if (type === 'message') { %> well well-small <% } %>">
-      |   <a <% if (type === 'message') { %> class="label" <% } %> href="#"><%= from %></a>
+      |   <a <% if (type === 'message') { %> class="label nick" <% } %> href="#"><%= from %></a>
       |   <%= text %>
       |   <span class="muted pull-right">
       |     <%- moment(date).formatTimeToday() %>
@@ -95,6 +95,8 @@ html
     script(src='//cdnjs.cloudflare.com/ajax/libs/backbone-relational/0.7.0/backbone-relational.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js')
+
+    script(src='/js/lib/kibo.min.js')
 
     script(src='/socket.io/socket.io.js')
     script(src='/js/utils.js')
