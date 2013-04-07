@@ -31,7 +31,6 @@ $(function() {
         port: port,
         password: password
       }, function(data) {
-        console.log(data)
         $('#connect').hide();
         $('#center, #input').show();
 
