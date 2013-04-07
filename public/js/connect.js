@@ -5,6 +5,7 @@ $(function() {
     var $port = $('#port');
     var $password = $('#password');
     var $store = $('#store');
+    var $btn = $('.modal .btn');
 
     if (window.localStorage) {
       $host.val(localStorage.host);
@@ -13,7 +14,7 @@ $(function() {
       $store.prop('checked', localStorage.store);
     }
 
-    $('.modal .btn').click(function() {
+    $btn.click(function() {
       var host = $host.val();
       var port = $port.val();
       var password = $password.val();
@@ -35,8 +36,9 @@ $(function() {
       });
     });
 
-    $host.keydown(function(e) {
-      if (e.keyCode === 13) $('.modal .btn').click();
+    var kibo = new Kibo();
+    kibo.down('enter', function() {
+      if ($('.modal').is(':visible')) $btn.click();
     });
   });
 });
