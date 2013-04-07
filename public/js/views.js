@@ -93,6 +93,7 @@ $(function() {
     },
 
     addMessage: function(message) {
+      this.model.addUserIdToActivityList(message.get('user').id);
       var view = new MessageView({
         model: message
       });
@@ -123,7 +124,10 @@ $(function() {
     },
 
     clickNick: function() {
-      var nick = this.$el.find('.nick').text();
+      var user = this.model.get('user');
+      var nick = user.title;
+      if (!nick) return false;
+
       inputView.setNick(nick);
       inputView.focus();
       return false;
