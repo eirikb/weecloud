@@ -6,6 +6,9 @@ $(function() {
     var $store = $('#store');
     var $btn = $('#connect .btn');
 
+    $('#connect').show();
+    $('#center, #input').hide();
+
     if (window.localStorage) {
       $host.val(localStorage.host);
       $port.val(localStorage.port);
