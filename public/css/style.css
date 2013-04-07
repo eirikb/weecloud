@@ -1,0 +1,33 @@
+#center {
+  top: 0;
+  bottom: 43px;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+}
+
+#buffers {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+#userlist {
+  padding: 15px;
+}
+
+#input {
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  margin-left: 5%;
+}
+
+#input input {
+  width: 100%;
+}
+
+.message {
+  word-wrap: break-word;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

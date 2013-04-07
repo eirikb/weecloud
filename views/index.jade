@@ -1,0 +1,107 @@
+!!! 5
+html
+  head
+    title WeeCloud
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+
+    script
+      var _gaq=_gaq || [];
+      _gaq.push(['_setAccount','UA-28970140-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+  body
+
+    #center.row-fluid
+      a.btn.visible-phone(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-list
+      .nav-collapse.collapse
+        #bufferlist.tabbable.tabs-left.pull-left
+          ul.nav.nav-tabs
+      #userlist.hidden-phone.pull-right
+      #buffers
+        .tab-content
+    #input
+      input(type='text')
+
+    .modal.hide.fade
+      .modal-header
+        h3 WeeCloud - Connect
+      .modal-body
+        form.form-horizontal
+          .control-group
+            label.control-label(for='host') Host
+            .controls
+              input#host(type='text', placeholder='Host', autofocus)
+          .control-group
+            label.control-label(for='port') Port
+            .controls
+              input#port(type='number', placeholder='Port')
+          .control-group
+            label.control-label(for='password') Password
+            .controls
+              input#password(type='password', placeholder='Password')
+          .control-group
+            .controls
+              label.checkbox
+                input#store(type='checkbox')
+                | Remember connection
+                i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
+
+      .modal-footer
+        a.btn.btn-primary(href='#') Connect
+
+    script(type='text/template', id='server-menu-template')
+      | <li id="server-<%= id %>" class="nav nav-header"><%- title %></li>
+
+    script(type='text/template', id='buffer-menu-template')
+      li 
+        | <a href="#<%= id %>" data-toggle="tab">
+        | <span class="badge"></span>
+        | <%- title %></a>
+
+    script(type='text/template', id='buffer-template')
+      | <div class="tab-pane" id="<%= id %>"></div>
+
+    script(type='text/template', id='message-template')
+      | <div class="message <% if (type === 'message') { %> well well-small <% } %>">
+      |   <a <% if (type === 'message') { %> class="label nick" <% } %> href="#"><%= from %></a>
+      |   <%= text %>
+      |   <span class="muted pull-right">
+      |     <%- moment(date).formatTimeToday() %>
+      |   </span>
+      | </div>
+
+    script(type='text/template', id='user-list-template')
+      | <ul class="unstyled"></ul>
+
+    script(type='text/template', id='user-template')
+      | <li>
+      |   <a href="#"><%- title %></a>
+      | </li>
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/backbone-relational/0.7.0/backbone-relational.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js')
+
+    script(src='/js/lib/kibo.min.js')
+
+    script(src='/socket.io/socket.io.js')
+    script(src='/js/utils.js')
+    script(src='/js/models.js')
+    script(src='/js/collections.js')
+    script(src='/js/views.js')
+    script(src='/js/app.js')
+    script(src='/js/connect.js')
