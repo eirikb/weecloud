@@ -102,7 +102,7 @@ $(function() {
       this.$el.append(view.render().$el);
       this.scrollBottom();
 
-      if (this.model === this.model.collection.active) return;
+      if (this.model === buffers.active) return;
       if (message.get('type') !== 'message') return;
       this.model.incActivity();
     },
