@@ -95,6 +95,7 @@ $(function() {
     },
 
     addMessage: function(message) {
+      console.log(message)
       this.model.addUserIdToActivityList(message.get('user').id);
       var view = new MessageView({
         model: message

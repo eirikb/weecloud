@@ -77,7 +77,7 @@ html
       | <div class="tab-pane" id="<%= id %>"></div>
 
     script(type='text/template', id='message-template')
-      | <div class="message <% if (type === 'message') { %> well well-small <% } %>">
+      | <div class="message <%= highlight && 'alert-success' %> <%= type === 'message' && 'well well-small' %> ">
       |   <a <% if (type === 'message') { %> class="label nick" <% } %> href="#"><%= from %></a>
       |   <%= text %>
       |   <span class="muted pull-right">
