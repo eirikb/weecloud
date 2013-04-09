@@ -221,6 +221,7 @@ $(function() {
     open: function() {
       $('#userlist ul').hide();
       this.$el.show();
+      $('#userlist').toggle(this.model.get('type') !== 'private');
     }
   });
 
