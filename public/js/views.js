@@ -183,6 +183,7 @@ $(function() {
       });
 
       buffers.on('open', function() {
+        if ($('#desktop').is(':hidden')) return;
         self.$el.focus();
       });
     },
@@ -219,6 +220,7 @@ $(function() {
     },
 
     focus: function() {
+      if ($('#desktop').is(':hidden')) return;
       this.$el.focus();
     }
   });
