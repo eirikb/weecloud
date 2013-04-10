@@ -14,7 +14,7 @@ utils = {
         'background-color': bg
       }).text(part.text);
 
-      $part.html($part.html().replace(linkExp, '<a href="$1">$1</a>'));
+      $part.html($part.html().replace(linkExp, '<a href="$1" target="_blank">$1</a>'));
 
       return $container.append($part).html();
     }).join('');
