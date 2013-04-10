@@ -7,7 +7,7 @@ $(function() {
     var $btn = $('#connect .btn');
 
     $('#connect').show();
-    $('#center, #input, #info').hide();
+    $('#center, #input, #top').hide();
 
     if (window.localStorage) {
       $host.val(localStorage.host);
@@ -35,7 +35,7 @@ $(function() {
         password: password
       }, function(data) {
         $('#connect').hide();
-        $('#center, #input, #info').show();
+        $('#center, #input, #top').show();
 
         socket.emit('init');
       });

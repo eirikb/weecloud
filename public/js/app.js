@@ -17,6 +17,11 @@ $(function() {
         model: server
       });
       $('#bufferlist ul').append(serverView.render().$el);
+
+      var dropdownBufferView = new DropdownBufferView({
+        model: server
+      });
+      $('select').append(dropdownBufferView.render().$el);
     }
 
     buffer = new Buffer(buffer);
@@ -54,4 +59,10 @@ $(function() {
   });
 
   $('.tip').tooltip();
+  $('select').select2({
+    width: '100%'
+  }).change(function() {
+    var val = $(this).val();
+    $('[href=#' + val + ']').click();
+  });
 });

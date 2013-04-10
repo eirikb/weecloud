@@ -7,6 +7,7 @@ html
 
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css')
     link(rel='stylesheet', href='/css/style.css')
 
     script
@@ -21,13 +22,11 @@ html
 
   body
 
-    #info.hide
-      a#btn-nav.btn.hidden-desktop(data-toggle='collapse', data-target='.nav-collapse')
-          span.icon-list
+    #top.hide
+      select
     #center.hide.row-fluid
-      .nav-collapse.collapse
-        #bufferlist.tabbable.tabs-left.pull-left
-          ul.nav.nav-tabs
+      #bufferlist.hidden-phone.tabbable.tabs-left.pull-left
+        ul.nav.nav-tabs
       #userlist.hidden-phone.pull-right
       #buffers
         .tab-content
@@ -93,12 +92,19 @@ html
       |   <a href="#"><%- title %></a>
       | </li>
 
+    script(type='text/template', id='dropdown-buffer-template')
+      | <optgroup label="<%= title %>">
+
+    script(type='text/template', id='dropdown-option-buffer-template')
+      | <option value="<%= id %>"><%= title %></option>
+
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/backbone-relational/0.7.0/backbone-relational.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.min.js')
 
     script(src='/js/lib/kibo.min.js')
 
