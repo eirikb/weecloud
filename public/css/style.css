@@ -20,6 +20,8 @@
 
 #userlist {
   padding: 15px;
+  overflow: scroll;
+  height: 100%;
 }
 
 #input {
