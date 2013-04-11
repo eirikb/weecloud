@@ -52,3 +52,12 @@
 .message.well-small {
   padding: 2px;
 }
+
+#dropdown-buffers {
+  margin-left: 25px;
+}   
+
+#total-activity {
+  position: absolute;
+  margin: 5px;
+}

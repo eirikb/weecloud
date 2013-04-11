@@ -12,6 +12,12 @@ BufferCollection = Backbone.Collection.extend({
 
   setActive: function(buffer) {
     this.active = buffer;
+  },
+
+  getActivity: function() {
+    return  _.reduce(this.models, function(memo, model){ 
+      return memo + model.get('activity'); 
+    }, 0);
   }
 });
 

@@ -70,6 +70,9 @@ $(function() {
       buffer.on('change:activity', function(b, activity) {
         activity = activity || '';
         $el.text(activity + ' ' + text);
+
+        var totalActivity = buffers.getActivity() || '';
+        $('#total-activity').text(totalActivity);
       });
     },
 
