@@ -44,8 +44,8 @@ $(function() {
 
     open: function() {
       this.model.trigger('open', this.model);
-      this.model.set('activity', 0);
       this.model.set('mentioned', false);
+      this.model.set('activity', 0);
     },
 
     render: function() {
@@ -74,7 +74,8 @@ $(function() {
         $el.text(activity + ' ' + text);
 
         var totalActivity = buffers.getActivity() || '';
-        $('#total-activity').text(totalActivity);
+        var mentioned = buffers.getMentioned();
+        $('#total-activity').text(totalActivity).toggleClass('badge-important', mentioned);
       });
     },
 
