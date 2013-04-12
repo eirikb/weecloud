@@ -39,7 +39,7 @@ $(function() {
 
         socket.emit('init');
       });
-    }).click();
+    });
 
     var kibo = new Kibo();
     kibo.down('enter', function() {
