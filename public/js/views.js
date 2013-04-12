@@ -89,6 +89,7 @@ $(function() {
     initialize: function() {
       this.listenTo(this.model, 'open', this.open);
       this.listenTo(this.model, 'add:messages', this.addMessage);
+      this.listenTo(this.model, 'scroll-bottom', this.scrollBottom);
     },
 
     open: function() {
@@ -254,6 +255,7 @@ $(function() {
       $('#userlist ul').hide();
       this.$el.show();
       $('#userlist').toggle(this.model.get('type') !== 'private');
+      this.model.trigger('scroll-bottom');
     }
   });
 
