@@ -42,6 +42,10 @@ Buffer = Backbone.RelationalModel.extend({
     this.set('activity', activity + 1);
   },
 
+  setMentioned: function() {
+    this.set('mentioned', true);
+  },
+
   findByNickPart: function(part) {
     part = part.toLowerCase();
 

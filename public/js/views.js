@@ -38,12 +38,14 @@ $(function() {
     activity: function() {
       var activity = this.model.get('activity');
       if (!activity) activity = '';
-      this.$('.badge').text(activity);
+      var mentioned = !! this.model.get('mentioned');
+      this.$('.badge').text(activity).toggleClass('badge-important', mentioned);
     },
 
     open: function() {
       this.model.trigger('open', this.model);
       this.model.set('activity', 0);
+      this.model.set('mentioned', false);
     },
 
     render: function() {
@@ -134,6 +136,7 @@ $(function() {
 
       if (this.model === buffers.active) return;
       if (message.get('type') !== 'message') return;
+      if (message.get('highlight')) this.model.setMentioned();
       this.model.incActivity();
     },
 
