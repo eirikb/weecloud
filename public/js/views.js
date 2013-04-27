@@ -148,7 +148,7 @@ $(function() {
     }
   });
 
-  MessageView = Backbone.View.extend({
+  MessageView = Backbone.Marionette.ItemView.extend({
     template: _.template($('#message-template').html()),
 
     events: {
@@ -163,12 +163,6 @@ $(function() {
       inputView.setNick(nick);
       inputView.focus();
       return false;
-    },
-
-    render: function() {
-      var tpl = this.template(this.model.toJSON()).trim();
-      this.setElement(tpl.trim(), true);
-      return this;
     }
   });
 
@@ -228,7 +222,7 @@ $(function() {
     }
   });
 
-  UserListView = Backbone.View.extend({
+  UserListView = Backbone.Marionette.CollectionView.extend({
     template: _.template($('#user-list-template').html()),
 
     initialize: function() {
@@ -257,21 +251,7 @@ $(function() {
     }
   });
 
-  UserView = Backbone.View.extend({
+  UserView = Backbone.Marionette.ItemView.extend({
     template: _.template($('#user-template').html()),
-
-    initialize: function() {
-      this.listenTo(this.model, 'remove', this.removeUser);
-    },
-
-    removeUser: function() {
-      this.$el.remove();
-    },
-
-    render: function() {
-      var tpl = this.template(this.model.toJSON()).trim();
-      this.setElement(tpl.trim(), true);
-      return this;
-    }
   });
 });
