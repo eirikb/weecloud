@@ -14,7 +14,14 @@ utils = {
         'background-color': bg
       }).text(part.text);
 
-      $part.html($part.html().replace(linkExp, '<a href="$1" target="_blank">$1</a>'));
+      var html = $part.html();
+      _.each(html.match(linkExp), function(link) {
+        var original = link;
+        if (link.match(/^www/i)) link = 'http://' + link;
+
+        html = html.replace(original, '<a href="' + link + '" target="_blank">' + original + '</a>');
+      });
+      $part.html(html);
 
       return $container.append($part).html();
     }).join('');
