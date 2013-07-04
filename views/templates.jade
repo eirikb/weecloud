@@ -1,0 +1,35 @@
+script(type='text/template', id='server-menu-template')
+  | <li id="server-<%= id %>" class="nav nav-header"><%- title %></li>
+
+script(type='text/template', id='buffer-menu-template')
+  li 
+    | <a href="#<%= id %>" data-toggle="tab">
+    | <span class="badge"></span>
+    | <%- title %></a>
+
+script(type='text/template', id='buffer-template')
+  | <div class="tab-pane" id="<%= id %>"></div>
+
+script(type='text/template', id='message-template')
+  | <div class="message <%= highlight && 'alert-success' %> <%= type === 'message' && 'well well-small' %> ">
+  |   <a <% if (type === 'message') { %> class="label nick" <% } %> href="#"><%= from %></a>
+  |   <%= text %>
+  |   <span class="muted pull-right">
+  |     <%- moment(date).formatTimeToday() %>
+  |   </span>
+  | </div>
+
+script(type='text/template', id='user-list-template')
+  | <ul class="unstyled"></ul>
+
+script(type='text/template', id='user-template')
+  | <li>
+  |   <a href="#"><%- title %></a>
+  | </li>
+
+script(type='text/template', id='dropdown-buffer-template')
+  | <optgroup label="<%= title %>">
+
+script(type='text/template', id='dropdown-option-buffer-template')
+  | <option value="<%= id %>"><%= title %></option>
+

@@ -1,0 +1,38 @@
+!!! 5
+html
+  head
+    title WeeCloud
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css')
+    link(rel='stylesheet', href='/css/style.css')
+
+    include tracking.js
+
+  body
+    block content
+
+    include templates
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/backbone-relational/0.7.0/backbone-relational.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.0.1-bundled/backbone.marionette.min.js')
+
+    script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.min.js')
+
+    script(src='/js/lib/kibo.min.js')
+
+    script(src='/socket.io/socket.io.js')
+    script(src='/js/utils.js')
+    script(src='/js/models.js')
+    script(src='/js/collections.js')
+    script(src='/js/views.js')
+    script(src='/js/app.js')
+    script(src='/js/connect.js')
