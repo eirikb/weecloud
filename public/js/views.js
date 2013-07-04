@@ -258,6 +258,6 @@ $(function() {
   });
 
   UserView = Backbone.Marionette.ItemView.extend({
-    template: _.template($('#user-template').html()),
+    template: _.template($('#user-template').html())
   });
 });

@@ -54,7 +54,7 @@ Buffer = Backbone.RelationalModel.extend({
     }
 
     var users = this.get('users');
-    var users = _.chain(this.get('activityList')).map(function(id) {
+    users = _.chain(this.get('activityList')).map(function(id) {
       return users.get(id);
     }).filter(function(user) {
       return user;

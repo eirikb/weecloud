@@ -35,4 +35,4 @@ moment.fn.formatTimeToday = function() {
     format = 'HH:mm:ss';
   }
   return this.format(format);
-}
+};
