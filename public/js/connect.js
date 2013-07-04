@@ -1,13 +1,14 @@
 $(function() {
   socket.on('connect', function() {
+    var $form = $('#connect');
     var $host = $('#host');
     var $port = $('#port');
     var $password = $('#password');
     var $store = $('#store');
-    var $btn = $('#connect .btn');
 
-    $('#connect').show();
+    $('#connect, #connect-container').show();
     $('#center, #input, #top').hide();
+    $('#loading').hide();
 
     if (window.localStorage) {
       $host.val(localStorage.host);
@@ -16,7 +17,7 @@ $(function() {
       $store.prop('checked', localStorage.store);
     }
 
-    $btn.click(function() {
+    $form.submit(function() {
       var host = $host.val();
       var port = $port.val();
       var password = $password.val();
@@ -39,11 +40,8 @@ $(function() {
 
         socket.emit('init');
       });
-    });
 
-    var kibo = new Kibo();
-    kibo.down('enter', function() {
-      if ($('#connect').is(':visible')) $btn.click();
+      return false;
     });
   });
 });

@@ -10,7 +10,7 @@ html
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css')
     link(rel='stylesheet', href='/css/style.css')
 
-    script
+    script.
       var _gaq=_gaq || [];
       _gaq.push(['_setAccount','UA-28970140-1']);
       _gaq.push(['_trackPageview']);
@@ -37,34 +37,19 @@ html
       input(type='text')
 
     .container
-      section#connect.box
-        .modal-header
-          h3 WeeCloud 
-            small= version
-        .modal-body
-          form.form-horizontal
-            .control-group
-              label.control-label(for='host') Host
-              .controls
-                input#host(type='text', placeholder='Host', autofocus)
-            .control-group
-              label.control-label(for='port') Port
-              .controls
-                input#port(type='number', placeholder='Port')
-            .control-group
-              label.control-label(for='password') Password
-              .controls
-                input#password(type='password', placeholder='Password')
-            .control-group
-              .controls
-                label.checkbox
-                  input#store(type='checkbox')
-                  | Remember connection
-                  i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
-            #error.alert.alert-error.hide
-
-        .modal-footer
-          a.btn.btn-primary(href='#') Connect
+      form#connect.form-signin
+        h2 WeeCloud 
+          small= version
+        h3#loading Loading...
+        #connect-container.hide
+          input#host.input-block-level(type='text', placeholder='Host')
+          input#port.input-block-level(type='number', placeholder='Port')
+          input#password.input-block-level(type='password', placeholder='Password')
+          label.checkbox
+            input#store(type='checkbox') 
+            | Remember be 
+            i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
+          button.btn.btn-large.btn-primary(type='submit') Connect
 
     script(type='text/template', id='server-menu-template')
       | <li id="server-<%= id %>" class="nav nav-header"><%- title %></li>
