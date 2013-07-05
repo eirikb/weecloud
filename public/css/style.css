@@ -37,12 +37,8 @@
 
 .message {
   word-wrap: break-word;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.message.well-small {
-  padding: 2px;
+  border-top: 1px solid #eee;
+  padding: 6px 0 6px 0;
 }
 
 #dropdown-buffers {
