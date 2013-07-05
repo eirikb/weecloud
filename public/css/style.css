@@ -84,3 +84,6 @@
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+.form-signin p {
+  padding: 10px 0 0 0;
+}
