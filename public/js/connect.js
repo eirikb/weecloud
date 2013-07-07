@@ -4,6 +4,7 @@ $(function() {
     var $host = $('#host');
     var $port = $('#port');
     var $password = $('#password');
+    var $ssl = $('#ssl');
     var $store = $('#store');
 
     $('#connect, #connect-container').show();
@@ -14,6 +15,7 @@ $(function() {
       $host.val(localStorage.host);
       $port.val(localStorage.port);
       $password.val(localStorage.password);
+      $ssl.prop('checked', localStorage.ssl);
       $store.prop('checked', localStorage.store);
     }
 
@@ -21,6 +23,7 @@ $(function() {
       var host = $host.val();
       var port = $port.val();
       var password = $password.val();
+      var ssl = $ssl.prop('checked');
       var store = $store.prop('checked');
 
       $('#error').hide();
@@ -28,11 +31,13 @@ $(function() {
       localStorage.host = store ? host : '';
       localStorage.port = store ? port : '';
       localStorage.password = store ? password : '';
+      localStorage.ssl = ssl;
       localStorage.store = store;
 
       socket.emit('connect', {
         host: host,
         port: port,
+        ssl: ssl,
         password: password
       }, function(data) {
         $('#connect').hide();
