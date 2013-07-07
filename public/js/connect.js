@@ -15,8 +15,8 @@ $(function() {
       $host.val(localStorage.host);
       $port.val(localStorage.port);
       $password.val(localStorage.password);
-      $ssl.prop('checked', localStorage.ssl);
-      $store.prop('checked', localStorage.store);
+      $ssl.prop('checked', localStorage.ssl === 'true');
+      $store.prop('checked', localStorage.store === 'true');
     }
 
     $form.submit(function() {
@@ -31,7 +31,7 @@ $(function() {
       localStorage.host = store ? host : '';
       localStorage.port = store ? port : '';
       localStorage.password = store ? password : '';
-      localStorage.ssl = ssl;
+      localStorage.ssl = store ? ssl : false;
       localStorage.store = store;
 
       socket.emit('connect', {
