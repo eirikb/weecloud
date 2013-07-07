@@ -11,7 +11,7 @@
     "jade": "~0.32.0",
     "socket.io": "~0.9.16",
     "validator": "~1.2.1",
-    "weechat": "0.0.15"
+    "weechat": "0.0.16"
   },
   "engines": {
     "node": "0.8.x"
