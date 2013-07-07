@@ -143,6 +143,8 @@ $(function() {
     },
 
     scrollBottom: function() {
+      if (!this.$el.is(':visible')) return;
+
       $('#buffers').scrollTop($('.tab-pane.active').height());
     },
 
