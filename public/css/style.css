@@ -57,6 +57,11 @@
   top: 0;
 }
 
+#error {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
 .form-signin {
   max-width: 300px;
   padding: 19px 29px 29px;
