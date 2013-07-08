@@ -22,11 +22,11 @@ block content
         small= version
       h3#loading Loading...
       #connect-container.hide
-        input#host.input-block-level(type='text', placeholder='Host')
-        input#port.input-block-level(type='number', placeholder='Port')
+        input#host.input-block-level(type='text', placeholder='Host', value=options.host)
+        input#port.input-block-level(type='number', placeholder='Port', value=options.port)
         input#password.input-block-level(type='password', placeholder='Password')
         label.checkbox
-          input#ssl(type='checkbox') 
+          input#ssl(type='checkbox', checked=(options.ssl ? 'checked' : undefined)) 
           | SSL
         label.checkbox
           input#store(type='checkbox') 

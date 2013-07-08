@@ -11,7 +11,7 @@ $(function() {
     $('#center, #input, #top').hide();
     $('#loading').hide();
 
-    if (window.localStorage) {
+    if (window.localStorage && !$host.val()) {
       $host.val(localStorage.host);
       $port.val(localStorage.port);
       $password.val(localStorage.password);

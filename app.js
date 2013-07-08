@@ -5,6 +5,7 @@ var io = require('socket.io').listen(server);
 var weecloud = require('./lib/weecloud');
 
 var package = require('./package.json');
+package.options = package.options || {};
 
 io.set('log level', 0);
 
