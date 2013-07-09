@@ -20,6 +20,11 @@ block content
     form#connect.form-signin
       h2 WeeCloud 
         small= version
+      ul.gh.unstyled
+        li
+          iframe.github-btn(src='http://ghbtns.com/github-btn.html?user=eirikb&repo=weecloud&type=watch', allowtransparency=true,frameborder=0, scrolling=0, height='20px')
+        li
+          iframe.github-btn(src='http://ghbtns.com/github-btn.html?user=eirikb&repo=weecloud&type=fork', allowtransparency=true, frameborder=0, scrolling=0, height='20px')
       h3#loading Loading...
       #connect-container.hide
         input#host.input-block-level(type='text', placeholder='Host', value=options.host)

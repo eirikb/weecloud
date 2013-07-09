@@ -88,3 +88,11 @@
 .form-signin p {
   padding: 10px 0 0 0;
 }
+
+.gh {
+  height: 20px;
+}
+.gh li {
+  float: left;
+  width: 70px;
+}
