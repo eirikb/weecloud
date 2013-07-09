@@ -39,7 +39,9 @@ $(function() {
         port: port,
         ssl: ssl,
         password: password
-      }, function(data) {
+      }, function(version) {
+        _gaq.push(['_setCustomVar', 1, 'WeeChat version', version]);
+
         $('#connect').hide();
         $('#center, #input, #top').show();
 

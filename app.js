@@ -22,8 +22,8 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
   socket.on('connect', function(data, cb) {
-    socket.client = weecloud.connect(socket, data, function() {
-      cb();
+    socket.client = weecloud.connect(socket, data, function(version) {
+      cb(version);
     });
   });
 });
