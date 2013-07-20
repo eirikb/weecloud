@@ -36,3 +36,10 @@ Special thanks to:
 
 *  xt
 *  FlashCode
+
+
+License
+---
+
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
+(c) Eirik Brandtzæg
