@@ -76,6 +76,8 @@ $(function() {
         var totalActivity = buffers.getActivity() || '';
         var mentioned = buffers.getMentioned();
         $('#total-activity').text(totalActivity).toggleClass('badge-important', mentioned);
+
+        document.title = 'WeeCloud' + (mentioned ? ' | Urgent' : '');
       });
     },
 
