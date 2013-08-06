@@ -16,7 +16,7 @@ $(function() {
       var serverView = new ServerView({
         model: server
       });
-      $('#bufferlist ul').append(serverView.render().$el);
+      $('#bufferlist > ul').append(serverView.render().$el);
 
       var dropdownBufferView = new DropdownBufferView({
         model: server

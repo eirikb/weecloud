@@ -1,5 +1,6 @@
 script(type='text/template', id='server-menu-template')
-  | <li id="server-<%= id %>" class="nav nav-header"><%- title %></li>
+  | <li id="server-<%= id %>" class="nav nav-header" data-toggle="collapse" data-target="#server-panel-<%= id %>"><%- title %></li>
+  | <ul class="nav nav-list collapse" id="server-panel-<%= id %>"></ul>
 
 script(type='text/template', id='buffer-menu-template')
   li 

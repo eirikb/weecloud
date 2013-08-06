@@ -4,6 +4,7 @@ $(function() {
 
     initialize: function() {
       this.listenTo(this.model, 'add:buffers', this.addBuffer);
+      this.listenTo(this.model, 'change:activity:buffers', this.activity);
     },
 
     addBuffer: function(buffer) {
@@ -13,8 +14,21 @@ $(function() {
       var bufferView = new BufferView({
         model: buffer
       });
-      this.$el.after(bufferMenuView.render().$el);
-      $('#buffers').children().append(bufferView.render().$el);
+      this.$el.last().append(bufferMenuView.render().$el);
+      $('#buffers').children().first().append(bufferView.render().$el);
+
+      var self = this;
+      buffer.on('change:activity', function(buffer, activity) {
+        self.activity(self, activity);
+      });
+    },
+
+    activity: function(self, buffer, activity) {
+      //var activity = buffer.get('activity');
+      if (!activity) activity = '';
+      self.$el.css('text-decoration', 'underline');
+      //var mentioned = !! this.model.get('mentioned');
+      //this.$('.badge').text(activity).toggleClass('badge-important', mentioned);
     },
 
     render: function() {
@@ -43,6 +57,8 @@ $(function() {
     },
 
     open: function() {
+      $('#bufferlist .active').removeClass('active');
+      this.$el.addClass('active');
       this.model.trigger('open', this.model);
       this.model.set('mentioned', false);
       this.model.set('activity', 0);
