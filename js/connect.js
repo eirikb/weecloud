@@ -39,8 +39,10 @@ $(function() {
         ssl: ssl,
         password: password
       }, function(version) {
-        _gaq.push(['_setCustomVar', 1, 'WeeChat version', version]);
-        _gaq.push(['_trackEvent', 'WeeChat', 'WeeChat version']);
+        if (window._gaq) {
+          _gaq.push(['_setCustomVar', 1, 'WeeChat version', version]);
+          _gaq.push(['_trackEvent', 'WeeChat', 'WeeChat version']);
+        }
 
         $('#connect').hide();
         $('#center, #input, #top').removeClass('hide');

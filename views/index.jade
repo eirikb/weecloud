@@ -20,16 +20,16 @@ block content
     form#connect.form-signin
       h2 WeeCloud 
         small= version
-      ul.gh.unstyled
+      ul.gh.list-unstyled
         li
           iframe.github-btn(src='http://ghbtns.com/github-btn.html?user=eirikb&repo=weecloud&type=watch', allowtransparency=true,frameborder=0, scrolling=0, height='20px')
         li
           iframe.github-btn(src='http://ghbtns.com/github-btn.html?user=eirikb&repo=weecloud&type=fork', allowtransparency=true, frameborder=0, scrolling=0, height='20px')
       h3#loading Loading...
       #connect-container.hide
-        input#host.input-block-level(type='text', placeholder='Host')
-        input#port.input-block-level(type='number', placeholder='Port')
-        input#password.input-block-level(type='password', placeholder='Password')
+        input#host.form-control.input-block-level(type='text', placeholder='Host')
+        input#port.form-control.input-block-level(type='number', placeholder='Port')
+        input#password.form-control.input-block-level(type='password', placeholder='Password')
         label.checkbox
           input#ssl(type='checkbox') 
           | SSL
