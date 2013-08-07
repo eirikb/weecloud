@@ -195,18 +195,9 @@ $(function() {
     el: '#input input',
 
     initialize: function() {
-      var k = new Kibo(this.el);
-      var self = this;
-      k.down('tab', function() {
-        return self.tab();
-      });
-      k.down('enter', function() {
-        return self.enter();
-      });
-
       buffers.on('open', function() {
         if ($('#desktop').is(':hidden')) return;
-        self.$el.focus();
+        //self.$el.focus();
       });
     },
 

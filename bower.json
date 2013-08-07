@@ -1,6 +1,6 @@
 {
-  "name": "hvobeta",
-  "version": "0.0.1",
+  "name": "weecloud",
   "dependencies": {
+    "bootstrap": "~3.0.0-rc1"
   }
 }

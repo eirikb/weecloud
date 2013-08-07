@@ -7,8 +7,7 @@ $(function() {
     var $ssl = $('#ssl');
     var $store = $('#store');
 
-    $('#connect, #connect-container').show();
-    $('#center, #input, #top').hide();
+    $('#connect-container').removeClass('hide');
     $('#loading').hide();
 
     if (window.localStorage && !$host.val()) {
@@ -44,12 +43,12 @@ $(function() {
         _gaq.push(['_trackEvent', 'WeeChat', 'WeeChat version']);
 
         $('#connect').hide();
-        $('#center, #input, #top').show();
+        $('#center, #input, #top').removeClass('hide');
 
         socket.emit('init');
       });
 
       return false;
-    }).submit();
+    });
   });
 });
