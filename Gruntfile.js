@@ -6,18 +6,27 @@ module.exports = function(grunt) {
   });
 
   var pkg = grunt.file.readJSON('package.json');
+  var styles = ['app.css'];
+  var scripts = [
+      'js/utils.js',
+      'js/models.js',
+      'js/collections.js',
+      'js/views.js',
+      'js/app.js',
+      'js/connect.js'
+  ];
 
   grunt.initConfig({
     less: {
-      development: {
+      dev: {
         options: {
-          paths: ['bower_components/bootstrap/less'],
+          paths: ['bower_components/bootstrap/less']
         },
         files: {
           'dist/app.css': 'less/source.less'
         }
       },
-      production: {
+      prod: {
         options: {
           paths: ['bower_components/bootstrap/less'],
           yuicompress: true
@@ -28,23 +37,41 @@ module.exports = function(grunt) {
       }
     },
     jade: {
-      compile: {
+      dev: {
         files: {
           'dist/index.html': ['views/index.jade']
         },
         options: {
-          data: pkg
+          pretty: true,
+          data: {
+            dev: true,
+            version: pkg.version,
+            scripts: scripts,
+            styles: styles
+          }
+        }
+      },
+      prod: {
+        files: {
+          'dist/index.html': ['views/index.jade']
+        },
+        options: {
+          data: {
+            version: pkg.version,
+            scripts: ['app.min.js'],
+            styles: ['app.min.css']
+          }
         }
       }
     },
     watch: {
       css: {
         files: '**/*.less',
-        tasks: ['less'],
+        tasks: ['less:dev'],
       },
       jade: {
         files: '**/*.jade',
-        tasks: ['jade'],
+        tasks: ['jade:dev'],
       },
       js: {
         files: 'js/*.js',
@@ -58,6 +85,22 @@ module.exports = function(grunt) {
         src: '*',
         dest: 'dist/js/'
       },
+    },
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: scripts,
+        dest: 'dist/app.js'
+      }
+    },
+    uglify: {
+      app: {
+        files: {
+          'dist/app.min.js': ['dist/app.js']
+        }
+      }
     }
   });
 
@@ -65,7 +108,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('default', ['less', 'jade', 'copy']);
-  grunt.registerTask('dev', ['default', 'server', 'watch']);
+  grunt.registerTask('default', ['less', 'jade', 'copy', 'concat', 'uglify']);
+  grunt.registerTask('dev', ['less:dev', 'jade:dev', 'copy', 'server', 'watch']);
+  grunt.registerTask('prod', ['less:prod', 'jade:prod', 'concat', 'uglify', 'copy']);
 };

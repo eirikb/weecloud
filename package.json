@@ -20,7 +20,9 @@
     "grunt-contrib-connect": "~0.3.0",
     "grunt-contrib-jade": "~0.7.0",
     "grunt-contrib-less": "~0.6.3",
-    "grunt-contrib-copy": "~0.4.1"
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.2"
   },
   "engines": {
     "node": "0.10.x"

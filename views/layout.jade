@@ -5,12 +5,12 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css')
-    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/select2/3.4.0/select2.min.css')
-    link(rel='stylesheet', href='app.min.css')
+    each style in styles
+      link(rel='stylesheet', href=style)
 
-    include tracking.js
+    if !dev
+      include tracking.js
 
   body
     block content
@@ -28,9 +28,5 @@ html
     script(src='//cdnjs.cloudflare.com/ajax/libs/select2/3.4.0/select2.min.js')
 
     script(src='/socket.io/socket.io.js')
-    script(src='/js/utils.js')
-    script(src='/js/models.js')
-    script(src='/js/collections.js')
-    script(src='/js/views.js')
-    script(src='/js/app.js')
-    script(src='/js/connect.js')
+    each script in scripts
+      script(src='/' + script)
