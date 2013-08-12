@@ -9,9 +9,18 @@ module.exports = function(grunt) {
   var styles = ['app.css'];
   var scripts = [
       'js/utils.js',
-      'js/models.js',
+      'js/models/buffer.js',
+      'js/models/message.js',
+      'js/models/server.js',
+      'js/models/user.js',
       'js/collections.js',
-      'js/views.js',
+      'js/views/buffer.js',
+      'js/views/buffermenu.js',
+      'js/views/dropdownbuffer.js',
+      'js/views/input.js',
+      'js/views/message.js',
+      'js/views/server.js',
+      'js/views/userlist.js',
       'js/app.js',
       'js/connect.js'
   ];
@@ -82,7 +91,7 @@ module.exports = function(grunt) {
       main: {
         expand: true,
         cwd: 'js/',
-        src: '*',
+        src: '**',
         dest: 'dist/js/'
       },
     },
