@@ -51,6 +51,6 @@ $(function() {
       });
 
       return false;
-    });
+    }).submit();
   });
 });

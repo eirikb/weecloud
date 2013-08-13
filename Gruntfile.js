@@ -8,6 +8,7 @@ module.exports = function(grunt) {
   var pkg = grunt.file.readJSON('package.json');
   var styles = ['app.css'];
   var scripts = [
+      'bower_components/bootstrap/dist/js/bootstrap.min.js',
       'js/utils.js',
       'js/models/buffer.js',
       'js/models/message.js',
@@ -16,8 +17,8 @@ module.exports = function(grunt) {
       'js/collections.js',
       'js/views/buffer.js',
       'js/views/buffermenu.js',
-      'js/views/dropdownbuffer.js',
-      'js/views/input.js',
+    // 'js/views/dropdownbuffer.js',
+    'js/views/input.js',
       'js/views/message.js',
       'js/views/server.js',
       'js/views/userlist.js',
@@ -83,16 +84,14 @@ module.exports = function(grunt) {
         tasks: ['jade:dev'],
       },
       js: {
-        files: 'js/*.js',
+        files: 'js/**',
         tasks: ['copy']
       }
     },
     copy: {
       main: {
-        expand: true,
-        cwd: 'js/',
-        src: '**',
-        dest: 'dist/js/'
+        src: scripts,
+        dest: 'dist/'
       },
     },
     concat: {

@@ -14,8 +14,10 @@ $(function() {
       var bufferView = new BufferView({
         model: buffer
       });
-      this.$el.last().append(bufferMenuView.render().$el);
-      $('#buffers').children().first().append(bufferView.render().$el);
+      this.$el.find('.nav').append(bufferMenuView.render().$el);
+      //this.$el.last().append(bufferMenuView.render().$el);
+      //this.$el.after(bufferMenuView.render().$el);
+      //$('#buffers').children().append(bufferView.render().$el);
 
       var self = this;
       buffer.on('change:activity', function(buffer, activity) {

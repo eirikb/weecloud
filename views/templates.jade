@@ -1,15 +1,17 @@
 script(type='text/template', id='server-menu-template')
-  | <li id="server-<%= id %>" class="nav nav-header" data-toggle="collapse" data-target="#server-panel-<%= id %>"><%- title %></li>
-  | <ul class="nav nav-list collapse" id="server-panel-<%= id %>"></ul>
+  li
+    a(data-toggle='collapse', href!='#server-<%= id %>')
+      | <%= title %>
+    ul.nav.collapse(id!='server-<%= id %>')
 
 script(type='text/template', id='buffer-menu-template')
   li 
-    | <a href="#<%= id %>" data-toggle="tab">
-    | <span class="badge"></span>
-    | <%- title %></a>
+    a(href!='<%= id %>') 
+      span.badge
+      | <%= title %>
 
 script(type='text/template', id='buffer-template')
-  | <div class="tab-pane" id="<%= id %>"></div>
+  .tab-pane(id='<%= id %>')
 
 script(type='text/template', id='message-template')
   | <div class="message <%= highlight && 'alert-success' %> <%= type !== 'message' && 'muted' %> ">
@@ -21,16 +23,16 @@ script(type='text/template', id='message-template')
   | </div>
 
 script(type='text/template', id='user-list-template')
-  | <ul class="unstyled"></ul>
+  ul.unstyled
 
 script(type='text/template', id='user-template')
-  | <li>
-  |   <a href="#"><%- title %></a>
-  | </li>
+  li
+    a(href='#')
+      | <%= title %>
 
 script(type='text/template', id='dropdown-buffer-template')
-  | <optgroup label="<%= title %>">
+  optgroup(label!='<%= title %>')
 
 script(type='text/template', id='dropdown-option-buffer-template')
-  | <option value="<%= id %>"><%= title %></option>
-
+  option(value!='<%= id %>')
+    | <%= title %>
