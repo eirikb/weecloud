@@ -1,70 +1,55 @@
 $(function() {
-
-  servers = new ServerCollection();
-  buffers = new BufferCollection();
-  inputView = new InputView();
-
-  function addBuffer(buffer) {
-    var server = servers.get(buffer.server);
-    if (!server) {
-      server = new Server({
-        title: buffer.server,
-        id: buffer.server
-      });
-
-      servers.add(server);
-      var serverView = new ServerView({
-        model: server
-      });
-      $('#bufferlist > .nav').append(serverView.render().$el);
-
-      /*
-      var dropdownBufferView = new DropdownBufferView({
-        model: server
-      });
-      $('select').append(dropdownBufferView.render().$el);
-     */
-    }
-
-    buffer = new Buffer(buffer);
-    server.get('buffers').add(buffer);
-    buffers.add(buffer);
-
-    if ($('#bufferlist .active').length > 0) return;
-    $('#bufferlist a').tab('show');
-  }
-
+  $('.tip').tooltip();
   socket = io.connect();
 
-  socket.on('open:buffer', function(buffer) {
-    addBuffer(buffer);
+  App = new Backbone.Marionette.Application();
+
+  App.addRegions({
+    nav: '#nav'
   });
 
-  socket.on('message', function(message) {
-    var buffer = buffers.get(message.bufferid);
-    if (!buffer) {
-      console.log('Unknown buffer: ', message.bufferid);
-      return;
+  Server = Backbone.Model.extend({});
+  Buffer = Backbone.Model.extend({});
+  ServerCollection = Backbone.Collection.extend({});
+  BufferCollection = Backbone.Collection.extend({});
+
+  BufferNavView = Backbone.Marionette.ItemView.extend({
+    template: '#buffer-nav-template'
+  });
+
+  ServerNavView = Backbone.Marionette.CompositeView.extend({
+    itemView: BufferNavView,
+    itemViewContainer: 'ul',
+    template: '#server-nav-template',
+    initialize: function() {
+      this.collection = this.model.get('buffers');
     }
+  });
 
-    buffer.get('messages').add(message);
+  Nav = Backbone.Marionette.CollectionView.extend({
+    el: '#nav',
+    itemView: ServerNavView
+  });
 
-    var type = message.type;
-    var user = message.user;
-    var users = buffer.get('users');
-    if (type === 'join') users.add(user);
-    else if (type === 'part') users.remove(user);
+  var nav = new Nav({
+    collection: new ServerCollection()
+  });
+
+  socket.on('open:buffer', function(buffer) {
+    var server = nav.collection.get(buffer.server);
+    if (!server) {
+      server = new Server({
+        id: buffer.server,
+        title: buffer.server,
+        buffers: new BufferCollection()
+      });
+      nav.collection.add(server);
+    }
+    var b = new Buffer(buffer);
+    server.get('buffers').add(b);
   });
 
   socket.on('error', function(err) {
     $('#error').text(err).show();
-  });
-
-  $('.tip').tooltip();
-  $('select').select2({
-    width: '100%'
-  }).change(function() {
-    var val = $(this).val();
-    $('[href=#' + val + ']').click();
   });
 });
