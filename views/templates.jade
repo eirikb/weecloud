@@ -9,3 +9,17 @@ script(type='text/template', id='buffer-nav-template')
     a(href!='#<%= id %>') 
       span.badge
       | <%= title %>
+
+script(type='text/template', id='connect-template')
+  form
+    input#host.form-control.input-block-level(type='text', name='host', placeholder='Host', value!='<%= host %>')
+    input#port.form-control.input-block-level(type='number', name='port', placeholder='Port', value!='<%= port %>')
+    input#password.form-control.input-block-level(type='password', name='password', placeholder='Password', value!='<%= password %>')
+    label.checkbox
+      | <input id="ssl" type="checkbox" <%= ssl ? 'checked="checked"' : '' %>>
+      | SSL
+    label.checkbox
+      | <input id="store" type="checkbox" <%= remember ? 'checked="checked"' : '' %>>
+      | Remember me 
+      i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
+    button.btn.btn-large.btn-primary(type='submit') Connect
