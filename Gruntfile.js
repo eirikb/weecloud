@@ -9,21 +9,11 @@ module.exports = function(grunt) {
   var styles = ['app.css'];
   var scripts = [
       'bower_components/bootstrap/dist/js/bootstrap.min.js',
-//      'js/utils.js',
-//      'js/models/buffer.js',
-//      'js/models/message.js',
-//      'js/models/server.js',
-//      'js/models/user.js',
-//      'js/collections.js',
-//      'js/views/buffer.js',
-//      'js/views/buffermenu.js',
-//      'js/views/dropdownbuffer.js',
-//      'js/views/input.js',
-//      'js/views/message.js',
-//      'js/views/server.js',
-//      'js/views/userlist.js',
+      'bower_components/backbone.iobind/dist/backbone.iosync.min.js',
+      'bower_components/backbone.iobind/dist/backbone.iobind.min.js',
       'js/app.js',
-      'js/connect.js'
+      'js/connect.js',
+      'js/weecloud.js'
   ];
 
   grunt.initConfig({
@@ -84,7 +74,7 @@ module.exports = function(grunt) {
         tasks: ['jade:dev'],
       },
       js: {
-        files: 'js/**',
+        files: ['js/**', 'lib/**', 'app.js'],
         tasks: ['copy']
       }
     },
