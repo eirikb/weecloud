@@ -1,10 +1,5 @@
 module.exports = function(grunt) {
 
-  grunt.registerTask('server', 'Start a custom web server', function() {
-    grunt.log.writeln('Started web server on port 3000');
-    require('./app.js');
-  });
-
   var pkg = grunt.file.readJSON('package.json');
   var styles = ['app.css'];
   var scripts = [
@@ -74,7 +69,7 @@ module.exports = function(grunt) {
         tasks: ['jade:dev'],
       },
       js: {
-        files: ['js/**', 'lib/**', 'app.js'],
+        files: ['js/**'], 
         tasks: ['copy']
       }
     },
@@ -99,6 +94,14 @@ module.exports = function(grunt) {
           'dist/app.min.js': ['dist/app.js']
         }
       }
+    },
+    nodemon: {
+      dev: {
+        options: {
+          file: 'app.js',
+          watchedFolders: ['lib']
+        }
+      }
     }
   });
 
@@ -108,8 +111,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('default', ['less', 'jade', 'copy', 'concat', 'uglify']);
-  grunt.registerTask('dev', ['less:dev', 'jade:dev', 'copy', 'server', 'watch']);
+  grunt.registerTask('dev', ['less:dev', 'jade:dev', 'copy', 'nodemon', 'watch']);
   grunt.registerTask('prod', ['less:prod', 'jade:prod', 'concat', 'uglify', 'copy']);
 };
