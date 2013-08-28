@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         tasks: ['jade:dev'],
       },
       js: {
-        files: ['js/**'], 
+        files: ['js/**'],
         tasks: ['copy']
       }
     },
@@ -95,6 +95,14 @@ module.exports = function(grunt) {
         }
       }
     },
+    concurrent: {
+      target: {
+        tasks: ['nodemon', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
+    },
     nodemon: {
       dev: {
         options: {
@@ -111,9 +119,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('default', ['less', 'jade', 'copy', 'concat', 'uglify']);
-  grunt.registerTask('dev', ['less:dev', 'jade:dev', 'copy', 'nodemon', 'watch']);
+  grunt.registerTask('dev', ['less:dev', 'jade:dev', 'copy', 'concurrent']);
   grunt.registerTask('prod', ['less:prod', 'jade:prod', 'concat', 'uglify', 'copy']);
 };
