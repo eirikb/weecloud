@@ -16,10 +16,10 @@ script(type='text/template', id='connect-template')
     input#port.form-control.input-block-level(type='number', name='port', placeholder='Port', value!='<%= port %>')
     input#password.form-control.input-block-level(type='password', name='password', placeholder='Password', value!='<%= password %>')
     label.checkbox
-      | <input id="ssl" type="checkbox" <%= ssl ? 'checked="checked"' : '' %>>
+      | <input id="ssl" name="ssl" type="checkbox" <%= ssl ? 'checked="checked"' : '' %>>
       | SSL
     label.checkbox
-      | <input id="store" type="checkbox" <%= remember ? 'checked="checked"' : '' %>>
+      | <input id="remember" name="remember" type="checkbox" <%= remember ? 'checked="checked"' : '' %>>
       | Remember me 
       i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
     button.btn.btn-large.btn-primary(type='submit') Connect
