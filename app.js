@@ -12,9 +12,9 @@ io.set('log level', 0);
 server.listen(3000);
 
 io.sockets.on('connection', function(socket) {
-  socket.on('connect:create', function(data, cb) {
-    socket.client = weecloud.connect(socket, data, function(version) {
-      cb(version);
+  socket.on('connect:create', function(model) {
+    socket.client = weecloud.connect(socket, model, function(version) {
+      socket.emit('connected');
     });
   });
 });

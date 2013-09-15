@@ -40,4 +40,7 @@ App.module('Connect', function(Connect, App, Backbone) {
     model: model
   });
   view.render();
+
+
+  view.submit();
 });

@@ -3,15 +3,16 @@ extends layout
 block content
   span#desktop.visible-desktop
 
-  #top.hide
-  #center.hide.row-fluid
-    #nav.pull-left
-      ul.nav
-    #userlist.hidden-phone.pull-right
-    #buffers
-      .tab-content
-  #input.hide
-    input(type='text')
+  #chat.hide
+    #top
+    #center.row-fluid
+      #nav.pull-left
+        ul.nav
+      #userlist.hidden-phone.pull-right
+      #buffers
+        .tab-content
+    #input
+      input(type='text')
 
   .container
     #connect.form-signin

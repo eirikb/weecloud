@@ -6,9 +6,11 @@ module.exports = function(grunt) {
       'bower_components/bootstrap/dist/js/bootstrap.min.js',
       'bower_components/backbone.iobind/dist/backbone.iosync.min.js',
       'bower_components/backbone.iobind/dist/backbone.iobind.min.js',
+      'js/models.js',
+      'js/collections.js',
+      'js/views.js',
       'js/app.js',
-      'js/connect.js',
-      'js/weecloud.js'
+      'js/connect.js'
   ];
 
   grunt.initConfig({
