@@ -22,5 +22,5 @@ var nav = new Nav({
 });
 
 socket.on('connected', function() {
-  servers.fetch();
+  socket.emit('init');
 });
