@@ -4,7 +4,7 @@ Server = Backbone.Model.extend({
 
   initialize: function() {
     this.set('buffers', new BufferCollection());
-    this.ioBind('createBuffer', this.createBuffer, this);
+    this.on('buffer', this.createBuffer);
   },
 
   createBuffer: function(data) {
