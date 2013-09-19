@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
   var pkg = grunt.file.readJSON('package.json');
+  var config = require('./config');
   var styles = ['app.css'];
   var scripts = [
       'bower_components/bootstrap/dist/js/bootstrap.min.js',
@@ -39,6 +40,7 @@ module.exports = function(grunt) {
           'dist/index.html': ['views/index.jade']
         },
         options: {
+          config: config,
           pretty: true,
           data: {
             dev: true,
@@ -54,6 +56,7 @@ module.exports = function(grunt) {
         },
         options: {
           data: {
+            config: config,
             version: pkg.version,
             scripts: ['app.min.js'],
             styles: ['app.min.css']

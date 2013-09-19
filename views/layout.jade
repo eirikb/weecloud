@@ -9,7 +9,7 @@ html
     each style in styles
       link(rel='stylesheet', href=style)
 
-    if !dev
+    if !dev && config.showTracking
       include tracking.js
 
   body
