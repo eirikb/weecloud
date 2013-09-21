@@ -12,4 +12,11 @@ Server = Backbone.Model.extend({
   }
 });
 
-Buffer = Backbone.Model.extend({});
+Buffer = Backbone.Model.extend({
+  urlRoot: 'buffer',
+  socket: window.socket,
+
+  initialize: function() {
+    this.ioBind('deleteBuffer', this.destroy);
+  }
+});
