@@ -1,15 +1,13 @@
 script(type='text/template', id='server-nav-template')
-  li
-    //-a(data-toggle='collapse', href!='#server-<%= id %>')
-    a(href!='#server-<%= id %>')
-      | <%= id %>
-    ul.nav(id!='server-<%= id %>')
+  //-a(data-toggle='collapse', href!='#server-<%= id %>')
+  a(href!='#server-<%= id %>')
+    | <%= id %>
+  ul.nav(id!='server-<%= id %>')
 
 script(type='text/template', id='buffer-nav-template')
-  li 
-    a(href!='#<%= id %>') 
-      span.badge
-      | <%= title %>
+  a(href!='#<%= id %>') 
+    span.badge <%= notifications %>
+    | <%= title %>
 
 script(type='text/template', id='connect-template')
   form

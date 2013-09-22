@@ -1,8 +1,13 @@
 BufferNavView = Backbone.Marionette.ItemView.extend({
-  template: '#buffer-nav-template'
+  tagName: 'li',
+  template: '#buffer-nav-template',
+  initialize: function() {
+    this.model.on('change', this.render);
+  }
 });
 
 ServerNavView = Backbone.Marionette.CompositeView.extend({
+  tagName: 'li',
   itemView: BufferNavView,
   itemViewContainer: 'ul',
   template: '#server-nav-template',

@@ -4,11 +4,13 @@ BufferCollection = Backbone.Collection.extend({
   socket: window.socket,
 
   initialize: function() {
-    this.ioBind('createBuffer', this.add, this);
+    this.ioBind('createBuffer', this.createBuffer, this);
   },
 
-  add: function(buffer) {
+  createBuffer: function(buffer) {
     buffer = new Buffer(buffer);
+    this.add(buffer);
+
     var serverId = buffer.get('server');
     var server = servers.getOrCreate(serverId);
     server.get('buffers').add(buffer);

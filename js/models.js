@@ -1,4 +1,8 @@
 Buffer = Backbone.Model.extend({
+  defaults: {
+    notifications: ''
+  },
+
   urlRoot: 'buffer',
   socket: window.socket,
 
