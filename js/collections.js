@@ -1,31 +1,35 @@
-ServerCollection = Backbone.Collection.extend({
-  model: Server,
-  url: 'servers',
-  socket: window.socket,
-
-  initialize: function() {
-    this.ioBind('create', this.serverCreate, this);
-    this.ioBind('createBuffer', this.bufferCreate, this);
-  },
-
-  serverCreate: function(data) {
-    this.add(new Server(data));
-  },
-
-  bufferCreate: function(data) {
-    var server = this.find(function(server) {
-      return server.get('title') === data.server;
-    });
-
-    if (!server) return;
-
-    server.trigger('buffer', data);
-  }
-
-});
-
 BufferCollection = Backbone.Collection.extend({
   model: Buffer,
   url: 'buffers',
-  socket: window.socket
+  socket: window.socket,
+
+  initialize: function() {
+    this.ioBind('createBuffer', this.add, this);
+  },
+
+  add: function(buffer) {
+    buffer = new Buffer(buffer);
+    var serverId = buffer.get('server');
+    var server = servers.getOrCreate(serverId);
+    server.get('buffers').add(buffer);
+  }
+});
+
+ServerBufferCollection = Backbone.Collection.extend({
+  model: Buffer
+});
+
+ServerCollection = Backbone.Collection.extend({
+  model: Server,
+
+  getOrCreate: function(id) {
+    var server = this.get(id);
+    if (!server) {
+      server = new Server({
+        id: id
+      });
+      this.add(server);
+    }
+    return server;
+  }
 });

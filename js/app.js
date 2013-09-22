@@ -17,6 +17,7 @@ $(function() {
 });
 
 var servers = new ServerCollection();
+var buffers = new BufferCollection();
 var nav = new Nav({
   collection: servers
 });

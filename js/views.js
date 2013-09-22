@@ -8,11 +8,6 @@ ServerNavView = Backbone.Marionette.CompositeView.extend({
   template: '#server-nav-template',
   initialize: function() {
     this.collection = this.model.get('buffers');
-    this.collection.fetch({
-      data: {
-        server: this.model.id
-      }
-    });
   }
 });
 

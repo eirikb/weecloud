@@ -2,7 +2,7 @@ script(type='text/template', id='server-nav-template')
   li
     //-a(data-toggle='collapse', href!='#server-<%= id %>')
     a(href!='#server-<%= id %>')
-      | <%= title %>
+      | <%= id %>
     ul.nav(id!='server-<%= id %>')
 
 script(type='text/template', id='buffer-nav-template')
