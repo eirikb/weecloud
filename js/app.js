@@ -7,10 +7,7 @@ App.addRegions({
 
 socket = io.connect();
 
-socket.on('connected', function() {
-  $('#chat').removeClass('hide');
-  $('#connect').addClass('hide');
-});
+socket.on('connected', function() {});
 
 $(function() {
   $('.tip').tooltip();
@@ -22,6 +19,8 @@ var nav = new Nav({
   collection: servers
 });
 
-socket.on('connected', function() {
+App.init = function() {
   socket.emit('init');
-});
+  $('#chat').removeClass('hide');
+  $('#connect').addClass('hide');
+};

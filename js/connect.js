@@ -1,4 +1,9 @@
 App.module('Connect', function(Connect, App, Backbone) {
+  var codes = {
+    ECONNREFUSED: 'Unable to connect',
+    WRONGPASS: 'Wrong password'
+  };
+
   Connect.Model = Backbone.Model.extend({
     urlRoot: 'connect',
     defaults: {
@@ -18,14 +23,36 @@ App.module('Connect', function(Connect, App, Backbone) {
       'submit': 'submit'
     },
 
+    connecting: function() {
+      this.$('button').text('Connecting...').addClass('disabled');
+      self.$('#error').addClass('hide');
+    },
+
+    resetBtn: function() {
+      this.$('button').text('Connect').removeClass('disabled');
+    },
+
     submit: function() {
       var data = Backbone.Syphon.serialize(this);
-      this.model.set(data);
 
       if (data.remember) localStorage.connect = JSON.stringify(model.toJSON());
       else localStorage.connect = '';
 
-      this.model.save();
+      this.connecting();
+      var self = this;
+      this.model.save(data, {
+        success: function() {
+          self.resetBtn();
+          App.init();
+        },
+        error: function(model, err) {
+          self.resetBtn();
+
+          var code = codes[err.code];
+          if (!code) code = err.code;
+          self.$('#error').text(code).removeClass('hide');
+        }
+      });
       return false;
     }
   });
@@ -40,7 +67,4 @@ App.module('Connect', function(Connect, App, Backbone) {
     model: model
   });
   view.render();
-
-
-  view.submit();
 });
