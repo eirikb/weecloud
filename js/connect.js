@@ -1,7 +1,8 @@
 App.module('Connect', function(Connect, App, Backbone) {
   var codes = {
     ECONNREFUSED: 'Unable to connect',
-    WRONGPASS: 'Wrong password'
+    WRONGPASS: 'Wrong password',
+    TIMEOUT: 'Unable to connect (SSL enabled on server?)'
   };
 
   Connect.Model = Backbone.Model.extend({
