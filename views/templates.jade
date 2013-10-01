@@ -1,8 +1,7 @@
 script(type='text/template', id='server-nav-template')
-  //-a(data-toggle='collapse', href!='#server-<%= id %>')
-  a(href!='#server-<%= id %>')
-    | <%= id %>
-  ul.nav(id!='server-<%= id %>')
+  a.accordion-toggle(data-toggle='collapse', href!='#server-<%= id %>')
+   | <%= id %>
+  ul.nav.nav-pills.nav-stacked.collapsed.collapsed.in(id!='server-<%= id %>')
 
 script(type='text/template', id='buffer-nav-template')
   a(href!='#<%= id %>') 
