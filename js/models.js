@@ -8,6 +8,9 @@ Buffer = Backbone.Model.extend({
 
   initialize: function() {
     this.ioBind('destroyBuffer', this.destroy);
+    if (this.get('notifications') === 0) {
+      this.set('notifications', '');
+    }
   }
 });
 
