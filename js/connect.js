@@ -25,12 +25,12 @@ App.module('Connect', function(Connect, App, Backbone) {
     },
 
     connecting: function() {
-      this.$('button').text('Connecting...').addClass('disabled');
+      this.$('button').button('loading');
       self.$('#error').addClass('hide');
     },
 
     resetBtn: function() {
-      this.$('button').text('Connect').removeClass('disabled');
+      this.$('button').button('reset');
     },
 
     submit: function() {

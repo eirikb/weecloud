@@ -20,5 +20,5 @@ script(type='text/template', id='connect-template')
       | <input id="remember" name="remember" type="checkbox" <%= remember ? 'checked="checked"' : '' %>>
       | Remember me 
       i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
-    button.btn.btn-large.btn-primary(type='submit') Connect
+    button.btn.btn-large.btn-primary(type='submit', data-loading-text='Connecting...') Connect
     #error.alert.alert-danger.hide
