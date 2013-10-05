@@ -36,7 +36,7 @@ App.module('Connect', function(Connect, App, Backbone) {
     submit: function() {
       var data = Backbone.Syphon.serialize(this);
 
-      if (data.remember) localStorage.connect = JSON.stringify(model.toJSON());
+      if (data.remember) localStorage.connect = JSON.stringify(data);
       else localStorage.connect = '';
 
       this.connecting();
@@ -68,4 +68,6 @@ App.module('Connect', function(Connect, App, Backbone) {
     model: model
   });
   view.render();
+
+  view.submit();
 });
