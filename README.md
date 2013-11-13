@@ -23,6 +23,7 @@ Start WeeChat Relay Protocol:
     npm install
     node app.js
 
+weechat will run on a default port of 3000.
 
 Contribution
 ---
