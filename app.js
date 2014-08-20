@@ -9,7 +9,7 @@ package.options = package.options || {};
 
 io.set('log level', 0);
 
-server.listen(3000);
+server.listen(process.env.PORT || 3000);
 
 app.configure(function() {
   app.set('view engine', 'jade');
