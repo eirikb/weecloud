@@ -16,7 +16,7 @@ script(type='text/template', id='message-template')
   |   <%= text %>
   |   <% if (thumbnail !== null && window.localStorage.thumbnail === 'true') { %>
   |   <br />
-  |   <img src="<%= thumbnail %>" onload="utils.onthumbnail" />
+  |   <img src="<%= thumbnail %>" onload="utils.onthumbnail.apply(this)" />
   |   <% } %>
   |   <span class="muted pull-right">
   |     <%- moment(date).formatTimeToday() %>

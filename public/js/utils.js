@@ -28,8 +28,8 @@ utils = {
   },
   onthumbnail: function() {
     var img = this;
-    if (img.width > 300) {
-      img.width = '300';
+    if (img.width > 700) {
+      img.width = '700';
     }
   }
 };
