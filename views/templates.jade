@@ -14,7 +14,7 @@ script(type='text/template', id='message-template')
   | <div class="message <%= highlight && 'alert-success' %> <%= type !== 'message' && 'muted' %> ">
   |   <a <% if (type === 'message') { %> class="label nick" <% } %> href="#"><%= from %></a>
   |   <%= text %>
-  |   <% if (thumbnail !== null) { %>
+  |   <% if (thumbnail !== null && window.localStorage.thumbnail === 'true') { %>
   |   <br />
   |   <img src="<%= thumbnail %>" onload="utils.onthumbnail" />
   |   <% } %>
