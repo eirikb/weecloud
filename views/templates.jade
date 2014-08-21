@@ -2,7 +2,7 @@ script(type='text/template', id='server-menu-template')
   | <li id="server-<%= id %>" class="nav nav-header"><%- title %></li>
 
 script(type='text/template', id='buffer-menu-template')
-  li 
+  li
     | <a href="#<%= id %>" data-toggle="tab">
     | <span class="badge"></span>
     | <%- title %></a>
@@ -14,6 +14,10 @@ script(type='text/template', id='message-template')
   | <div class="message <%= highlight && 'alert-success' %> <%= type !== 'message' && 'muted' %> ">
   |   <a <% if (type === 'message') { %> class="label nick" <% } %> href="#"><%= from %></a>
   |   <%= text %>
+  |   <% if (thumbnail !== null) { %>
+  |   <br />
+  |   <img src="<%= thumbnail %>" onload="utils.onthumbnail" />
+  |   <% } %>
   |   <span class="muted pull-right">
   |     <%- moment(date).formatTimeToday() %>
   |   </span>
@@ -32,4 +36,3 @@ script(type='text/template', id='dropdown-buffer-template')
 
 script(type='text/template', id='dropdown-option-buffer-template')
   | <option value="<%= id %>"><%= title %></option>
-
