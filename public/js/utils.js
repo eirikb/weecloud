@@ -28,7 +28,6 @@ utils = {
   },
   onthumbnail: function() {
     var img = this;
-    console.log(img.src, img.width);
     if (img.width > 300) {
       img.width = '300';
     }
