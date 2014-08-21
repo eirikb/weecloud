@@ -81,6 +81,12 @@ Message = Backbone.RelationalModel.extend({
   initialize: function() {
     var text = utils.color(this.get('message'));
     var from = utils.color(this.get('from'));
+    var m = text.match(/(https?:\/\/.+?\.(png|gif|jpg|jpeg))/);
+    if (m === null) {
+      this.set('thumbnail', null);
+    } else {
+      this.set('thumbnail', m[1]);
+    }
     this.set('text', text);
     this.set('from', from);
   }

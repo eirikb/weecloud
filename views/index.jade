@@ -18,7 +18,7 @@ block content
 
   .container
     form#connect.form-signin
-      h2 WeeCloud 
+      h2 WeeCloud
         small= version
       ul.gh.unstyled
         li
@@ -31,12 +31,15 @@ block content
         input#port.input-block-level(type='number', placeholder='Port', value=options.port)
         input#password.input-block-level(type='password', placeholder='Password')
         label.checkbox
-          input#ssl(type='checkbox', checked=(options.ssl ? 'checked' : undefined)) 
+          input#ssl(type='checkbox', checked=(options.ssl ? 'checked' : undefined))
           | SSL
         label.checkbox
-          input#store(type='checkbox') 
-          | Remember me 
+          input#store(type='checkbox')
+          | Remember me
           i.tip.icon-info-sign.icon-yellow(title='Passwords are stored plaintext in browser')
+        label.checkbox
+          input#show_thumbnail(type='checkbox')
+          | Show Thumbnail
         button.btn.btn-large.btn-primary(type='submit') Connect
         #error.alert.alert-error.hide
 

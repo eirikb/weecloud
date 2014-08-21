@@ -25,6 +25,12 @@ utils = {
 
       return $container.append($part).html();
     }).join('');
+  },
+  onthumbnail: function() {
+    var img = this;
+    if (img.width > 700) {
+      img.width = '700';
+    }
   }
 };
 
